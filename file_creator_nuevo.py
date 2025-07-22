@@ -2,12 +2,8 @@ from qgis.core import *
 import json
 import numpy as np
 import csv
-
-flags = {
-    "need_cords_name" : True,
-    "need_neighbour_file": True,
-    "need_jsons" : True
-}
+import os
+from pathlib import Path
 
 # Initialize the QGIS resources at the beginning of the scrip https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/intro.html#using-pyqgis-in-standalone-scripts
 # Supply path to qgis install location
@@ -26,8 +22,9 @@ identifiers={
 
 # Abrimos el archivo qgz
 project = QgsProject.instance()
-project.read("C:/Users/raulc/Desktop/2025/TFG/tfg_project.qgz")
-
+project.read("C:/Users/raulc/Desktop/TFG25/tfg_project.qgz")
+names = [layer.name() for layer in project.mapLayers().values()]
+print(names)
 # Orígenes y destinos
 origin = 'Centroides final'
 destinations = ['Hospitales grupo 3',
@@ -79,8 +76,10 @@ def distance_matrix_filtered(origin, destinations):
     return distances
 
 def dict_to_json(data, filename):
-    with open(filename, 'w') as outfile:
-        json.dump(data, outfile, indent=4)
+    output = os.path.dirname("output/"+filename+".json")
+    os.makedirs(output, exist_ok=True)
+    with open("output/"+filename+".json","w") as f:
+        json.dump(data,f,indent=4)
         
 def average_distance(distance_dict):
     mean_distance_matrix = {}
@@ -94,13 +93,13 @@ def average_distance(distance_dict):
         mean_distance_matrix[origin] = distances
     return mean_distance_matrix
 
-def json_to_csv(json_file, csv_file):
-    with open(json_file, 'r') as f:
+def json_to_csv(file):
+    with open("output/"+file+".json", 'r') as f:
         data = json.load(f)
-        
     max_cols = max(len(v) for v in data.values())
-
-    with open(csv_file, 'w', newline='') as f:
+    output = os.path.dirname("output/"+file+".csv")
+    os.makedirs(output, exist_ok=True)
+    with open("output/"+file+".csv", 'w', newline='') as f:
         writer = csv.writer(f)
         header = ['Origen'] + destinations
         writer.writerow(header)
@@ -108,8 +107,9 @@ def json_to_csv(json_file, csv_file):
             row = [key] + [v if v is not None else '' for v in values] + [''] * (max_cols - len(values))
             writer.writerow(row)
 
-def closest_destinations_features( origin, destinations):
+def closest_destinations_features(origin, destinations):
     closest = {}
+    print(project.mapLayersByName(origin))
     origin_layer = project.mapLayersByName(origin)[0]
     origin_features = list(origin_layer.getFeatures())
     destination_layers = [project.mapLayersByName(dest)[0] for dest in destinations]
@@ -155,16 +155,16 @@ def closest_destinations_features( origin, destinations):
 
 
 # Matriz de distancias filtrada
-# distance_dict = distance_matrix_filtered(origin, destinations)
-# dict_to_json(distance_dict, 'distance_matrix.json')
+distance_dict = distance_matrix_filtered(origin, destinations)
+dict_to_json(distance_dict, 'distance_matrix')
 
 # Distancias medias a cada destino
-# avg_distance_dict = average_distance(distance_dict)
-# dict_to_json(avg_distance_dict, 'distance_matrix_average.json')
+avg_distance_dict = average_distance(distance_dict)
+dict_to_json(avg_distance_dict, 'distance_matrix_average')
 
 # json a csv
-# json_to_csv('distance_matrix_average.json', 'distance_matrix_average.csv')
+json_to_csv('distance_matrix_average')
 
 closest_dict = closest_destinations_features(origin,destinations)
-dict_to_json(closest_dict, 'closest_destinations.json')
+dict_to_json(closest_dict,'closest_destinations')
 

@@ -3,6 +3,7 @@ results/
 --NO SUBIR--
 temp/
 *.pkl
+*.csv
 
 # Ignorar archivos JSON generados
 jsons/
