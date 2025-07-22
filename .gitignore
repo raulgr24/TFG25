@@ -1,0 +1,18 @@
+# Ignorar carpetas de resultados y temporales
+results/
+--NO SUBIR--
+temp/
+*.pkl
+
+# Ignorar archivos JSON generados
+jsons/
+*.json
+
+# Ignorar archivos de configuración de VS Code
+.vscode/
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de
