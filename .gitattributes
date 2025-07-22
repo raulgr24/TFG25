@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 *.gpkg filter=lfs diff=lfs merge=lfs -text
+=======
+*.gpkg filter=lfs diff=lfs merge=lfs -text
+>>>>>>> d84aa7a217d3d16b7189b888cced9c3982e7f3e5
