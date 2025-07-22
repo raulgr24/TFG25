@@ -1,0 +1,567 @@
+Provincia;Municipio;Código Unidad Poblacional;CUP;COD;Unidad Poblacional;field_6;Poblacion_Total;Poblacion
+28 Madrid;"001 Acebeda, La";"101";"101";"10101";ACEBEDA (LA);NUC;"53";53
+28 Madrid;"002 Ajalvir";"101";"101";"20101";AJALVIR;NUC;"4943";4943
+28 Madrid;"003 Alameda del Valle";"101";"101";"30101";ALAMEDA DEL VALLE;NUC;"253";253
+28 Madrid;"004 Álamo, El";"101";"101";"40101";ÁLAMO (EL);NUC;"10333";10333
+28 Madrid;"005 Alcalá de Henares";"101";"101";"50101";ALCALÁ DE HENARES;NUC;"199590";199590
+28 Madrid;"005 Alcalá de Henares";"501";"501";"50501";CENTRO DE INVESTIGACIÓN AGRARIA;NUC;"0";0
+28 Madrid;"005 Alcalá de Henares";"1001";"1001";"51001";PRISIÓN ALCALÁ-MECO;NUC;"0";0
+28 Madrid;"006 Alcobendas";"101";"101";"60101";ALCOBENDAS;NUC;"121330";121330
+28 Madrid;"006 Alcobendas";"108";"108";"60108";SEMINARIO;NUC;"0";0
+28 Madrid;"007 Alcorcón";"101";"101";"70101";ALCORCÓN;NUC;"170478";170478
+28 Madrid;"007 Alcorcón";"201";"201";"70201";CAMPODÓN;NUC;"1017";1017
+28 Madrid;"007 Alcorcón";"301";"301";"70301";VENTA LA RUBIA;NUC;"0";0
+28 Madrid;"007 Alcorcón";"401";"401";"70401";VENTORRO DEL CANO;NUC;"180";180
+28 Madrid;"007 Alcorcón";"601";"601";"70601";FUENTE CISNEROS;NUC;"2905";2905
+28 Madrid;"007 Alcorcón";"701";"701";"70701";MONTEPRÍNCIPE;NUC;"125";125
+28 Madrid;"008 Aldea del Fresno";"101";"101";"80101";ALDEA DEL FRESNO;NUC;"2587";2587
+28 Madrid;"008 Aldea del Fresno";"102";"102";"80102";MONTEROS (LOS);NUC;"238";238
+28 Madrid;"008 Aldea del Fresno";"301";"301";"80301";CARBAJO-PALOMEQUE;NUC;"30";30
+28 Madrid;"008 Aldea del Fresno";"303";"303";"80303";RODRÍGUEZ (LOS);NUC;"32";32
+28 Madrid;"008 Aldea del Fresno";"304";"304";"80304";MANGA DE LA PEDRERA;NUC;"19";19
+28 Madrid;"008 Aldea del Fresno";"701";"701";"80701";CARAVAN GARDEN;NUC;"258";258
+28 Madrid;"008 Aldea del Fresno";"702";"702";"80702";CARRETA QUEBRADA;NUC;"165";165
+28 Madrid;"009 Algete";"101";"101";"90101";ALGETE;NUC;"15655";15655
+28 Madrid;"009 Algete";"501";"501";"90501";NOGAL (EL);NUC;"2";2
+28 Madrid;"009 Algete";"601";"601";"90601";PRADO NORTE;NUC;"2208";2208
+28 Madrid;"009 Algete";"801";"801";"90801";SANTO DOMINGO;NUC;"3211";3211
+28 Madrid;"009 Algete";"1101";"1101";"91101";DEHESA NUEVA;NUC;"10";10
+28 Madrid;"010 Alpedrete";"101";"101";"100101";ALPEDRETE;NUC;"11950";11950
+28 Madrid;"010 Alpedrete";"1701";"1701";"101701";VALDENCINA;NUC;"350";350
+28 Madrid;"010 Alpedrete";"1801";"1801";"101801";NEGRALES-LOS LLANOS (LOS);NUC;"3355";3355
+28 Madrid;"011 Ambite";"101";"101";"110101";AMBITE;NUC;"423";423
+28 Madrid;"011 Ambite";"201";"201";"110201";SIERRA DE TAJUÑA;NUC;"270";270
+28 Madrid;"012 Anchuelo";"101";"101";"120101";ANCHUELO;NUC;"1369";1369
+28 Madrid;"012 Anchuelo";"201";"201";"120201";CERRO DE MIRALBUENO;NUC;"0";0
+28 Madrid;"013 Aranjuez";"101";"101";"130101";ALGODOR;NUC;"21";21
+28 Madrid;"013 Aranjuez";"201";"201";"130201";ARANJUEZ;NUC;"53662";53662
+28 Madrid;"013 Aranjuez";"202";"202";"130202";ACADEMIA ESPECIAL DE LA GUARDIA CIVIL;NUC;"87";87
+28 Madrid;"013 Aranjuez";"203";"203";"130203";TEJERAS (LAS);NUC;"20";20
+28 Madrid;"013 Aranjuez";"401";"401";"130401";REAL CORTIJO DE SAN ISIDRO;NUC;"511";511
+28 Madrid;"013 Aranjuez";"901";"901";"130901";MONTAÑA (LA);NUC;"7997";7997
+28 Madrid;"014 Arganda del Rey";"101";"101";"140101";ARGANDA;NUC;"51109";51109
+28 Madrid;"014 Arganda del Rey";"301";"301";"140301";AVÍCOLA DEL JARAMA;NUC;"113";113
+28 Madrid;"014 Arganda del Rey";"302";"302";"140302";EMISORA DE ONDA CORTA;NUC;"0";0
+28 Madrid;"014 Arganda del Rey";"303";"303";"140303";LAGO COTOS CISNEROS;NUC;"0";0
+28 Madrid;"014 Arganda del Rey";"304";"304";"140304";PUENTE DE ARGANDA;NUC;"111";111
+28 Madrid;"014 Arganda del Rey";"701";"701";"140701";VILLARES (LOS);NUC;"7643";7643
+28 Madrid;"015 Arroyomolinos";"101";"101";"150101";ARROYOMOLINOS;NUC;"15689";15689
+28 Madrid;"015 Arroyomolinos";"201";"201";"150201";CASTAÑERAS Y CIUDAD JARDÍN;NUC;"21303";21303
+28 Madrid;"015 Arroyomolinos";"301";"301";"150301";RÍO GUADARRAMA;NUC;"284";284
+28 Madrid;"015 Arroyomolinos";"302";"302";"150302";XANADÚ;NUC;"0";0
+28 Madrid;"015 Arroyomolinos";"401";"401";"150401";VALDEFUENTES;NUC;"3";3
+28 Madrid;"016 Atazar, El";"101";"101";"160101";ATAZAR (EL);NUC;"104";104
+28 Madrid;"017 Batres";"101";"101";"170101";BATRES;NUC;"794";794
+28 Madrid;"017 Batres";"301";"301";"170301";COTORREDONDO;NUC;"1072";1072
+28 Madrid;"017 Batres";"401";"401";"170401";OLIVOS (LOS);NUC;"28";28
+28 Madrid;"018 Becerril de la Sierra";"101";"101";"180101";BECERRIL DE LA SIERRA;NUC;"5832";5832
+28 Madrid;"018 Becerril de la Sierra";"201";"201";"180201";BERROCAL (EL);NUC;"265";265
+28 Madrid;"018 Becerril de la Sierra";"301";"301";"180301";CEBALES (LOS);NUC;"6";6
+28 Madrid;"018 Becerril de la Sierra";"401";"401";"180401";MONTELLANO;NUC;"323";323
+28 Madrid;"018 Becerril de la Sierra";"601";"601";"180601";VISTA REAL;NUC;"126";126
+28 Madrid;"019 Belmonte de Tajo";"101";"101";"190101";BELMONTE DE TAJO;NUC;"1905";1905
+28 Madrid;"020 Berzosa del Lozoya";"101";"101";"200101";BERZOSA DEL LOZOYA;NUC;"225";225
+28 Madrid;"021 Berrueco, El";"101";"101";"210101";BERRUECO (EL);NUC;"662";662
+28 Madrid;"021 Berrueco, El";"201";"201";"210201";PEÑÁGUILA;NUC;"28";28
+28 Madrid;"021 Berrueco, El";"401";"401";"210401";PRADERA DEL AMOR;NUC;"101";101
+28 Madrid;"022 Boadilla del Monte";"101";"101";"220101";BOADILLA DEL MONTE;NUC;"44123";44123
+28 Madrid;"022 Boadilla del Monte";"1101";"1101";"221101";PRADO DEL ESPINO;NUC;"0";0
+28 Madrid;"022 Boadilla del Monte";"1601";"1601";"221601";URBANIZACIONES ESTE;NUC;"2018";2018
+28 Madrid;"022 Boadilla del Monte";"1701";"1701";"221701";URBANIZACIONES NOROESTE;NUC;"19337";19337
+28 Madrid;"023 Boalo, El";"101";"101";"230101";BOALO (EL);NUC;"2497";2497
+28 Madrid;"023 Boalo, El";"201";"201";"230201";CERCEDA;NUC;"3536";3536
+28 Madrid;"023 Boalo, El";"301";"301";"230301";MATAELPINO;NUC;"2017";2017
+28 Madrid;"023 Boalo, El";"501";"501";"230501";PEÑA DE LAS GALLINAS;NUC;"308";308
+28 Madrid;"023 Boalo, El";"601";"601";"230601";PONDEROSA I (LA);NUC;"46";46
+28 Madrid;"023 Boalo, El";"701";"701";"230701";PONDEROSA II (LA);NUC;"1";1
+28 Madrid;"023 Boalo, El";"1101";"1101";"231101";SAN MURIEL;NUC;"82";82
+28 Madrid;"024 Braojos";"101";"101";"240101";BRAOJOS;NUC;"218";218
+28 Madrid;"025 Brea de Tajo";"101";"101";"250101";BREA DE TAJO;NUC;"434";434
+28 Madrid;"025 Brea de Tajo";"201";"201";"250201";ALAMEDA Y EL QUEJIGAL (LA);NUC;"92";92
+28 Madrid;"026 Brunete";"101";"101";"260101";BRUNETE;NUC;"9783";9783
+28 Madrid;"026 Brunete";"201";"201";"260201";DEHESA (LA);NUC;"84";84
+28 Madrid;"026 Brunete";"301";"301";"260301";VALLE DE LOS ROSALES (EL);NUC;"991";991
+28 Madrid;"027 Buitrago del Lozoya";"101";"101";"270101";BUITRAGO DEL LOZOYA;NUC;"1963";1963
+28 Madrid;"028 Bustarviejo";"101";"101";"280101";BUSTARVIEJO;NUC;"2338";2338
+28 Madrid;"028 Bustarviejo";"201";"201";"280201";CABEZA RASA;NUC;"0";0
+28 Madrid;"028 Bustarviejo";"701";"701";"280701";MANANTIAL (EL);NUC;"9";9
+28 Madrid;"028 Bustarviejo";"901";"901";"280901";PEDREGAL (EL);NUC;"253";253
+28 Madrid;"028 Bustarviejo";"1301";"1301";"281301";CUESTA EUSEBIA;NUC;"55";55
+28 Madrid;"028 Bustarviejo";"1302";"1302";"281302";PESQUERA (LA);NUC;"36";36
+28 Madrid;"029 Cabanillas de la Sierra";"101";"101";"290101";CABANILLAS DE LA SIERRA;NUC;"888";888
+28 Madrid;"029 Cabanillas de la Sierra";"201";"201";"290201";D'OREMOR;NUC;"0";0
+28 Madrid;"029 Cabanillas de la Sierra";"301";"301";"290301";LAGUNAZOS (LOS);NUC;"7";7
+28 Madrid;"030 Cabrera, La";"101";"101";"300101";CABRERA (LA);NUC;"2870";2870
+28 Madrid;"030 Cabrera, La";"201";"201";"300201";ASPERILLA (LA);NUC;"12";12
+28 Madrid;"030 Cabrera, La";"301";"301";"300301";CABRERITA Y EL ROBLE (LA);NUC;"25";25
+28 Madrid;"030 Cabrera, La";"701";"701";"300701";RABUSERA (LA);NUC;"19";19
+28 Madrid;"031 Cadalso de los Vidrios";"101";"101";"310101";CADALSO DE LOS VIDRIOS;NUC;"2875";2875
+28 Madrid;"031 Cadalso de los Vidrios";"501";"501";"310501";ENTREPINOS;NUC;"295";295
+28 Madrid;"032 Camarma de Esteruelas";"101";"101";"320101";CAMARMA DE ESTERUELAS;NUC;"7132";7132
+28 Madrid;"032 Camarma de Esteruelas";"301";"301";"320301";ALCAMAR;NUC;"420";420
+28 Madrid;"032 Camarma de Esteruelas";"401";"401";"320401";PRACTICANTE (EL);NUC;"542";542
+28 Madrid;"033 Campo Real";"101";"101";"330101";CAMPO REAL;NUC;"6187";6187
+28 Madrid;"033 Campo Real";"201";"201";"330201";MONTEHERMOSO;NUC;"529";529
+28 Madrid;"033 Campo Real";"301";"301";"330301";POLÍGONO BORONDO;NUC;"0";0
+28 Madrid;"034 Canencia";"101";"101";"340101";CANENCIA;NUC;"440";440
+28 Madrid;"035 Carabaña";"101";"101";"350101";CARABAÑA;NUC;"2300";2300
+28 Madrid;"036 Casarrubuelos";"101";"101";"360101";CASARRUBUELOS;NUC;"4211";4211
+28 Madrid;"037 Cenicientos";"102";"102";"370102";CENICIENTOS;NUC;"2076";2076
+28 Madrid;"037 Cenicientos";"201";"201";"370201";ALMENDROS (LOS);NUC;"6";6
+28 Madrid;"038 Cercedilla";"101";"101";"380101";CAMORRITOS;NUC;"87";87
+28 Madrid;"038 Cercedilla";"201";"201";"380201";CERCEDILLA;NUC;"7196";7196
+28 Madrid;"038 Cercedilla";"301";"301";"380301";PUERTO DE NAVACERRADA;NUC;"113";113
+28 Madrid;"038 Cercedilla";"302";"302";"380302";VENTORRILLO (EL);NUC;"0";0
+28 Madrid;"038 Cercedilla";"601";"601";"380601";DEHESAS (LAS);NUC;"56";56
+28 Madrid;"038 Cercedilla";"602";"602";"380602";FUENFRÍA (LA);NUC;"11";11
+28 Madrid;"038 Cercedilla";"603";"603";"380603";VALLE DE FUENFRIA;NUC;"159";159
+28 Madrid;"039 Cervera de Buitrago";"101";"101";"390101";CERVERA DE BUITRAGO;NUC;"146";146
+28 Madrid;"040 Ciempozuelos";"101";"101";"400101";CIEMPOZUELOS;NUC;"26037";26037
+28 Madrid;"041 Cobeña";"101";"101";"410101";COBEÑA;NUC;"7723";7723
+28 Madrid;"041 Cobeña";"201";"201";"410201";CAMPO NUEVO;NUC;"4";4
+28 Madrid;"042 Colmenar del Arroyo";"101";"101";"420101";COLMENAR DEL ARROYO;NUC;"1644";1644
+28 Madrid;"042 Colmenar del Arroyo";"201";"201";"420201";VALLE DEL SOL;NUC;"307";307
+28 Madrid;"043 Colmenar de Oreja";"201";"201";"430201";COLMENAR DE OREJA;NUC;"5587";5587
+28 Madrid;"043 Colmenar de Oreja";"301";"301";"430301";MIRALCAMPO;NUC;"0";0
+28 Madrid;"043 Colmenar de Oreja";"401";"401";"430401";BALCÓN DE TAJO-URTAJO;NUC;"2389";2389
+28 Madrid;"043 Colmenar de Oreja";"1401";"1401";"431401";VALLE DE SAN JUAN-LOS VALLEJOS;NUC;"876";876
+28 Madrid;"044 Colmenarejo";"101";"101";"440101";COLMENAREJO;NUC;"9648";9648
+28 Madrid;"045 Colmenar Viejo";"101";"101";"450101";COLMENAR VIEJO;NUC;"55428";55428
+28 Madrid;"045 Colmenar Viejo";"301";"301";"450301";CHORTALES (LOS);NUC;"29";29
+28 Madrid;"045 Colmenar Viejo";"401";"401";"450401";FAMET;NUC;"91";91
+28 Madrid;"045 Colmenar Viejo";"501";"501";"450501";NAVARROSILLOS-POLÍGONO SUR;NUC;"10";10
+28 Madrid;"045 Colmenar Viejo";"601";"601";"450601";CIUDALCAMPO;NUC;"786";786
+28 Madrid;"045 Colmenar Viejo";"602";"602";"450602";PUEBLAS (LAS);NUC;"9";9
+28 Madrid;"045 Colmenar Viejo";"605";"605";"450605";VALDELAGUA-PUNTA GALEA;NUC;"182";182
+28 Madrid;"045 Colmenar Viejo";"701";"701";"450701";SAN PEDRO;NUC;"111";111
+28 Madrid;"046 Collado Mediano";"101";"101";"460101";COLLADO MEDIANO;NUC;"6390";6390
+28 Madrid;"046 Collado Mediano";"201";"201";"460201";BARRIZALES (LOS);NUC;"45";45
+28 Madrid;"046 Collado Mediano";"601";"601";"460601";REAJO DEL ROBLE;NUC;"198";198
+28 Madrid;"046 Collado Mediano";"701";"701";"460701";SERRANÍA DE LA PALOMA;NUC;"894";894
+28 Madrid;"047 Collado Villalba";"101";"101";"470101";COLLADO VILLALBA;NUC;"18105";18105
+28 Madrid;"047 Collado Villalba";"501";"501";"470501";ESTACIÓN (LA);NUC;"45736";45736
+28 Madrid;"047 Collado Villalba";"1001";"1001";"471001";CERCA DE CASCARRILLA;NUC;"16";16
+28 Madrid;"047 Collado Villalba";"1101";"1101";"471101";DOMINIO DE FONTENEBRO;NUC;"3466";3466
+28 Madrid;"048 Corpa";"101";"101";"480101";CORPA;NUC;"794";794
+28 Madrid;"049 Coslada";"101";"101";"490101";COSLADA;NUC;"80688";80688
+28 Madrid;"050 Cubas de la Sagra";"101";"101";"500101";CUBAS;NUC;"4042";4042
+28 Madrid;"050 Cubas de la Sagra";"201";"201";"500201";NUBE (LA);NUC;"15";15
+28 Madrid;"050 Cubas de la Sagra";"301";"301";"500301";PINAR (EL);NUC;"118";118
+28 Madrid;"050 Cubas de la Sagra";"401";"401";"500401";SOTO (EL);NUC;"2638";2638
+28 Madrid;"050 Cubas de la Sagra";"501";"501";"500501";ARROYADAS (LAS);NUC;"1";1
+28 Madrid;"050 Cubas de la Sagra";"801";"801";"500801";SALMUEROS (LOS);NUC;"9";9
+28 Madrid;"051 Chapinería";"101";"101";"510101";CHAPINERÍA;NUC;"2456";2456
+28 Madrid;"051 Chapinería";"201";"201";"510201";VALQUIGOSO;NUC;"159";159
+28 Madrid;"052 Chinchón";"101";"101";"520101";CHINCHÓN;NUC;"4460";4460
+28 Madrid;"052 Chinchón";"201";"201";"520201";NUEVO CHINCHÓN;NUC;"496";496
+28 Madrid;"052 Chinchón";"301";"301";"520301";COHONARES (LOS);NUC;"101";101
+28 Madrid;"052 Chinchón";"401";"401";"520401";CUBILLAS (LAS);NUC;"5";5
+28 Madrid;"052 Chinchón";"601";"601";"520601";VALGRANDE;NUC;"57";57
+28 Madrid;"052 Chinchón";"901";"901";"520901";VALBOSQUE;NUC;"24";24
+28 Madrid;"052 Chinchón";"1101";"1101";"521101";VALROMEROSO;NUC;"8";8
+28 Madrid;"053 Daganzo de Arriba";"101";"101";"530101";DAGANZO DE ARRIBA;NUC;"10673";10673
+28 Madrid;"053 Daganzo de Arriba";"201";"201";"530201";ASOCIACIÓN DEPORTIVO CULTURAL DAGANZO;NUC;"0";0
+28 Madrid;"053 Daganzo de Arriba";"301";"301";"530301";FRAILES (LOS);NUC;"0";0
+28 Madrid;"054 Escorial, El";"101";"101";"540101";ALCOR (EL);NUC;"321";321
+28 Madrid;"054 Escorial, El";"201";"201";"540201";CAMPILLO (EL);NUC;"0";0
+28 Madrid;"054 Escorial, El";"401";"401";"540401";ESCORIAL (EL);NUC;"9200";9200
+28 Madrid;"054 Escorial, El";"402";"402";"540402";SOTO MORA;NUC;"1167";1167
+28 Madrid;"054 Escorial, El";"601";"601";"540601";NAVALQUEJIGO;NUC;"5916";5916
+28 Madrid;"054 Escorial, El";"701";"701";"540701";PERALEJO;NUC;"185";185
+28 Madrid;"054 Escorial, El";"801";"801";"540801";PINOSOL;NUC;"447";447
+28 Madrid;"055 Estremera";"201";"201";"550201";CUATRO CAMINOS;NUC;"26";26
+28 Madrid;"055 Estremera";"202";"202";"550202";ESTREMERA;NUC;"1113";1113
+28 Madrid;"055 Estremera";"401";"401";"550401";PEÑA RUBIA;NUC;"162";162
+28 Madrid;"055 Estremera";"402";"402";"550402";CERRO DEL AIRE;NUC;"62";62
+28 Madrid;"055 Estremera";"403";"403";"550403";VEGA DE LOS FRAILES;NUC;"17";17
+28 Madrid;"055 Estremera";"404";"404";"550404";VILLARES (LOS);NUC;"0";0
+28 Madrid;"056 Fresnedillas de la Oliva";"101";"101";"560101";FRESNEDILLAS DE LA OLIVA;NUC;"1764";1764
+28 Madrid;"057 Fresno de Torote";"102";"102";"570102";FRESNO DE TOROTE;NUC;"2";2
+28 Madrid;"057 Fresno de Torote";"201";"201";"570201";SERRACINES;NUC;"1787";1787
+28 Madrid;"057 Fresno de Torote";"202";"202";"570202";VALLE DEL RÍO;NUC;"12";12
+28 Madrid;"057 Fresno de Torote";"301";"301";"570301";JARDÍN DE SERRACINES;NUC;"746";746
+28 Madrid;"058 Fuenlabrada";"101";"101";"580101";CORDEL DE LA CARRERA;NUC;"0";0
+28 Madrid;"058 Fuenlabrada";"102";"102";"580102";FUENLABRADA;NUC;"162782";162782
+28 Madrid;"058 Fuenlabrada";"501";"501";"580501";LORANCA;NUC;"25546";25546
+28 Madrid;"058 Fuenlabrada";"502";"502";"580502";CALLFERSA;NUC;"0";0
+28 Madrid;"058 Fuenlabrada";"503";"503";"580503";MIRAFLORES;NUC;"2165";2165
+28 Madrid;"059 Fuente el Saz de Jarama";"101";"101";"590101";FUENTE EL SAZ DE JARAMA;NUC;"6594";6594
+28 Madrid;"060 Fuentidueña de Tajo";"101";"101";"600101";FUENTIDUEÑA DE TAJO;NUC;"1929";1929
+28 Madrid;"060 Fuentidueña de Tajo";"201";"201";"600201";ALARILLA;NUC;"354";354
+28 Madrid;"061 Galapagar";"101";"101";"610101";BELLAVISTA;NUC;"172";172
+28 Madrid;"061 Galapagar";"401";"401";"610401";CUESTAS (LAS);NUC;"372";372
+28 Madrid;"061 Galapagar";"501";"501";"610501";ENCINAR-SAN ALBERTO-VISTA NEVADA;NUC;"755";755
+28 Madrid;"061 Galapagar";"601";"601";"610601";ESPAÑA;NUC;"1233";1233
+28 Madrid;"061 Galapagar";"701";"701";"610701";FUENTE LA TEJA;NUC;"1042";1042
+28 Madrid;"061 Galapagar";"801";"801";"610801";GALAPAGAR;NUC;"22399";22399
+28 Madrid;"061 Galapagar";"901";"901";"610901";GUIJO (EL);NUC;"2017";2017
+28 Madrid;"061 Galapagar";"1501";"1501";"611501";RANCHOS (LOS);NUC;"119";119
+28 Madrid;"061 Galapagar";"1601";"1601";"611601";RONCESVALLES;NUC;"297";297
+28 Madrid;"061 Galapagar";"1701";"1701";"611701";POCILLO (EL);NUC;"466";466
+28 Madrid;"061 Galapagar";"2001";"2001";"612001";PARQUELAGOS;NUC;"2203";2203
+28 Madrid;"061 Galapagar";"2101";"2101";"612101";NAVATA (LA);NUC;"4670";4670
+28 Madrid;"062 Garganta de los Montes";"201";"201";"620201";CUADRÓN (EL);NUC;"31";31
+28 Madrid;"062 Garganta de los Montes";"202";"202";"620202";PRADO GUSTAR;NUC;"5";5
+28 Madrid;"062 Garganta de los Montes";"301";"301";"620301";GARGANTA DE LOS MONTES;NUC;"303";303
+28 Madrid;"062 Garganta de los Montes";"401";"401";"620401";ERAS DEL SOTO (LAS);NUC;"3";3
+28 Madrid;"062 Garganta de los Montes";"501";"501";"620501";PAJARILLA (LA);NUC;"10";10
+28 Madrid;"062 Garganta de los Montes";"601";"601";"620601";VERDUGAL (EL);NUC;"21";21
+28 Madrid;"063 Gargantilla del Lozoya y Pinilla de Buitrago";"101";"101";"630101";GARGANTILLA DEL LOZOYA;NUC;"226";226
+28 Madrid;"063 Gargantilla del Lozoya y Pinilla de Buitrago";"201";"201";"630201";PINILLA DE BUITRAGO;NUC;"101";101
+28 Madrid;"063 Gargantilla del Lozoya y Pinilla de Buitrago";"701";"701";"630701";SOBACO (EL);NUC;"0";0
+28 Madrid;"064 Gascones";"101";"101";"640101";ESTACIÓN DE GASCONES-BUITRAGO;NUC;"0";0
+28 Madrid;"064 Gascones";"201";"201";"640201";GASCONES;NUC;"174";174
+28 Madrid;"064 Gascones";"401";"401";"640401";REDONDO DE ABAJO;NUC;"0";0
+28 Madrid;"064 Gascones";"501";"501";"640501";REDONDO DE ARRIBA;NUC;"0";0
+28 Madrid;"065 Getafe";"301";"301";"650301";GETAFE;NUC;"161160";161160
+28 Madrid;"065 Getafe";"401";"401";"650401";BULERA (LA);NUC;"134";134
+28 Madrid;"065 Getafe";"402";"402";"650402";CASAS DEL CURA;NUC;"8836";8836
+28 Madrid;"065 Getafe";"403";"403";"650403";CASERÍO DE PERALES;NUC;"970";970
+28 Madrid;"065 Getafe";"501";"501";"650501";ACEDINOS;NUC;"0";0
+28 Madrid;"065 Getafe";"601";"601";"650601";ATALAYUELA (LA);NUC;"15";15
+28 Madrid;"065 Getafe";"701";"701";"650701";BERCIAL (EL);NUC;"20046";20046
+28 Madrid;"065 Getafe";"901";"901";"650901";ADARO;NUC;"260";260
+28 Madrid;"066 Griñón";"101";"101";"660101";GRIÑÓN;NUC;"10707";10707
+28 Madrid;"067 Guadalix de la Sierra";"101";"101";"670101";GUADALIX DE LA SIERRA;NUC;"6896";6896
+28 Madrid;"068 Guadarrama";"101";"101";"680101";CABEZUELAS (LAS);NUC;"2117";2117
+28 Madrid;"068 Guadarrama";"201";"201";"680201";GUADARRAMA;NUC;"13823";13823
+28 Madrid;"068 Guadarrama";"301";"301";"680301";TABLADA;NUC;"103";103
+28 Madrid;"068 Guadarrama";"601";"601";"680601";ALDERETE;NUC;"30";30
+28 Madrid;"068 Guadarrama";"701";"701";"680701";CANTO DE LA PATA;NUC;"11";11
+28 Madrid;"068 Guadarrama";"703";"703";"680703";SERRANILLA (LA);NUC;"73";73
+28 Madrid;"068 Guadarrama";"705";"705";"680705";VALLEFRESNOS-EL PEÑÓN;NUC;"677";677
+28 Madrid;"068 Guadarrama";"801";"801";"680801";NEGRALES (LOS);NUC;"187";187
+28 Madrid;"069 Hiruela, La";"101";"101";"690101";HIRUELA (LA);NUC;"82";82
+28 Madrid;"070 Horcajo de la Sierra-Aoslos";"101";"101";"700101";HORCAJO DE LA SIERRA;NUC;"104";104
+28 Madrid;"070 Horcajo de la Sierra-Aoslos";"201";"201";"700201";AOSLOS;NUC;"94";94
+28 Madrid;"071 Horcajuelo de la Sierra";"101";"101";"710101";HORCAJUELO DE LA SIERRA;NUC;"107";107
+28 Madrid;"072 Hoyo de Manzanares";"101";"101";"720101";BERZALEJO;NUC;"81";81
+28 Madrid;"072 Hoyo de Manzanares";"201";"201";"720201";BERZOSA;NUC;"2613";2613
+28 Madrid;"072 Hoyo de Manzanares";"301";"301";"720301";HOYO DE MANZANARES;NUC;"5748";5748
+28 Madrid;"072 Hoyo de Manzanares";"401";"401";"720401";NAVALLERA;NUC;"0";0
+28 Madrid;"072 Hoyo de Manzanares";"501";"501";"720501";PARQUE DE LAS COLINAS;NUC;"512";512
+28 Madrid;"073 Humanes de Madrid";"101";"101";"730101";HUMANES DE MADRID;NUC;"19915";19915
+28 Madrid;"074 Leganés";"101";"101";"740101";FORTUNA;NUC;"13961";13961
+28 Madrid;"074 Leganés";"201";"201";"740201";LEGANÉS;NUC;"179739";179739
+28 Madrid;"074 Leganés";"202";"202";"740202";VIÑA GRANDE;NUC;"4";4
+28 Madrid;"074 Leganés";"602";"602";"740602";CERRO DEL CASTAÑAR;NUC;"53";53
+28 Madrid;"074 Leganés";"604";"604";"740604";PRADO OVERA;NUC;"64";64
+28 Madrid;"075 Loeches";"101";"101";"750101";COLEGIO MONFORT;NUC;"15";15
+28 Madrid;"075 Loeches";"102";"102";"750102";LOECHES;NUC;"8621";8621
+28 Madrid;"075 Loeches";"901";"901";"750901";PRADO CONCEJIL;NUC;"530";530
+28 Madrid;"076 Lozoya";"101";"101";"760101";LOZOYA;NUC;"600";600
+28 Madrid;"078 Madarcos";"101";"101";"780101";MADARCOS;NUC;"63";63
+28 Madrid;"079 Madrid";"101";"101";"790101";MADRID;NUC;"3422416";3422416
+28 Madrid;"080 Majadahonda";"2201";"2201";"802201";MAJADAHONDA;NUC;"73247";73247
+28 Madrid;"080 Majadahonda";"4201";"4201";"804201";ENTREÁLAMOS;NUC;"179";179
+28 Madrid;"082 Manzanares el Real";"101";"101";"820101";MANZANARES EL REAL;NUC;"8934";8934
+28 Madrid;"082 Manzanares el Real";"201";"201";"820201";PONDEROSA DE LA SIERRA (LA);NUC;"576";576
+28 Madrid;"083 Meco";"101";"101";"830101";ESTACIÓN Y LA VENTA (LA);NUC;"0";0
+28 Madrid;"083 Meco";"201";"201";"830201";MECO;NUC;"15806";15806
+28 Madrid;"084 Mejorada del Campo";"101";"101";"840101";MEJORADA DEL CAMPO;NUC;"21438";21438
+28 Madrid;"084 Mejorada del Campo";"201";"201";"840201";URBANIZACIÓN LAS ACACIAS;NUC;"188";188
+28 Madrid;"084 Mejorada del Campo";"501";"501";"840501";RAYA DE VELILLA (LA);NUC;"88";88
+28 Madrid;"084 Mejorada del Campo";"601";"601";"840601";VALDECELADA;NUC;"0";0
+28 Madrid;"085 Miraflores de la Sierra";"101";"101";"850101";ENDRINALES (LOS);NUC;"158";158
+28 Madrid;"085 Miraflores de la Sierra";"201";"201";"850201";MIRAFLORES DE LA SIERRA;NUC;"6625";6625
+28 Madrid;"085 Miraflores de la Sierra";"301";"301";"850301";PINAREJOS (LOS);NUC;"333";333
+28 Madrid;"085 Miraflores de la Sierra";"401";"401";"850401";HUELGAS (LAS);NUC;"2";2
+28 Madrid;"086 Molar, El";"101";"101";"860101";MOLAR (EL);NUC;"9435";9435
+28 Madrid;"087 Molinos, Los";"102";"102";"870102";MOLINOS (LOS);NUC;"4812";4812
+28 Madrid;"088 Montejo de la Sierra";"101";"101";"880101";MONTEJO DE LA SIERRA;NUC;"374";374
+28 Madrid;"089 Moraleja de Enmedio";"101";"101";"890101";COLINAS (LAS);NUC;"313";313
+28 Madrid;"089 Moraleja de Enmedio";"201";"201";"890201";MORALEJA DE ENMEDIO;NUC;"5175";5175
+28 Madrid;"090 Moralzarzal";"101";"101";"900101";MORALZARZAL;NUC;"13710";13710
+28 Madrid;"090 Moralzarzal";"301";"301";"900301";ARROYUELOS (LOS);NUC;"43";43
+28 Madrid;"090 Moralzarzal";"501";"501";"900501";PRADERAS (LAS);NUC;"7";7
+28 Madrid;"090 Moralzarzal";"701";"701";"900701";BERROCAL (EL)-RETAMAR (EL);NUC;"737";737
+28 Madrid;"091 Morata de Tajuña";"101";"101";"910101";MORATA DE TAJUÑA;NUC;"7650";7650
+28 Madrid;"092 Móstoles";"101";"101";"920101";MÓSTOLES;NUC;"200051";200051
+28 Madrid;"092 Móstoles";"201";"201";"920201";PARQUE COIMBRA;NUC;"10812";10812
+28 Madrid;"092 Móstoles";"301";"301";"920301";PINARES LLANOS;NUC;"208";208
+28 Madrid;"092 Móstoles";"401";"401";"920401";PARQUE GUADARRAMA;NUC;"1495";1495
+28 Madrid;"092 Móstoles";"701";"701";"920701";NIEVES-EL LUCERO (LAS);NUC;"622";622
+28 Madrid;"093 Navacerrada";"101";"101";"930101";NAVACERRADA;NUC;"3304";3304
+28 Madrid;"093 Navacerrada";"301";"301";"930301";BARRANCA (LA);NUC;"0";0
+28 Madrid;"094 Navalafuente";"101";"101";"940101";NAVALAFUENTE;NUC;"1576";1576
+28 Madrid;"094 Navalafuente";"201";"201";"940201";ARRETURAS (LAS);NUC;"10";10
+28 Madrid;"094 Navalafuente";"501";"501";"940501";PISCIS;NUC;"0";0
+28 Madrid;"094 Navalafuente";"601";"601";"940601";SOCOCAR;NUC;"16";16
+28 Madrid;"094 Navalafuente";"701";"701";"940701";VIÑAS I (LAS);NUC;"42";42
+28 Madrid;"094 Navalafuente";"702";"702";"940702";VIÑAS II (LAS);NUC;"10";10
+28 Madrid;"095 Navalagamella";"102";"102";"950102";NAVALAGAMELLA;NUC;"2784";2784
+28 Madrid;"095 Navalagamella";"103";"103";"950103";PLANTÍO (EL);NUC;"0";0
+28 Madrid;"095 Navalagamella";"201";"201";"950201";BARRANCOS (LOS);NUC;"6";6
+28 Madrid;"095 Navalagamella";"301";"301";"950301";CERRO ALARCÓN;NUC;"172";172
+28 Madrid;"096 Navalcarnero";"101";"101";"960101";CALYPO II;NUC;"272";272
+28 Madrid;"096 Navalcarnero";"301";"301";"960301";NAVALCARNERO;NUC;"31902";31902
+28 Madrid;"096 Navalcarnero";"401";"401";"960401";AGUAS DE RIAZA;NUC;"0";0
+28 Madrid;"096 Navalcarnero";"1001";"1001";"961001";FUENTE PILA;NUC;"0";0
+28 Madrid;"096 Navalcarnero";"1101";"1101";"961101";MANCIGORDO;NUC;"0";0
+28 Madrid;"097 Navarredonda y San Mamés";"101";"101";"970101";NAVARREDONDA;NUC;"59";59
+28 Madrid;"097 Navarredonda y San Mamés";"201";"201";"970201";SAN MAMÉS;NUC;"75";75
+28 Madrid;"097 Navarredonda y San Mamés";"301";"301";"970301";PATUELO (EL);NUC;"0";0
+28 Madrid;"097 Navarredonda y San Mamés";"401";"401";"970401";PRADO GAMONAL;NUC;"0";0
+28 Madrid;"097 Navarredonda y San Mamés";"501";"501";"970501";SOLANILLA (LA);NUC;"0";0
+28 Madrid;"099 Navas del Rey";"101";"101";"990101";MORRO (EL);NUC;"322";322
+28 Madrid;"099 Navas del Rey";"201";"201";"990201";NAVAS DEL REY;NUC;"2819";2819
+28 Madrid;"099 Navas del Rey";"301";"301";"990301";SAN JUAN;NUC;"84";84
+28 Madrid;"099 Navas del Rey";"401";"401";"990401";ROCHA (LA);NUC;"55";55
+28 Madrid;"099 Navas del Rey";"501";"501";"990501";SANTA ANA;NUC;"48";48
+28 Madrid;100 Nuevo Baztán;"201";"201";"1000201";MIRADOR DE BAZTÁN (EL);NUC;"187";187
+28 Madrid;100 Nuevo Baztán;"301";"301";"1000301";MONTE ACEVEDO;NUC;"436";436
+28 Madrid;100 Nuevo Baztán;"401";"401";"1000401";NUEVO BAZTÁN;NUC;"306";306
+28 Madrid;100 Nuevo Baztán;"601";"601";"1000601";EUROVILLAS-LAS VILLAS;NUC;"6464";6464
+28 Madrid;101 Olmeda de las Fuentes;"101";"101";"1010101";OLMEDA DE LAS FUENTES;NUC;"404";404
+28 Madrid;102 Orusco de Tajuña;"101";"101";"1020101";ORUSCO;NUC;"1426";1426
+28 Madrid;104 Paracuellos de Jarama;"101";"101";"1040101";BELVIS DE JARAMA;NUC;"333";333
+28 Madrid;104 Paracuellos de Jarama;"201";"201";"1040201";PARACUELLOS DE JARAMA;NUC;"23492";23492
+28 Madrid;104 Paracuellos de Jarama;"301";"301";"1040301";AVALÓN (EL);NUC;"18";18
+28 Madrid;104 Paracuellos de Jarama;"401";"401";"1040401";BERROCALES DEL JARAMA (LOS);NUC;"866";866
+28 Madrid;104 Paracuellos de Jarama;"501";"501";"1040501";GRANJA / EL CRUCE (LA);NUC;"2248";2248
+28 Madrid;104 Paracuellos de Jarama;"601";"601";"1040601";I.N.T.A.;NUC;"148";148
+28 Madrid;106 Parla;"102";"102";"1060102";PARLA;NUC;"134851";134851
+28 Madrid;107 Patones;"201";"201";"1070201";POBLADO DEL ATAZAR;NUC;"0";0
+28 Madrid;107 Patones;"301";"301";"1070301";PATONES DE ABAJO;NUC;"558";558
+28 Madrid;107 Patones;"401";"401";"1070401";PATONES DE ARRIBA;NUC;"46";46
+28 Madrid;108 Pedrezuela;"101";"101";"1080101";ATALAYA REAL;NUC;"195";195
+28 Madrid;108 Pedrezuela;"201";"201";"1080201";MONTENEBRO;NUC;"887";887
+28 Madrid;108 Pedrezuela;"301";"301";"1080301";PEDREZUELA;NUC;"5277";5277
+28 Madrid;109 Pelayos de la Presa;"101";"101";"1090101";PELAYOS DE LA PRESA;NUC;"3106";3106
+28 Madrid;110 Perales de Tajuña;"101";"101";"1100101";PERALES DE TAJUÑA;NUC;"2806";2806
+28 Madrid;110 Perales de Tajuña;"301";"301";"1100301";PRADO DE ARRIBA;NUC;"53";53
+28 Madrid;110 Perales de Tajuña;"401";"401";"1100401";URBANIZACIÓN VALDEPERALES;NUC;"208";208
+28 Madrid;111 Pezuela de las Torres;"101";"101";"1110101";PEZUELA DE LAS TORRES;NUC;"743";743
+28 Madrid;111 Pezuela de las Torres;"201";"201";"1110201";CAMINOS (LOS);NUC;"215";215
+28 Madrid;112 Pinilla del Valle;"101";"101";"1120101";PINILLA DEL VALLE;NUC;"199";199
+28 Madrid;113 Pinto;"102";"102";"1130102";PINTO;NUC;"55918";55918
+28 Madrid;113 Pinto;"201";"201";"1130201";ARENAS (LAS);NUC;"7";7
+28 Madrid;114 Piñuécar-Gandullas;"101";"101";"1140101";GANDULLAS;NUC;"62";62
+28 Madrid;114 Piñuécar-Gandullas;"201";"201";"1140201";PIÑUÉCAR;NUC;"89";89
+28 Madrid;115 Pozuelo de Alarcón;"101";"101";"1150101";ÁNGELES (LOS);NUC;"1728";1728
+28 Madrid;115 Pozuelo de Alarcón;"401";"401";"1150401";POZUELO DE ALARCÓN;NUC;"59169";59169
+28 Madrid;115 Pozuelo de Alarcón;"2001";"2001";"1152001";ARROYO MEAQUES;NUC;"5167";5167
+28 Madrid;115 Pozuelo de Alarcón;"2301";"2301";"1152301";HÚMERA-SOMOSAGUAS;NUC;"16845";16845
+28 Madrid;115 Pozuelo de Alarcón;"2401";"2401";"1152401";MONTECLARO-LA CABAÑA;NUC;"5999";5999
+28 Madrid;116 Pozuelo del Rey;"101";"101";"1160101";POZUELO DEL REY;NUC;"1298";1298
+28 Madrid;117 Prádena del Rincón;"101";"101";"1170101";PRÁDENA DEL RINCÓN;NUC;"137";137
+28 Madrid;118 Puebla de la Sierra;"101";"101";"1180101";PUEBLA DE LA SIERRA;NUC;"91";91
+28 Madrid;119 Quijorna;"101";"101";"1190101";PERALES DE MILLA;NUC;"0";0
+28 Madrid;119 Quijorna;"202";"202";"1190202";QUIJORNA;NUC;"3927";3927
+28 Madrid;120 Rascafría;"101";"101";"1200101";OTERUELO DEL VALLE;NUC;"111";111
+28 Madrid;120 Rascafría;"201";"201";"1200201";COTOS (LOS);NUC;"0";0
+28 Madrid;120 Rascafría;"203";"203";"1200203";PAULAR (EL);NUC;"9";9
+28 Madrid;120 Rascafría;"204";"204";"1200204";RASCAFRÍA;NUC;"1495";1495
+28 Madrid;120 Rascafría;"401";"401";"1200401";GRIFOS (LOS);NUC;"62";62
+28 Madrid;121 Redueña;"101";"101";"1210101";REDUEÑA;NUC;"289";289
+28 Madrid;122 Ribatejada;"101";"101";"1220101";RIBATEJADA;NUC;"647";647
+28 Madrid;122 Ribatejada;"201";"201";"1220201";PARAJE DEL ARZOBISPO;NUC;"219";219
+28 Madrid;122 Ribatejada;"301";"301";"1220301";BARRANCOS (LOS);NUC;"31";31
+28 Madrid;123 Rivas-Vaciamadrid;"601";"601";"1230601";RIVAS DE JARAMA;NUC;"0";0
+28 Madrid;123 Rivas-Vaciamadrid;"701";"701";"1230701";RIVAS-VACIAMADRID;NUC;"16031";16031
+28 Madrid;123 Rivas-Vaciamadrid;"1001";"1001";"1231001";CAÑADA REAL DE LA GALIANA;NUC;"1769";1769
+28 Madrid;123 Rivas-Vaciamadrid;"1101";"1101";"1231101";PUENTE DE ARGANDA;NUC;"0";0
+28 Madrid;123 Rivas-Vaciamadrid;"1801";"1801";"1231801";PARTIJA-SANTA MÓNICA (LA);NUC;"83779";83779
+28 Madrid;124 Robledillo de la Jara;"101";"101";"1240101";ROBLEDILLO DE LA JARA;NUC;"123";123
+28 Madrid;125 Robledo de Chavela;"201";"201";"1250201";ROBLEDO DE CHAVELA;NUC;"4697";4697
+28 Madrid;126 Robregordo;"101";"101";"1260101";ROBREGORDO;NUC;"68";68
+28 Madrid;"127 Rozas de Madrid, Las";"101";"101";"1270101";CHOPERA (LA);NUC;"739";739
+28 Madrid;"127 Rozas de Madrid, Las";"401";"401";"1270401";ROZAS DE MADRID (LAS);NUC;"51817";51817
+28 Madrid;"127 Rozas de Madrid, Las";"1001";"1001";"1271001";DEHESA (LA);NUC;"258";258
+28 Madrid;"127 Rozas de Madrid, Las";"1101";"1101";"1271101";GARZO (EL);NUC;"0";0
+28 Madrid;"127 Rozas de Madrid, Las";"1501";"1501";"1271501";MATAS-PINAR-MONTE ROZAS (LAS);NUC;"46324";46324
+28 Madrid;128 Rozas de Puerto Real;"101";"101";"1280101";ENTREPINOS;NUC;"125";125
+28 Madrid;128 Rozas de Puerto Real;"201";"201";"1280201";ROZAS DE PUERTO REAL;NUC;"422";422
+28 Madrid;129 San Agustín del Guadalix;"101";"101";"1290101";SAN AGUSTÍN DEL GUADALIX;NUC;"13234";13234
+28 Madrid;129 San Agustín del Guadalix;"301";"301";"1290301";BARRANCO HONDO;NUC;"0";0
+28 Madrid;129 San Agustín del Guadalix;"401";"401";"1290401";IBERDROLA;NUC;"0";0
+28 Madrid;129 San Agustín del Guadalix;"701";"701";"1290701";RASO (EL);NUC;"0";0
+28 Madrid;129 San Agustín del Guadalix;"801";"801";"1290801";SIMA (LA);NUC;"0";0
+28 Madrid;129 San Agustín del Guadalix;"901";"901";"1290901";VALDELAGUA;NUC;"509";509
+28 Madrid;130 San Fernando de Henares;"201";"201";"1300201";SAN FERNANDO DE HENARES;NUC;"38905";38905
+28 Madrid;130 San Fernando de Henares;"801";"801";"1300801";POLÍGONO DE SAN FERNANDO DE HENARES;NUC;"11";11
+28 Madrid;130 San Fernando de Henares;"1001";"1001";"1301001";SOTO DE ALDOVEA;NUC;"0";0
+28 Madrid;130 San Fernando de Henares;"1301";"1301";"1301301";CASTELLANAS (LAS);NUC;"14";14
+28 Madrid;131 San Lorenzo de El Escorial;"101";"101";"1310101";SANTA CRUZ DEL VALLE DE LOS CAÍDOS;NUC;"14";14
+28 Madrid;131 San Lorenzo de El Escorial;"102";"102";"1310102";VALLE DE LOS CAIDOS;NUC;"18";18
+28 Madrid;131 San Lorenzo de El Escorial;"201";"201";"1310201";SAN LORENZO DE EL ESCORIAL;NUC;"16788";16788
+28 Madrid;131 San Lorenzo de El Escorial;"401";"401";"1310401";HOSPITAL;NUC;"0";0
+28 Madrid;131 San Lorenzo de El Escorial;"501";"501";"1310501";SANTA MARÍA DEL BUEN AIRE;NUC;"0";0
+28 Madrid;131 San Lorenzo de El Escorial;"901";"901";"1310901";CAMPING ESCORIAL;NUC;"0";0
+28 Madrid;131 San Lorenzo de El Escorial;"1001";"1001";"1311001";PIZARRA (LA);NUC;"1916";1916
+28 Madrid;132 San Martín de la Vega;"401";"401";"1320401";AIMAYR;NUC;"3";3
+28 Madrid;132 San Martín de la Vega;"501";"501";"1320501";POBLADO DE ABAJO;NUC;"36";36
+28 Madrid;132 San Martín de la Vega;"502";"502";"1320502";POBLADO DE ARRIBA;NUC;"122";122
+28 Madrid;132 San Martín de la Vega;"701";"701";"1320701";SAN MARTÍN DE LA VEGA;NUC;"19928";19928
+28 Madrid;132 San Martín de la Vega;"901";"901";"1320901";VEGA DEL PINGARRON;NUC;"66";66
+28 Madrid;132 San Martín de la Vega;"1001";"1001";"1321001";VALLEQUILLAS NORTE;NUC;"343";343
+28 Madrid;132 San Martín de la Vega;"1002";"1002";"1321002";VALLEQUILLAS SUR;NUC;"58";58
+28 Madrid;133 San Martín de Valdeiglesias;"101";"101";"1330101";SAN RAMÓN;NUC;"157";157
+28 Madrid;133 San Martín de Valdeiglesias;"201";"201";"1330201";COSTA DE MADRID;NUC;"245";245
+28 Madrid;133 San Martín de Valdeiglesias;"301";"301";"1330301";JAVACRUZ;NUC;"200";200
+28 Madrid;133 San Martín de Valdeiglesias;"401";"401";"1330401";SAN MARTÍN DE VALDEIGLESIAS;NUC;"8375";8375
+28 Madrid;134 San Sebastián de los Reyes;"101";"101";"1340101";CIUDALCAMPO;NUC;"2660";2660
+28 Madrid;134 San Sebastián de los Reyes;"201";"201";"1340201";FUENTE DEL FRESNO;NUC;"2614";2614
+28 Madrid;134 San Sebastián de los Reyes;"301";"301";"1340301";CLUB DE CAMPO;NUC;"3012";3012
+28 Madrid;134 San Sebastián de los Reyes;"401";"401";"1340401";RACE;NUC;"131";131
+28 Madrid;134 San Sebastián de los Reyes;"501";"501";"1340501";SAN SEBASTIÁN DE LOS REYES;NUC;"85812";85812
+28 Madrid;134 San Sebastián de los Reyes;"801";"801";"1340801";GRANJILLA (LA);NUC;"407";407
+28 Madrid;135 Santa María de la Alameda;"101";"101";"1350101";ESTACIÓN (LA);NUC;"829";829
+28 Madrid;135 Santa María de la Alameda;"201";"201";"1350201";HERRERAS (LAS);NUC;"11";11
+28 Madrid;135 Santa María de la Alameda;"301";"301";"1350301";HOYA (LA);NUC;"20";20
+28 Madrid;135 Santa María de la Alameda;"501";"501";"1350501";NAVALESPINO;NUC;"55";55
+28 Madrid;135 Santa María de la Alameda;"601";"601";"1350601";PARADILLA (LA);NUC;"30";30
+28 Madrid;135 Santa María de la Alameda;"801";"801";"1350801";PIMPOLLAR (EL);NUC;"159";159
+28 Madrid;135 Santa María de la Alameda;"901";"901";"1350901";ROBLEDONDO;NUC;"241";241
+28 Madrid;135 Santa María de la Alameda;"1001";"1001";"1351001";SANTA MARÍA DE LA ALAMEDA;NUC;"120";120
+28 Madrid;135 Santa María de la Alameda;"1101";"1101";"1351101";CEREDA (LA);NUC;"0";0
+28 Madrid;135 Santa María de la Alameda;"1301";"1301";"1351301";MOLINO NUEVO;NUC;"9";9
+28 Madrid;135 Santa María de la Alameda;"1401";"1401";"1351401";UMBRÍA DE LOS GALLEGOS;NUC;"13";13
+28 Madrid;136 Santorcaz;"101";"101";"1360101";ESTACIÓN TRANSMISORA MARINA;NUC;"32";32
+28 Madrid;136 Santorcaz;"201";"201";"1360201";SANTORCAZ;NUC;"949";949
+28 Madrid;"137 Santos de la Humosa, Los";"101";"101";"1370101";SANTOS DE LA HUMOSA (LOS);NUC;"2793";2793
+28 Madrid;"138 Serna del Monte, La";"101";"101";"1380101";SERNA DEL MONTE (LA);NUC;"77";77
+28 Madrid;140 Serranillos del Valle;"101";"101";"1400101";SERRANILLOS DEL VALLE;NUC;"4543";4543
+28 Madrid;140 Serranillos del Valle;"102";"102";"1400102";URBANIZACIÓN LOS LLANOS;NUC;"75";75
+28 Madrid;140 Serranillos del Valle;"301";"301";"1400301";CARRASCAL (EL);NUC;"0";0
+28 Madrid;141 Sevilla la Nueva;"101";"101";"1410101";CORTIJOS (LOS);NUC;"439";439
+28 Madrid;141 Sevilla la Nueva;"402";"402";"1410402";MANANTIALES I (LOS);NUC;"780";780
+28 Madrid;141 Sevilla la Nueva;"403";"403";"1410403";MANANTIALES II (LOS);NUC;"309";309
+28 Madrid;141 Sevilla la Nueva;"601";"601";"1410601";SEVILLA LA NUEVA;NUC;"8108";8108
+28 Madrid;141 Sevilla la Nueva;"701";"701";"1410701";VALDELAGUA;NUC;"43";43
+28 Madrid;143 Somosierra;"101";"101";"1430101";SOMOSIERRA;NUC;"98";98
+28 Madrid;144 Soto del Real;"101";"101";"1440101";SOTO DEL REAL;NUC;"8324";8324
+28 Madrid;144 Soto del Real;"201";"201";"1440201";RANCAJALES (LOS);NUC;"939";939
+28 Madrid;144 Soto del Real;"301";"301";"1440301";FRESNEDA-DEHESA BOYAL-CAMPING LA FRESNEDA (LA);NUC;"33";33
+28 Madrid;144 Soto del Real;"401";"401";"1440401";CIERRO DE SAN BARTOLOMÉ;NUC;"3";3
+28 Madrid;145 Talamanca de Jarama;"401";"401";"1450401";TALAMANCA DE JARAMA;NUC;"4186";4186
+28 Madrid;145 Talamanca de Jarama;"501";"501";"1450501";CARRACALDERAS;NUC;"17";17
+28 Madrid;145 Talamanca de Jarama;"601";"601";"1450601";DUNAS (LAS);NUC;"16";16
+28 Madrid;145 Talamanca de Jarama;"801";"801";"1450801";PERDIGONES (LOS);NUC;"24";24
+28 Madrid;145 Talamanca de Jarama;"802";"802";"1450802";TESORO (EL);NUC;"0";0
+28 Madrid;146 Tielmes;"101";"101";"1460101";TIELMES;NUC;"2789";2789
+28 Madrid;147 Titulcia;"101";"101";"1470101";TITULCIA;NUC;"1351";1351
+28 Madrid;148 Torrejón de Ardoz;"101";"101";"1480101";TORREJÓN DE ARDOZ;NUC;"139715";139715
+28 Madrid;148 Torrejón de Ardoz;"201";"201";"1480201";BASE AÉREA;NUC;"0";0
+28 Madrid;148 Torrejón de Ardoz;"202";"202";"1480202";I.N.T.A.;NUC;"0";0
+28 Madrid;148 Torrejón de Ardoz;"401";"401";"1480401";CASTILLO (EL);NUC;"779";779
+28 Madrid;149 Torrejón de la Calzada;"101";"101";"1490101";TORREJÓN DE LA CALZADA;NUC;"10248";10248
+28 Madrid;149 Torrejón de la Calzada;"301";"301";"1490301";VACIASILOS;NUC;"40";40
+28 Madrid;150 Torrejón de Velasco;"101";"101";"1500101";TORREJÓN DE VELASCO;NUC;"4784";4784
+28 Madrid;151 Torrelaguna;"102";"102";"1510102";TORRELAGUNA;NUC;"4929";4929
+28 Madrid;151 Torrelaguna;"201";"201";"1510201";TOMILLARES (LOS);NUC;"15";15
+28 Madrid;152 Torrelodones;"201";"201";"1520201";BERZOSILLA (LA);NUC;"537";537
+28 Madrid;152 Torrelodones;"401";"401";"1520401";ESTACIÓN (LA);NUC;"5773";5773
+28 Madrid;152 Torrelodones;"601";"601";"1520601";GASCO (EL);NUC;"355";355
+28 Madrid;152 Torrelodones;"1101";"1101";"1521101";PEÑASCALES (LOS);NUC;"4686";4686
+28 Madrid;152 Torrelodones;"1201";"1201";"1521201";ROBLES (LOS);NUC;"1525";1525
+28 Madrid;152 Torrelodones;"1401";"1401";"1521401";TORRELODONES;NUC;"8565";8565
+28 Madrid;152 Torrelodones;"1501";"1501";"1521501";BOMBEROS (LOS);NUC;"1261";1261
+28 Madrid;152 Torrelodones;"1601";"1601";"1521601";PRADOS (LOS);NUC;"2503";2503
+28 Madrid;153 Torremocha de Jarama;"201";"201";"1530201";TORREMOCHA DE JARAMA;NUC;"673";673
+28 Madrid;153 Torremocha de Jarama;"401";"401";"1530401";CERRADA (LA);NUC;"22";22
+28 Madrid;153 Torremocha de Jarama;"501";"501";"1530501";RETIRO DE TORREMOCHA (EL);NUC;"341";341
+28 Madrid;153 Torremocha de Jarama;"601";"601";"1530601";TOMILLARES (LOS);NUC;"75";75
+28 Madrid;154 Torres de la Alameda;"101";"101";"1540101";MARIBLANCA;NUC;"86";86
+28 Madrid;154 Torres de la Alameda;"201";"201";"1540201";TORRES DE LA ALAMEDA;NUC;"7564";7564
+28 Madrid;155 Valdaracete;"101";"101";"1550101";VALDARACETE;NUC;"613";613
+28 Madrid;156 Valdeavero;"101";"101";"1560101";VALDEAVERO;NUC;"1377";1377
+28 Madrid;156 Valdeavero;"201";"201";"1560201";CARDOSA (LA);NUC;"432";432
+28 Madrid;157 Valdelaguna;"101";"101";"1570101";VALDELAGUNA;NUC;"1065";1065
+28 Madrid;158 Valdemanco;"101";"101";"1580101";VALDEMANCO;NUC;"676";676
+28 Madrid;158 Valdemanco;"201";"201";"1580201";CERRO MATALLERA;NUC;"329";329
+28 Madrid;158 Valdemanco;"301";"301";"1580301";HOYA (LA);NUC;"55";55
+28 Madrid;159 Valdemaqueda;"101";"101";"1590101";VALDEMAQUEDA;NUC;"813";813
+28 Madrid;159 Valdemaqueda;"201";"201";"1590201";RÍO (EL);NUC;"15";15
+28 Madrid;160 Valdemorillo;"201";"201";"1600201";CERRO ALARCÓN;NUC;"2974";2974
+28 Madrid;160 Valdemorillo;"301";"301";"1600301";NAVARREDONDA;NUC;"2518";2518
+28 Madrid;160 Valdemorillo;"501";"501";"1600501";DEHESA;NUC;"1212";1212
+28 Madrid;160 Valdemorillo;"601";"601";"1600601";PARAÍSO (EL);NUC;"475";475
+28 Madrid;160 Valdemorillo;"801";"801";"1600801";PINO ALTO;NUC;"521";521
+28 Madrid;160 Valdemorillo;"901";"901";"1600901";PIZARRERA (LA);NUC;"229";229
+28 Madrid;160 Valdemorillo;"1201";"1201";"1601201";CAMPING DE VALDEMORILLO;NUC;"6";6
+28 Madrid;160 Valdemorillo;"1202";"1202";"1601202";VALDEMORILLO;NUC;"5950";5950
+28 Madrid;160 Valdemorillo;"1203";"1203";"1601203";CHARQUILLAS (LAS);NUC;"47";47
+28 Madrid;160 Valdemorillo;"1501";"1501";"1601501";MONTEMORILLO;NUC;"73";73
+28 Madrid;161 Valdemoro;"101";"101";"1610101";VALDEMORO;NUC;"83423";83423
+28 Madrid;162 Valdeolmos-Alalpardo;"101";"101";"1620101";ALALPARDO;NUC;"2465";2465
+28 Madrid;162 Valdeolmos-Alalpardo;"201";"201";"1620201";VALDEOLMOS;NUC;"1155";1155
+28 Madrid;162 Valdeolmos-Alalpardo;"301";"301";"1620301";MIRAVAL;NUC;"851";851
+28 Madrid;163 Valdepiélagos;"101";"101";"1630101";VALDEPIÉLAGOS;NUC;"527";527
+28 Madrid;163 Valdepiélagos;"102";"102";"1630102";FRONTAL (EL);NUC;"54";54
+28 Madrid;164 Valdetorres de Jarama;"101";"101";"1640101";SILILLOS;NUC;"821";821
+28 Madrid;164 Valdetorres de Jarama;"201";"201";"1640201";VALDETORRES DE JARAMA;NUC;"3871";3871
+28 Madrid;164 Valdetorres de Jarama;"301";"301";"1640301";CUEVA (LA);NUC;"79";79
+28 Madrid;164 Valdetorres de Jarama;"401";"401";"1640401";ESCARABAJOSA (LA);NUC;"68";68
+28 Madrid;164 Valdetorres de Jarama;"501";"501";"1640501";MIRADOR (EL);NUC;"171";171
+28 Madrid;165 Valdilecha;"101";"101";"1650101";VALDILECHA;NUC;"3163";3163
+28 Madrid;166 Valverde de Alcalá;"101";"101";"1660101";VALVERDE DE ALCALÁ;NUC;"550";550
+28 Madrid;167 Velilla de San Antonio;"101";"101";"1670101";VELILLA DE SAN ANTONIO;NUC;"14008";14008
+28 Madrid;"168 Vellón, El";"101";"101";"1680101";ESPARTAL (EL);NUC;"158";158
+28 Madrid;"168 Vellón, El";"201";"201";"1680201";VELLÓN (EL);NUC;"1776";1776
+28 Madrid;"168 Vellón, El";"701";"701";"1680701";CALVERO (EL);NUC;"2";2
+28 Madrid;169 Venturada;"101";"101";"1690101";VENTURADA;NUC;"771";771
+28 Madrid;169 Venturada;"201";"201";"1690201";COTOS DE MONTERREY;NUC;"1779";1779
+28 Madrid;169 Venturada;"301";"301";"1690301";ROSALES (LOS);NUC;"23";23
+28 Madrid;170 Villaconejos;"101";"101";"1700101";VILLACONEJOS;NUC;"3471";3471
+28 Madrid;171 Villa del Prado;"101";"101";"1710101";ALAMÍN;NUC;"0";0
+28 Madrid;171 Villa del Prado;"301";"301";"1710301";ENCINAR DEL ALBERCHE;NUC;"1151";1151
+28 Madrid;171 Villa del Prado;"802";"802";"1710802";VILLA DEL PRADO;NUC;"6184";6184
+28 Madrid;171 Villa del Prado;"803";"803";"1710803";BLANCA (LA);NUC;"0";0
+28 Madrid;171 Villa del Prado;"1001";"1001";"1711001";HOSPITAL (EL);NUC;"0";0
+28 Madrid;171 Villa del Prado;"1101";"1101";"1711101";HOYAS (LAS);NUC;"45";45
+28 Madrid;172 Villalbilla;"201";"201";"1720201";GURUGÚ (EL);NUC;"276";276
+28 Madrid;172 Villalbilla;"301";"301";"1720301";HUEROS (LOS);NUC;"2238";2238
+28 Madrid;172 Villalbilla;"501";"501";"1720501";ZULEMA-PEÑAS ALBAS;NUC;"2716";2716
+28 Madrid;172 Villalbilla;"601";"601";"1720601";VILLALBILLA;NUC;"2406";2406
+28 Madrid;172 Villalbilla;"801";"801";"1720801";VALDELÁGUILA-EL ROBLEDAL;NUC;"1626";1626
+28 Madrid;172 Villalbilla;"901";"901";"1720901";VISO (EL);NUC;"6890";6890
+28 Madrid;172 Villalbilla;"1001";"1001";"1721001";MIRADOR (EL);NUC;"1754";1754
+28 Madrid;173 Villamanrique de Tajo;"201";"201";"1730201";CASTILLO DE TAJO;NUC;"7";7
+28 Madrid;173 Villamanrique de Tajo;"301";"301";"1730301";VILLAMANRIQUE DE TAJO;NUC;"805";805
+28 Madrid;174 Villamanta;"101";"101";"1740101";VILLAMANTA;NUC;"2593";2593
+28 Madrid;174 Villamanta;"201";"201";"1740201";JIRFA;NUC;"37";37
+28 Madrid;174 Villamanta;"301";"301";"1740301";MALPUESTA (LA);NUC;"69";69
+28 Madrid;174 Villamanta;"401";"401";"1740401";OLIVOS (LOS);NUC;"55";55
+28 Madrid;175 Villamantilla;"101";"101";"1750101";VILLAMANTILLA;NUC;"1584";1584
+28 Madrid;176 Villanueva de la Cañada;"401";"401";"1760401";VILLANUEVA DE LA CAÑADA;NUC;"18138";18138
+28 Madrid;176 Villanueva de la Cañada;"603";"603";"1760603";RAYA DEL PALANCAR-GUADAMONTE (LA);NUC;"1316";1316
+28 Madrid;176 Villanueva de la Cañada;"701";"701";"1760701";CASTILLO (EL);NUC;"0";0
+28 Madrid;176 Villanueva de la Cañada;"704";"704";"1760704";VILLAFRANCA DEL CASTILLO-LA MOCHA CHICA;NUC;"3898";3898
+28 Madrid;177 Villanueva del Pardillo;"101";"101";"1770101";VILLANUEVA DEL PARDILLO;NUC;"16379";16379
+28 Madrid;177 Villanueva del Pardillo;"401";"401";"1770401";VEGAS - SANTA MARIA (LAS);NUC;"1498";1498
+28 Madrid;178 Villanueva de Perales;"101";"101";"1780101";VILLANUEVA DE PERALES;NUC;"1642";1642
+28 Madrid;179 Villar del Olmo;"101";"101";"1790101";EUROVILLAS;NUC;"1604";1604
+28 Madrid;179 Villar del Olmo;"201";"201";"1790201";VILLAR DEL OLMO;NUC;"667";667
+28 Madrid;180 Villarejo de Salvanés;"101";"101";"1800101";VILLAREJO DE SALVANÉS;NUC;"7710";7710
+28 Madrid;180 Villarejo de Salvanés;"201";"201";"1800201";HUERTAS DE VILLAREJO (LAS);NUC;"114";114
+28 Madrid;181 Villaviciosa de Odón;"101";"101";"1810101";VILLAVICIOSA DE ODÓN;NUC;"21650";21650
+28 Madrid;181 Villaviciosa de Odón;"201";"201";"1810201";BOSQUE (EL);NUC;"7142";7142
+28 Madrid;181 Villaviciosa de Odón;"301";"301";"1810301";DEHESA DEL SOTILLO;NUC;"189";189
+28 Madrid;181 Villaviciosa de Odón;"302";"302";"1810302";MONTE DE LA VILLA;NUC;"2";2
+28 Madrid;181 Villaviciosa de Odón;"501";"501";"1810501";SALINAS Y CASA FRANCO (LAS);NUC;"64";64
+28 Madrid;181 Villaviciosa de Odón;"701";"701";"1810701";ARCO IRIS;NUC;"2";2
+28 Madrid;182 Villavieja del Lozoya;"201";"201";"1820201";LLANOS (LOS);NUC;"32";32
+28 Madrid;182 Villavieja del Lozoya;"301";"301";"1820301";CABEZAS (LAS);NUC;"26";26
+28 Madrid;182 Villavieja del Lozoya;"401";"401";"1820401";TERCIO DE LA LAGUNA (EL);NUC;"27";27
+28 Madrid;182 Villavieja del Lozoya;"501";"501";"1820501";VILLAVIEJA DEL LOZOYA;NUC;"207";207
+28 Madrid;182 Villavieja del Lozoya;"601";"601";"1820601";CAÑADA (LA);NUC;"7";7
+28 Madrid;182 Villavieja del Lozoya;"701";"701";"1820701";SOLANILLA (LA);NUC;"9";9
+28 Madrid;183 Zarzalejo;"101";"101";"1830101";ESTACIÓN Y PAJARES (LA);NUC;"1108";1108
+28 Madrid;183 Zarzalejo;"201";"201";"1830201";PEÑA ROSAL;NUC;"27";27
+28 Madrid;183 Zarzalejo;"301";"301";"1830301";ZARZALEJO;NUC;"665";665
+28 Madrid;183 Zarzalejo;"601";"601";"1830601";MORALES (LOS);NUC;"8";8
+28 Madrid;901 Lozoyuela-Navas-Sieteiglesias;"101";"101";"9010101";NAVAS DE BUITRAGO;NUC;"74";74
+28 Madrid;901 Lozoyuela-Navas-Sieteiglesias;"201";"201";"9010201";SIETEIGLESIAS;NUC;"225";225
+28 Madrid;901 Lozoyuela-Navas-Sieteiglesias;"301";"301";"9010301";FUENTE BLANQUILLA;NUC;"3";3
+28 Madrid;901 Lozoyuela-Navas-Sieteiglesias;"402";"402";"9010402";LOZOYUELA;NUC;"1075";1075
+28 Madrid;901 Lozoyuela-Navas-Sieteiglesias;"501";"501";"9010501";MAZACORTA;NUC;"22";22
+28 Madrid;901 Lozoyuela-Navas-Sieteiglesias;"901";"901";"9010901";TOMILLERAS (LAS);NUC;"0";0
+28 Madrid;902 Puentes Viejas;"101";"101";"9020101";PAREDES DE BUITRAGO;NUC;"67";67
+28 Madrid;902 Puentes Viejas;"201";"201";"9020201";SERRADA DE LA FUENTE;NUC;"79";79
+28 Madrid;902 Puentes Viejas;"301";"301";"9020301";CINCO VILLAS;NUC;"119";119
+28 Madrid;902 Puentes Viejas;"401";"401";"9020401";MANJIRÓN;NUC;"433";433
+28 Madrid;902 Puentes Viejas;"501";"501";"9020501";PRESA DE PUENTES VIEJAS;NUC;"0";0
+28 Madrid;903 Tres Cantos;"101";"101";"9030101";MORALEJA (LA);NUC;"0";0
+28 Madrid;903 Tres Cantos;"102";"102";"9030102";SOTO DE VIÑUELAS;NUC;"2473";2473
+28 Madrid;903 Tres Cantos;"103";"103";"9030103";TRES CANTOS;NUC;"50282";50282
