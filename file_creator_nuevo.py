@@ -24,7 +24,6 @@ identifiers={
 project = QgsProject.instance()
 project.read("C:/Users/raulc/Desktop/TFG25/tfg_project.qgz")
 names = [layer.name() for layer in project.mapLayers().values()]
-print(names)
 # Orígenes y destinos
 origin = 'Centroides final'
 destinations = ['Hospitales grupo 3',
@@ -109,7 +108,6 @@ def json_to_csv(file):
 
 def closest_destinations_features(origin, destinations):
     closest = {}
-    print(project.mapLayersByName(origin))
     origin_layer = project.mapLayersByName(origin)[0]
     origin_features = list(origin_layer.getFeatures())
     destination_layers = [project.mapLayersByName(dest)[0] for dest in destinations]
@@ -153,18 +151,65 @@ def closest_destinations_features(origin, destinations):
         closest[origin_id] = closest_feats
     return closest
 
+#Igual que la anterior pero guardando solo las coordenadas
+def closest_destinations_cords(origin, destinations):
+    closest = {}
+    origin_layer = project.mapLayersByName(origin)[0]
+    origin_features = list(origin_layer.getFeatures())
+    destination_layers = [project.mapLayersByName(dest)[0] for dest in destinations]
+    destination_features = [list(layer.getFeatures()) for layer in destination_layers]
 
-# Matriz de distancias filtrada
-distance_dict = distance_matrix_filtered(origin, destinations)
-dict_to_json(distance_dict, 'distance_matrix')
+    for origin_feat in origin_features:
+        origin_id = origin_feat[identifiers[origin_layer.name()]]
+        origin_cords = (origin_feat["lat"],origin_feat["lng"])
+        closest[origin_id]={"cords":origin_cords, "destinations":[]}
+        # closest_feats = []
+        for i, dest_layer_feats in enumerate(destination_features):
+            dest_name = destinations[i]
+            filtered_dest_feats = []
+            # Filtro
+            if dest_name in ["Hospitales grupo 2", "Hospitales grupo 3", "Salud mental"]:
+                if 'COD' in origin_feat.fields().names():
+                    origin_cod = origin_feat['COD']
+                    filtered_dest_feats = [f for f in dest_layer_feats if f['COD'] == origin_cod]
+            elif dest_name == "Juzgados":
+                if 'PART_JUD' in origin_feat.fields().names():
+                    origin_part_jud = origin_feat['PART_JUD']
+                    filtered_dest_feats = [f for f in dest_layer_feats if f['PART_JUD'] == origin_part_jud]
+            else:
+                filtered_dest_feats = dest_layer_feats
+                
+            if dest_name in ["Hospitales grupo 2", "Hospitales grupo 3"]:
+                added = [[f["lat"],f["lng"]] for f in filtered_dest_feats]
+                closest[origin_id]["destinations"].append(added)
+                continue
+            # Busca el destino más cercano (feature)
+            min_dist = float('inf')
+            min_feat = None
+            for dest_feat in filtered_dest_feats:
+                dist = QgsDistanceArea().measureLine(
+                    origin_feat.geometry().centroid().asPoint(),
+                    dest_feat.geometry().centroid().asPoint()
+                )
+                if dist < min_dist:
+                    min_dist = dist
+                    min_feat = dest_feat
+            # Guardamos sus identificadores
+            closest[origin_id]["destinations"].append([min_feat["lat"],min_feat["lng"]] if min_feat else None)
+        # closest[origin_id]["destinations"] = closest_feats
+    return closest
 
-# Distancias medias a cada destino
-avg_distance_dict = average_distance(distance_dict)
-dict_to_json(avg_distance_dict, 'distance_matrix_average')
+# distance_dict = distance_matrix_filtered(origin, destinations)# Matriz de distancias filtrada
+# dict_to_json(distance_dict, 'distance_matrix')
 
-# json a csv
-json_to_csv('distance_matrix_average')
 
-closest_dict = closest_destinations_features(origin,destinations)
-dict_to_json(closest_dict,'closest_destinations')
+# avg_distance_dict = average_distance(distance_dict)# Distancias medias a cada destino
+# dict_to_json(avg_distance_dict, 'distance_matrix_average')
+# json_to_csv('distance_matrix_average')# json a csv
+
+# closest_dict = closest_destinations_features(origin,destinations)
+# dict_to_json(closest_dict,'closest_destinations')
+
+closest_dict_cord = closest_destinations_cords(origin,destinations)
+dict_to_json(closest_dict_cord,'closest_destinations_cords') #JSON["CDTNUCLEO"] = {"cords": [lat, lng], "destinations": [ [[lat, lng], ...hospitales3...] ,[[lat, lng], ...hospitales2...] , [lat, lng],, [lat, lng], [lat, lng]]}
 
