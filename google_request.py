@@ -8,14 +8,25 @@ from pathlib import Path
 import datetime
 import file_creator_nuevo as fc
 import os
+import requests
 
+
+# API_KEY = "***REMOVED***"
 API_KEY = "***REMOVED***"
-PATH = "C:/Users/raulc/Desktop/2025/TFG/jsons/"
-modes = ["driving", "transit"]
-transit_modes = ["bus", "subway", "train"]
-hours = [datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 8)+datetime.timedelta(days=1),
-         datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 12)+datetime.timedelta(days=1),
-         datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 16)+datetime.timedelta(days=1)]
+PATH = "C:/Users/raulc/Desktop/TFG25/jsons/"
+modes = [
+    # "drive",
+    "transit"
+         ]
+transit_modes = [
+    # "bus"
+    # , "subway"
+    # , "train"
+    ]
+hours = [datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 8)+datetime.timedelta(days=1)
+        #  ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 12)+datetime.timedelta(days=1)
+        #  ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 16)+datetime.timedelta(days=1)
+         ]
 gmaps =googlemaps.Client(key=API_KEY)
 # pathlist = Path(PATH+"Adaro.json")
 # json_paths = [
@@ -73,44 +84,49 @@ def request_diff_jsons():
             json.dump(result, outfile, indent=4)
 
 
-def request_same_json():
+def request_same_json(preserve=False):
     path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords.json")
     pathstr = str(path)
-    full_result = {}
     with open(pathstr, 'rb') as file:
         json_file = json.load(file)
-        for origin in json_file:
+    if preserve:
+        with open("C:/Users/raulc/Desktop/TFG25/output/full_API_results.json", 'rb') as file:
+            full_result = json.load(file)
+    else:
+        full_result = {}
+    for origin in json_file:
+        if not preserve:
             full_result[origin] = {}
-            origins = (json_file[origin]["cords"][0],json_file[origin]["cords"][1])
-            destinations = []
-            for item in json_file[origin]["destinations"]:
-                if item:
-                    if isinstance(item[0], list):
-                        destinations.extend(item)
-                    else:
-                        destinations.append(item)
-            for mode in modes:
-                for hour in hours:
-                    if mode == "transit":
-                        for transit_mode in transit_modes:
-                            result = gmaps.distance_matrix(origins,
-                                                           destinations,
-                                                           mode=mode,
-                                                           transit_mode=transit_mode,
-                                                           departure_time=hour)
-                            out = f"C:/Users/raulc/Desktop/TFG25/results/{path.stem}_{mode}_{transit_mode}_{hour.strftime('%H')}.json"
-                            full_result[origin][f"{path.stem}_{mode}_{transit_mode}_{hour.strftime('%H')}"] = result
-                            with open(out, 'w') as outfile:
-                                json.dump(result, outfile, indent=4)
-                    else:
+        origins = (json_file[origin]["cords"][0],json_file[origin]["cords"][1])
+        destinations = []
+        for item in json_file[origin]["destinations"]:
+            if item:
+                if isinstance(item[0], list):
+                    destinations.extend(item)
+                else:
+                    destinations.append(item)
+        for mode in modes:
+            for hour in hours:
+                if mode == "transit":
+                    for transit_mode in transit_modes:
                         result = gmaps.distance_matrix(origins,
-                                                       destinations,
-                                                       mode=mode,
-                                                       departure_time=hour)
-                        out = f"C:/Users/raulc/Desktop/TFG25/results/{path.stem}_{mode}_{hour.strftime('%H')}.json"
-                        full_result[origin][f"{path.stem}_{mode}_{hour.strftime('%H')}"] = result
+                                                        destinations,
+                                                        mode=mode,
+                                                        transit_mode=transit_mode,
+                                                        departure_time=hour)
+                        out = f"C:/Users/raulc/Desktop/TFG25/results/{origin}_{mode}_{transit_mode}_{hour.strftime('%H')}.json"
+                        full_result[origin][f"{mode}_{transit_mode}_{hour.strftime('%H')}"] = result
                         with open(out, 'w') as outfile:
                             json.dump(result, outfile, indent=4)
+                else:
+                    result = gmaps.distance_matrix(origins,
+                                                    destinations,
+                                                    mode=mode,
+                                                    departure_time=hour)
+                    out = f"C:/Users/raulc/Desktop/TFG25/results/{origin}_{mode}_{hour.strftime('%H')}.json"
+                    full_result[origin][f"{mode}_{hour.strftime('%H')}"] = result
+                    with open(out, 'w') as outfile:
+                        json.dump(result, outfile, indent=4)
     return full_result
 
 def element_count(combinations = 0):
@@ -152,15 +168,56 @@ def element_count(combinations = 0):
     print(f"Precio total: {price} $")
 
     return(c1, c2, c3)
-element_count()
-element_count(2)
-element_count(4)
-element_count(6)
-element_count(8)
+
+def request_routes(preserve=False):
+    path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords.json")
+    pathstr = str(path)
+
+    # Parámetros para todas las consultas (no cambian entre consultas  )
+    url = "https://routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix"
+    headers = {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": API_KEY,
+        "X-Goog-FieldMask": "originIndex,destinationIndex,duration,distanceMeters,condition"
+            }
+    
+    with open(pathstr, 'rb') as file:
+        json_file = json.load(file)
+    if preserve:
+        with open("C:/Users/raulc/Desktop/TFG25/output/full_API_results.json", 'rb') as file:
+            full_result = json.load(file)
+    else:
+        full_result = {}
+    for origin in json_file:
+        if not preserve:
+            full_result[origin] = {}
+        origins = (json_file[origin]["cords"][0],json_file[origin]["cords"][1])
+        destinations = []
+        for item in json_file[origin]["destinations"]:
+            if item:
+                if isinstance(item[0], list):
+                    destinations.extend(item)
+                else:
+                    destinations.append(item)
+        for mode in modes:
+            body = {}
+            body["origins"] = [
+                    {"waypoint": {"location": {"latLng": {"latitude": origins[0], "longitude": origins[1]}}}}  # Madrid
+                ]
+            dests = []
+            for destination in destinations:
+                dests.append({"waypoint": {"location": {"latLng": {"latitude": destination[0], "longitude": destination[1]}}}})
+            body["destinations"] = dests
+            body["travelMode"] = mode.upper()
+
+        response = requests.post(url, headers=headers, data=json.dumps(body))
+        print(json.dumps(response.json(), indent=2))
+        break # PARA EN LA PRIMERA EJECUCIÓN
 
 
 # fc.dict_to_json(request_same_json(), 'full_API_results')
 
+request_routes()
 # with open("C:/Users/raulc/Desktop/2025/TFG/jsons/Base Aérea.json", 'rb') as file:
 #     nucleo = json.load(file)
 # origins = (nucleo["origins"][0]["lat"],nucleo["origins"][0]["lng"])
@@ -168,4 +225,3 @@ element_count(8)
 # for destination in  nucleo["destinations"]:
 #     destinations.append((destination["lat"],destination["lng"]))
 # print(gmaps.distance_matrix(origins,destinations, mode='driving'))
-

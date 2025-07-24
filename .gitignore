@@ -4,6 +4,7 @@ results/
 temp/
 *.pkl
 *.csv
+*.pyc
 
 # Ignorar archivos JSON generados
 jsons/
