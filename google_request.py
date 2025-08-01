@@ -1,3 +1,4 @@
+from urllib import response
 import pandas as pd
 import googlemaps
 from itertools import tee
@@ -9,13 +10,23 @@ import datetime
 import file_creator_nuevo as fc
 import os
 import requests
+import asyncio
+import httpx
+import file_creator_nuevo as fc
 
 
 # API_KEY = "***REMOVED***"
 API_KEY = "***REMOVED***"
 PATH = "C:/Users/raulc/Desktop/TFG25/jsons/"
+MAX_CONCURRENT_REQUESTS = 50  # Límite de concurrencia
+URL = "https://routes.googleapis.com/directions/v2:computeRoutes"
+HEADERS = {
+    "Content-Type": "application/json",
+    "X-Goog-Api-Key": API_KEY,
+    "X-Goog-FieldMask": "routes.duration,routes.distanceMeters"
+}
 modes = [
-    # "drive",
+    "drive",
     "transit"
          ]
 transit_modes = [
@@ -23,9 +34,8 @@ transit_modes = [
     # , "subway"
     # , "train"
     ]
-hours = [datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 8)+datetime.timedelta(days=1)
-        #  ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 12)+datetime.timedelta(days=1)
-        #  ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 16)+datetime.timedelta(days=1)
+hours = [datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 6,30)+datetime.timedelta(days=1)
+        ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 9)+datetime.timedelta(days=1)
          ]
 gmaps =googlemaps.Client(key=API_KEY)
 # pathlist = Path(PATH+"Adaro.json")
@@ -33,7 +43,7 @@ gmaps =googlemaps.Client(key=API_KEY)
 #     Path(PATH+"Adaro.json"),
 #     Path(PATH+"Ajalvir.json")
 #               ]
-
+semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
 
 
 
@@ -82,7 +92,6 @@ def request_diff_jsons():
         out ="C:/Users/raulc/Desktop/2025/TFG/results/"+path.stem+"_b_n.json"
         with open(out,'w') as outfile:
             json.dump(result, outfile, indent=4)
-
 
 def request_same_json(preserve=False):
     path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords.json")
@@ -199,29 +208,193 @@ def request_routes(preserve=False):
                     destinations.extend(item)
                 else:
                     destinations.append(item)
-        for mode in modes:
-            body = {}
-            body["origins"] = [
-                    {"waypoint": {"location": {"latLng": {"latitude": origins[0], "longitude": origins[1]}}}}  # Madrid
-                ]
-            dests = []
-            for destination in destinations:
-                dests.append({"waypoint": {"location": {"latLng": {"latitude": destination[0], "longitude": destination[1]}}}})
-            body["destinations"] = dests
-            body["travelMode"] = mode.upper()
+        for hour in hours:
+            for mode in modes:
+                body = {}
+                body["origins"] = [
+                        {"waypoint": {"location": {"latLng": {"latitude": origins[0], "longitude": origins[1]}}}}  # Madrid
+                    ]
+                dests = []
+                for destination in destinations:
+                    dests.append({"waypoint": {"location": {"latLng": {"latitude": destination[0], "longitude": destination[1]}}}})
+                body["destinations"] = dests
+                body["travelMode"] = mode.upper()
+                body["departureTime"] = hour.strftime("%Y-%m-%dT%H:%M:%SZ")
+                body["routingPreference"] = "TRAFFIC_AWARE" if mode == "drive" else "TRAFFIC_UNAWARE"
+                response = requests.post(url, headers=headers, data=json.dumps(body))
+                full_result[origin][f"{mode}_{(hour + datetime.timedelta(hours=2)).strftime('%H:%M')}"] = response.json()
+                print(full_result)
+                return 1
+                break
+                
+            
+            
+    return full_result
 
-        response = requests.post(url, headers=headers, data=json.dumps(body))
-        print(json.dumps(response.json(), indent=2))
-        break # PARA EN LA PRIMERA EJECUCIÓN
+def request_routes_v2(preserve=False):
+    path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords_test.json")
+    pathstr = str(path)
+
+    # Parámetros para todas las consultas (no cambian entre consultas  )
+    url = "https://routes.googleapis.com/directions/v2:computeRoutes"
+    headers = {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": API_KEY,
+        "X-Goog-FieldMask": "routes.duration,routes.distanceMeters"
+            }
+    
+    with open(pathstr, 'rb') as file:
+        json_file = json.load(file)
+    if preserve:
+        with open("C:/Users/raulc/Desktop/TFG25/output/full_API_results.json", 'rb') as file:
+            full_result = json.load(file)
+    else:
+        full_result = {}
+    for origin in json_file:
+        if not preserve:
+            full_result[origin] = []
+        origin_cords = (json_file[origin]["cords"][0],json_file[origin]["cords"][1])
+        destinations = []
+        for item in json_file[origin]["destinations"]:
+            if item:
+                if isinstance(item[0], list):
+                    destinations.extend(item)
+                else:
+                    destinations.append(item)
+        for dest_index, destination in enumerate(destinations):
+            this_destination = {}
+            for mode in modes:
+                for hour in hours:
+                    body = {}
+                    body["origin"] = {"location": {"latLng": {"latitude": origin_cords[0], "longitude": origin_cords[1]}}} # Madrid
+                    body["destination"] = {"location": {"latLng": {"latitude": destination[0], "longitude": destination[1]}}}
+                    body["travelMode"] = mode.upper()
+                    body["departureTime"] = hour.strftime("%Y-%m-%dT%H:%M:%SZ")
+                    if mode == "drive":
+                        body["routingPreference"] = "TRAFFIC_AWARE"
+                    response = requests.post(url, headers=headers, json=body)
+                    this_destination[f"{mode}_{(hour + datetime.timedelta(hours=2)).strftime('%H:%M')}"] = response.json()
+                    print(origin, dest_index, f"{mode}_{(hour + datetime.timedelta(hours=2)).strftime('%H:%M')}", response.json())
+            full_result[origin].append(this_destination)
+    return full_result
+
+async def fetch_route(origin_cords, destination, mode, hour, origin_id, dest_index):
+    async with semaphore:
+        body = {
+            "origin": {"location": {"latLng": {"latitude": origin_cords[0], "longitude": origin_cords[1]}}},
+            "destination": {"location": {"latLng": {"latitude": destination[0], "longitude": destination[1]}}},
+            "travelMode": mode.upper(),
+            "departureTime": hour.strftime("%Y-%m-%dT%H:%M:%SZ")
+        }
+        if mode == "drive":
+            body["routingPreference"] = "TRAFFIC_AWARE"
+
+        for attempt in range(3):  # Reintenta hasta 3 veces
+            try:
+                async with httpx.AsyncClient(timeout=30) as client:
+                    print(f"→ Enviando: {origin_id} → Dest {dest_index} [{mode} {hour.strftime('%H:%M')}]")
+                    response = await client.post(URL, headers=HEADERS, json=body)
+                    response.raise_for_status()
+                    print(f"✓ Recibido: {origin_id} → Dest {dest_index} [{mode} {hour.strftime('%H:%M')}]")
+                    return (origin_id, dest_index, mode, hour, response.json())
+            except httpx.HTTPStatusError as e:
+                print(f"⚠ HTTP {e.response.status_code} en {origin_id}-{dest_index} [{mode}], intento {attempt + 1}")
+                await asyncio.sleep(2)
+            except Exception as e:
+                print(f"⚠ Error general en {origin_id}-{dest_index} [{mode}]: {e}")
+                await asyncio.sleep(2)
+        return (origin_id, dest_index, mode, hour, {"error": "failed after retries"})
+
+async def request_routes_v2_async(preserve=False):
+    path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords.json")
+    with open(path, 'r') as file:
+        json_file = json.load(file)
+
+    if preserve:
+        with open("C:/Users/raulc/Desktop/TFG25/output/routes_API_results_v2_async_nuevo.json", 'r') as file:
+            full_result = json.load(file)
+    else:
+        full_result = {}
+
+    tasks = []
+
+    for origin in json_file:
+        if not preserve:
+            full_result[origin] = []
+
+        origin_cords = json_file[origin]["cords"]
+        destinations = []
+        for item in json_file[origin]["destinations"]:
+            if item:
+                if isinstance(item[0], list):
+                    destinations.extend(item)
+                else:
+                    destinations.append(item)
+
+        for dest_index, destination in enumerate(destinations):
+            for mode in modes:
+                for hour in hours:
+                    if preserve:
+                        if not full_result[origin][dest_index][f"{mode}_{(hour+datetime.timedelta(hours=2)).strftime("%H:%M")}"]:
+                            tasks.append(
+                                fetch_route(origin_cords, destination, mode, hour, origin, dest_index)
+                            )
+                    else:
+                        tasks.append(
+                            fetch_route(origin_cords, destination, mode, hour, origin, dest_index)
+                        )
+
+    results = await asyncio.gather(*tasks)
+
+    # Reconstruir el resultado en estructura original
+    for origin_id, dest_index, mode, hour, data in results:
+        hour_key = (hour + datetime.timedelta(hours=2)).strftime('%H:%M')
+        key = f"{mode}_{hour_key}"
+
+        if len(full_result[origin_id]) <= dest_index:
+            full_result[origin_id].extend([{}] * (dest_index - len(full_result[origin_id]) + 1))
+
+        full_result[origin_id][dest_index][key] = data
+
+    return full_result
+
+def specific_request(origin,dest_index,mode,hour=None):
+    cords_file = fc.json_to_dict("closest_destinations_cords")
+    destinations = []
+    for item in cords_file[origin]["destinations"]:
+            if item:
+                if isinstance(item[0], list):
+                    destinations.extend(item)
+                else:
+                    destinations.append(item)
+                    
+    origin_cords = cords_file[origin]["cords"]
+    destination = destinations[dest_index]
 
 
-# fc.dict_to_json(request_same_json(), 'full_API_results')
+    url = "https://routes.googleapis.com/directions/v2:computeRoutes"
+    headers = {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": API_KEY,
+        "X-Goog-FieldMask": "routes.duration,routes.distanceMeters"
+            }
+    body = {}
+    body["origin"] = {"location": {"latLng": {"latitude": origin_cords[0], "longitude": origin_cords[1]}}} # Madrid
+    body["destination"] = {"location": {"latLng": {"latitude": destination[0], "longitude": destination[1]}}}
+    body["travelMode"] = mode.upper()
+    # body["departureTime"] = hour.strftime("%Y-%m-%dT%H:%M:%SZ")
+    if mode == "drive":
+        body["routingPreference"] = "TRAFFIC_AWARE"
+    else:
+        body["transitPreferences"]={ "allowedTravelModes": ["BUS","SUBWAY","TRAIN","LIGHT_RAIL","RAIL"]}
+    response = requests.post(url, headers=headers, json=body)
+    print(response.status_code)
+    print(response.text)
+    print(origin, dest_index, f"{mode}_{(hour + datetime.timedelta(hours=2)).strftime('%H:%M')}", response.json())
+    print(type(response))
+    return response
 
-request_routes()
-# with open("C:/Users/raulc/Desktop/2025/TFG/jsons/Base Aérea.json", 'rb') as file:
-#     nucleo = json.load(file)
-# origins = (nucleo["origins"][0]["lat"],nucleo["origins"][0]["lng"])
-# destinations = []
-# for destination in  nucleo["destinations"]:
-#     destinations.append((destination["lat"],destination["lng"]))
-# print(gmaps.distance_matrix(origins,destinations, mode='driving'))
+##### FUNCIONES MÁS ESPECÍFICAS
+def run_requests_preserve():
+    result = asyncio.run(request_routes_v2_async(preserve=True))
+    fc.dict_to_json(result, 'routes_API_results_dump')

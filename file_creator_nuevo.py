@@ -4,6 +4,7 @@ import numpy as np
 import csv
 import os
 from pathlib import Path
+import pandas as pd
 
 # Initialize the QGIS resources at the beginning of the scrip https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/intro.html#using-pyqgis-in-standalone-scripts
 # Supply path to qgis install location
@@ -31,6 +32,51 @@ destinations = ['Hospitales grupo 3',
                 'Bomberos',
                 'Juzgados',
                 'Salud mental']
+
+def json_to_dict(filename):
+    """
+    Abre el JSON y lo devuelve como diccionario
+    """
+    with open("output/"+filename+".json","r") as file:
+        data = json.load(file) 
+    return data
+
+def dict_to_json(data, filename):
+    """ 
+    Toma un diccionario data y lo guarda en "output/<filename>.json"
+    Input:
+        data: diccionario
+        filename: String del archivo en el que se quiere guardar
+    Output: None
+    """
+    output = os.path.dirname("output/"+filename+".json")
+    os.makedirs(output, exist_ok=True)
+    with open("output/"+filename+".json","w") as f:
+        json.dump(data,f,indent=4)
+
+def json_to_csv(file):
+    """ 
+    Deprecado
+     """
+    with open("output/"+file+".json", 'r') as f:
+        data = json.load(f)
+    max_cols = max(len(v) for v in data.values())
+    output = os.path.dirname("output/"+file+".csv")
+    os.makedirs(output, exist_ok=True)
+    with open("output/"+file+".csv", 'w', newline='') as f:
+        writer = csv.writer(f)
+        header = ['Origen'] + destinations
+        writer.writerow(header)
+        for key, values in data.items():
+            row = [key] + [v if v is not None else '' for v in values] + [''] * (max_cols - len(values))
+            writer.writerow(row)
+
+def dict_to_csv(dict, file):
+    """
+    Usa pandas para guardar diccionario como csv
+    """
+    df = pd.DataFrame.from_dict(dict,orient = "index")
+    df.to_csv("output/"+file+".csv")
 
 def distance_matrix_filtered(origin, destinations):
     origin_layer = project.mapLayersByName(origin)[0]
@@ -74,13 +120,10 @@ def distance_matrix_filtered(origin, destinations):
         distances[origin_id] = row
     return distances
 
-def dict_to_json(data, filename):
-    output = os.path.dirname("output/"+filename+".json")
-    os.makedirs(output, exist_ok=True)
-    with open("output/"+filename+".json","w") as f:
-        json.dump(data,f,indent=4)
-        
 def average_distance(distance_dict):
+    """ 
+    !Deprecada!
+    Toma todas las distancias y hace la media """
     mean_distance_matrix = {}
     for origin, dests in distance_dict.items():
         distances = []
@@ -92,21 +135,10 @@ def average_distance(distance_dict):
         mean_distance_matrix[origin] = distances
     return mean_distance_matrix
 
-def json_to_csv(file):
-    with open("output/"+file+".json", 'r') as f:
-        data = json.load(f)
-    max_cols = max(len(v) for v in data.values())
-    output = os.path.dirname("output/"+file+".csv")
-    os.makedirs(output, exist_ok=True)
-    with open("output/"+file+".csv", 'w', newline='') as f:
-        writer = csv.writer(f)
-        header = ['Origen'] + destinations
-        writer.writerow(header)
-        for key, values in data.items():
-            row = [key] + [v if v is not None else '' for v in values] + [''] * (max_cols - len(values))
-            writer.writerow(row)
-
 def closest_destinations_features(origin, destinations):
+    """ 
+    Lee el proyecto QGIS y devuelve diccionario con todos los orígenes y sus destinos más cercanos
+    """
     closest = {}
     origin_layer = project.mapLayersByName(origin)[0]
     origin_features = list(origin_layer.getFeatures())
@@ -151,8 +183,11 @@ def closest_destinations_features(origin, destinations):
         closest[origin_id] = closest_feats
     return closest
 
-#Igual que la anterior pero guardando solo las coordenadas
 def closest_destinations_cords(origin, destinations):
+    """
+    Lee el proyecto QGIS y devuelve un diccionario
+    Para cada origen guarda sus coordenadas y las coordenadas de los destinos más cercanos
+    """
     closest = {}
     origin_layer = project.mapLayersByName(origin)[0]
     origin_features = list(origin_layer.getFeatures())
@@ -199,17 +234,60 @@ def closest_destinations_cords(origin, destinations):
         # closest[origin_id]["destinations"] = closest_feats
     return closest
 
-# distance_dict = distance_matrix_filtered(origin, destinations)# Matriz de distancias filtrada
-# dict_to_json(distance_dict, 'distance_matrix')
+def get_hospital_num():
+    """ 
+    Abre closest_destinations.json
+    Devuelve JSON con cantidad de hospitales de grupo 3 y hospitales de grupo 2
+    """
+    path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations.json")
+    with open(path, 'r') as file:
+        data = json.load(file)
+    output = {}
+    for key,value in data.items():
+        output[key]=(len(value[0]),len(value[1]))
+    return output
+        
+def json_to_csv_results(file):
+    """
+    Deprecado (creo)
+    """
+    with open("output/"+file+".json", 'r') as f:
+        data = json.load(f)
+    max_cols = max(len(v) for v in data.values())
+    output = os.path.dirname("output/"+file+".csv")
+    os.makedirs(output, exist_ok=True)
+    with open("output/"+file+".csv", 'w', newline='') as f:
+        writer = csv.writer(f)
+        header = ['Origen'] + destinations
+        writer.writerow(header)
+        for key, values in data.items():
+            row = [key] + [v if v is not None else '' for v in values] + [''] * (max_cols - len(values))
+            writer.writerow(row)
 
-
-# avg_distance_dict = average_distance(distance_dict)# Distancias medias a cada destino
-# dict_to_json(avg_distance_dict, 'distance_matrix_average')
-# json_to_csv('distance_matrix_average')# json a csv
-
-# closest_dict = closest_destinations_features(origin,destinations)
-# dict_to_json(closest_dict,'closest_destinations')
-
-closest_dict_cord = closest_destinations_cords(origin,destinations)
-dict_to_json(closest_dict_cord,'closest_destinations_cords') #JSON["CDTNUCLEO"] = {"cords": [lat, lng], "destinations": [ [[lat, lng], ...hospitales3...] ,[[lat, lng], ...hospitales2...] , [lat, lng],, [lat, lng], [lat, lng]]}
-
+def readable_results(file, mode  = "distance"):
+    """
+    Toma el json de resultados de las consultas y lo devuelve en un formato más legible
+    mode = 'distance'/'duration'
+    """
+    data = json_to_dict(file)
+    output = {}
+    for origin_name, all_destinations in data.items():
+        result_per_origin = {}
+        for dest_index,destination in enumerate(all_destinations):
+            for mode_hour, info in destination.items():
+                print(info)
+                if mode == "distance":
+                    result_per_origin[f"dest_{str(dest_index)}_{mode_hour}"] = info["routes"][0]["distanceMeters"] if info else None
+                else:
+                    result_per_origin["dest"+str(dest_index)+mode_hour] =int(info["routes"][0]["duration"][:-1])
+        output[origin_name]=result_per_origin
+    return output
+            
+def get_empty_results(file):
+    """
+    Devuelve diccionario con los origenes que todavía tienen resultados mal dados y el número de resultados vacíos
+    """
+    results = readable_results("routes_API_results_dump")
+    o = {k: sum(1 for val in v.values() if val == None) for k,v in results.items()}
+    o = {k: v for k,v in o.items() if v!=0}
+    return o
