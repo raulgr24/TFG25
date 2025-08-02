@@ -13,7 +13,7 @@ QgsApplication.setPrefixPath("C:/Program Files/QGIS 3.40.7", True)
 qgs = QgsApplication([], False)
 qgs.initQgis()
 identifiers={
-    "Centroides final":"CDTNUCLEO",
+    "Centroides bus":"CDTNUCLEO",
     'Hospitales grupo 3':"DESCR",
     'Hospitales grupo 2':"DESCR",
     "Bomberos":"ETIQUETA",
@@ -26,7 +26,7 @@ project = QgsProject.instance()
 project.read("C:/Users/raulc/Desktop/TFG25/tfg_project.qgz")
 names = [layer.name() for layer in project.mapLayers().values()]
 # Orígenes y destinos
-origin = 'Centroides final'
+origin = 'Centroides bus'
 destinations = ['Hospitales grupo 3',
                 'Hospitales grupo 2',
                 'Bomberos',
@@ -181,6 +181,67 @@ def closest_destinations_features(origin, destinations):
             # Guardamos sus identificadores
             closest_feats.append(min_feat[identifiers[dest_name]] if min_feat else None)
         closest[origin_id] = closest_feats
+    return closest
+
+def closest_destinations_cords_nuevo(origin, destinations):
+    """
+    Lee el proyecto QGIS y devuelve un diccionario
+    Para cada origen guarda sus coordenadas y las coordenadas de los destinos más cercanos
+    """
+    closest = {}
+    origin_layer = project.mapLayersByName(origin)[0]
+    origin_features = list(origin_layer.getFeatures())
+    destination_layers = [project.mapLayersByName(dest)[0] for dest in destinations]
+    destination_features = [list(layer.getFeatures()) for layer in destination_layers]
+
+    crs_src = origin_layer.crs()
+    crs_dest = QgsCoordinateReferenceSystem("EPSG:4326")
+    transform = QgsCoordinateTransform(crs_src, crs_dest, QgsProject.instance())
+    for origin_feat in origin_features:
+        origin_id = origin_feat[identifiers[origin_layer.name()]]
+        origin_point = origin_feat.geometry().asPoint()
+        origin_ll = transform.transform(origin_point)
+        origin_cords = [origin_ll.y(),origin_ll.x()]
+        # origin_cords = (origin_feat["lat"],origin_feat["lng"])
+        closest[origin_id]={"cords":origin_cords, "destinations":[]}
+        # closest_feats = []
+        for i, dest_layer_feats in enumerate(destination_features):
+            dest_name = destinations[i]
+            filtered_dest_feats = []
+            # Filtro
+            if dest_name in ["Hospitales grupo 2", "Hospitales grupo 3", "Salud mental"]:
+                if 'COD' in origin_feat.fields().names():
+                    origin_cod = origin_feat['COD']
+                    filtered_dest_feats = [f for f in dest_layer_feats if f['COD'] == origin_cod]
+            elif dest_name == "Juzgados":
+                if 'PART_JUD' in origin_feat.fields().names():
+                    origin_part_jud = origin_feat['PART_JUD']
+                    filtered_dest_feats = [f for f in dest_layer_feats if f['PART_JUD'] == origin_part_jud]
+            else:
+                filtered_dest_feats = dest_layer_feats
+                
+            if dest_name in ["Hospitales grupo 2", "Hospitales grupo 3"]:
+                added = [[transform.transform(f.geometry().asPoint()).y(),
+                          transform.transform(f.geometry().asPoint()).x()] 
+                        for f in filtered_dest_feats]
+                closest[origin_id]["destinations"].append(added)
+                continue
+            # Busca el destino más cercano (feature)
+            min_dist = float('inf')
+            min_feat = None
+            for dest_feat in filtered_dest_feats:
+                dist = QgsDistanceArea().measureLine(
+                    origin_feat.geometry().centroid().asPoint(),
+                    dest_feat.geometry().centroid().asPoint()
+                )
+                if dist < min_dist:
+                    min_dist = dist
+                    min_feat = dest_feat
+            # Guardamos sus identificadores
+            pt = transform.transform(min_feat.geometry().asPoint())
+            closest[origin_id]["destinations"].append([pt.y(), pt.x()])
+            # closest[origin_id]["destinations"].append([min_feat["lat"],min_feat["lng"]] if min_feat else None)
+        # closest[origin_id]["destinations"] = closest_feats
     return closest
 
 def closest_destinations_cords(origin, destinations):

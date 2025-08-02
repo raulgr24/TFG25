@@ -10,6 +10,9 @@ temp/
 jsons/
 *.json
 
+#Excepto los que estén en output/
+!output/*.json
+
 # Ignorar archivos de configuración de VS Code
 .vscode/
 

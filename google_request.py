@@ -34,8 +34,11 @@ transit_modes = [
     # , "subway"
     # , "train"
     ]
-hours = [datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 6,30)+datetime.timedelta(days=1)
-        ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 9)+datetime.timedelta(days=1)
+hours_true = [datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 8,30)+datetime.timedelta(days=2)
+        ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 11)+datetime.timedelta(days=2)
+         ]
+hours = [datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 8,30)+datetime.timedelta(days=1)
+        ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 11)+datetime.timedelta(days=1)
          ]
 gmaps =googlemaps.Client(key=API_KEY)
 # pathlist = Path(PATH+"Adaro.json")
@@ -311,7 +314,7 @@ async def request_routes_v2_async(preserve=False):
         json_file = json.load(file)
 
     if preserve:
-        with open("C:/Users/raulc/Desktop/TFG25/output/routes_API_results_v2_async_nuevo.json", 'r') as file:
+        with open("C:/Users/raulc/Desktop/TFG25/output/routes_API_results_dump.json", 'r') as file:
             full_result = json.load(file)
     else:
         full_result = {}
@@ -333,9 +336,9 @@ async def request_routes_v2_async(preserve=False):
 
         for dest_index, destination in enumerate(destinations):
             for mode in modes:
-                for hour in hours:
+                for hour_index,hour in enumerate(hours):
                     if preserve:
-                        if not full_result[origin][dest_index][f"{mode}_{(hour+datetime.timedelta(hours=2)).strftime("%H:%M")}"]:
+                        if not full_result[origin][dest_index][f"{mode}_{hours_true[hour_index].strftime("%H:%M")}"]:
                             tasks.append(
                                 fetch_route(origin_cords, destination, mode, hour, origin, dest_index)
                             )
@@ -348,7 +351,7 @@ async def request_routes_v2_async(preserve=False):
 
     # Reconstruir el resultado en estructura original
     for origin_id, dest_index, mode, hour, data in results:
-        hour_key = (hour + datetime.timedelta(hours=2)).strftime('%H:%M')
+        hour_key = hours_true[hour_index].strftime('%H:%M')
         key = f"{mode}_{hour_key}"
 
         if len(full_result[origin_id]) <= dest_index:
