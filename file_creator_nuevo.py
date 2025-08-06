@@ -352,3 +352,24 @@ def get_empty_results(file):
     o = {k: sum(1 for val in v.values() if val == None) for k,v in results.items()}
     o = {k: v for k,v in o.items() if v!=0}
     return o
+
+def get_penalization(old, new):
+    old_layer = project.mapLayersByName(old)[0]
+    old_features = list(old_layer.getFeatures())
+    new_layer = project.mapLayersByName(new)[0]
+    new_features = list(new_layer.getFeatures())
+
+    penalizations = {}
+
+    for old_feature in old_features:
+        for new_feature in new_features:
+            if old_feature["CDTNUCLEO"]==new_feature["CDTNUCLEO"]:
+                dist = QgsDistanceArea().measureLine(
+                    old_feature.geometry().centroid().asPoint(),
+                    new_feature.geometry().centroid().asPoint()
+                )
+                if dist>0:
+                    penalizations[old_feature["CDTNUCLEO"]] = dist
+                    continue
+    
+    return penalizations
