@@ -166,7 +166,7 @@ def closest_destinations_features(origin, destinations):
                     filtered_dest_feats = [f for f in dest_layer_feats if f['PART_JUD'] == origin_part_jud]
             else:
                 filtered_dest_feats = dest_layer_feats
-                
+
             if dest_name in ["Hospitales grupo 2", "Hospitales grupo 3"]:
                 added = [f[identifiers[dest_name]] for f in filtered_dest_feats]
                 closest_feats.append(added)
@@ -228,11 +228,11 @@ def closest_destinations_cords_nuevo(origin: str, destinations: list[str]) -> di
                     filtered_dest_feats = [f for f in dest_layer_feats if f['PART_JUD'] == origin_part_jud]
             else:
                 filtered_dest_feats = dest_layer_feats
-                
+
             if dest_name in ["Hospitales grupo 2", "Hospitales grupo 3"]:
                 added = [[transform.transform(f.geometry().asPoint()).y(),
                           transform.transform(f.geometry().asPoint()).x()] 
-                        for f in filtered_dest_feats]
+                    for f in filtered_dest_feats]
                 closest[origin_id]["destinations"].append(added)
                 continue
             # Busca el destino más cercano (feature)
@@ -285,7 +285,7 @@ def closest_destinations_cords(origin, destinations):
                     filtered_dest_feats = [f for f in dest_layer_feats if f['PART_JUD'] == origin_part_jud]
             else:
                 filtered_dest_feats = dest_layer_feats
-                
+
             if dest_name in ["Hospitales grupo 2", "Hospitales grupo 3"]:
                 added = [[f["lat"],f["lng"]] for f in filtered_dest_feats]
                 closest[origin_id]["destinations"].append(added)
@@ -318,7 +318,7 @@ def get_hospital_num():
     for key,value in data.items():
         output[key]=(len(value[0]),len(value[1]))
     return output
-        
+
 def json_to_csv_results(file):
     """
     Deprecado (creo)
@@ -354,7 +354,7 @@ def readable_results(file, mode  = "distance"):
                     result_per_origin["dest"+str(dest_index)+mode_hour] =int(info["routes"][0]["duration"][:-1])
         output[origin_name]=result_per_origin
     return output
-            
+
 def get_empty_results(file):
     """
     Devuelve diccionario con los origenes que todavía tienen resultados mal dados y el número de resultados vacíos
@@ -365,23 +365,34 @@ def get_empty_results(file):
     return o
 
 def get_penalization(old, new):
-    if project:
-        old_layer = project.mapLayersByName(old)[0]
-        old_features = list(old_layer.getFeatures())
-        new_layer = project.mapLayersByName(new)[0]
-        new_features = list(new_layer.getFeatures())
+    old_layer = project.mapLayersByName(old)[0]
+    old_features = list(old_layer.getFeatures())
+    new_layer = project.mapLayersByName(new)[0]
+    new_features = list(new_layer.getFeatures())
 
-        penalizations = {}
-    
-        for old_feature in old_features:
-            for new_feature in new_features:
-                if old_feature["CDTNUCLEO"]==new_feature["CDTNUCLEO"]:
-                    dist = qgis.QgsDistanceArea().measureLine(
-                        old_feature.geometry().centroid().asPoint(),
-                        new_feature.geometry().centroid().asPoint()
-                    )
-                    if dist>0:
-                        penalizations[old_feature["CDTNUCLEO"]] = dist
-                        continue
-        
-        return penalizations
+    penalizations = {}
+
+    for old_feature in old_features:
+        for new_feature in new_features:
+            if old_feature["CDTNUCLEO"]==new_feature["CDTNUCLEO"]:
+                dist = qgis.QgsDistanceArea().measureLine(
+                    old_feature.geometry().centroid().asPoint(),
+                    new_feature.geometry().centroid().asPoint()
+                )
+                if dist>0:
+                    penalizations[old_feature["CDTNUCLEO"]] = dist
+                    continue
+
+    return penalizations
+
+def apply_penalization(mode : str):
+    penalizations = json_to_dict("penalizations")
+    results = json_to_dict("requests_"+mode)
+    for centro_key , penalization in penalizations.items():
+        for result_key, result in results[centro_key].items():
+            if "transit" in result_key:
+                if mode == "duration": 
+                    results[centro_key][result_key]+=int(penalization/1.4)
+                if mode == "distance":
+                    results[centro_key][result_key]+=int(penalization*1.5)
+    return results

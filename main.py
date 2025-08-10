@@ -1,8 +1,9 @@
 from file_creator_nuevo import *
 from google_request import *
 
-print(closest_destinations_cords_nuevo(origin,destinations))
 if __name__ == "__main__":
+    dict_to_json(apply_penalization("distance"),"distance_post_penalizations")
+    dict_to_json(apply_penalization("duration"),"duration_post_penalizations")
     pass
     # dict_to_json(get_hospital_num(),"hosp_per_origin")
     # distance_dict = readable_results("routes_API_results_dump")
