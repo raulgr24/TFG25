@@ -396,3 +396,10 @@ def apply_penalization(mode : str):
                 if mode == "distance":
                     results[centro_key][result_key]+=int(penalization*1.5)
     return results
+
+def get_hospital_score():
+    hospital_num = json_to_dict("hosp_per_origin")
+    scores = {}
+    for nucleo_key, nucleo_info in hospital_num.items():
+        scores[nucleo_key]=1/(nucleo_info[0]*1.4+nucleo_info[1])
+    return scores
