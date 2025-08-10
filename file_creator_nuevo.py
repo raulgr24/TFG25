@@ -1,4 +1,5 @@
-from qgis.core import *
+import qgis.core as qgis
+
 import json
 import numpy as np
 import csv
@@ -8,9 +9,9 @@ import pandas as pd
 
 # Initialize the QGIS resources at the beginning of the scrip https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/intro.html#using-pyqgis-in-standalone-scripts
 # Supply path to qgis install location
-QgsApplication.setPrefixPath("C:/Program Files/QGIS 3.40.7", True)
+qgis.QgsApplication.setPrefixPath("C:/Program Files/QGIS 3.40.7", True)
 
-qgs = QgsApplication([], False)
+qgs = qgis.QgsApplication([], False)
 qgs.initQgis()
 identifiers={
     "Centroides bus":"CDTNUCLEO",
@@ -22,9 +23,12 @@ identifiers={
 }
 
 # Abrimos el archivo qgz
-project = QgsProject.instance()
-project.read("C:/Users/raulc/Desktop/TFG25/tfg_project.qgz")
-names = [layer.name() for layer in project.mapLayers().values()]
+project = qgis.QgsProject.instance()
+if project:
+    project.read("C:/Users/raulc/Desktop/TFG25/tfg_project.qgz")
+    names = [layer.name() for layer in project.mapLayers().values()]
+else:
+    print("No project")
 # Orígenes y destinos
 origin = 'Centroides bus'
 destinations = ['Hospitales grupo 3',
@@ -82,8 +86,8 @@ def distance_matrix_filtered(origin, destinations):
     origin_layer = project.mapLayersByName(origin)[0]
     destination_layers = [project.mapLayersByName(dest)[0] for dest in destinations]
 
-    distance_calculator = QgsDistanceArea()
-    distance_calculator.setSourceCrs(origin_layer.crs(), QgsProject.instance().transformContext())
+    distance_calculator = qgis.QgsDistanceArea()
+    distance_calculator.setSourceCrs(origin_layer.crs(), qgis.QgsProject.instance().transformContext())
     distance_calculator.setEllipsoid('WGS84')
 
     origin_features = list(origin_layer.getFeatures())
@@ -171,7 +175,7 @@ def closest_destinations_features(origin, destinations):
             min_dist = float('inf')
             min_feat = None
             for dest_feat in filtered_dest_feats:
-                dist = QgsDistanceArea().measureLine(
+                dist = qgis.QgsDistanceArea().measureLine(
                     origin_feat.geometry().centroid().asPoint(),
                     dest_feat.geometry().centroid().asPoint()
                 )
@@ -183,8 +187,13 @@ def closest_destinations_features(origin, destinations):
         closest[origin_id] = closest_feats
     return closest
 
-def closest_destinations_cords_nuevo(origin, destinations):
+def closest_destinations_cords_nuevo(origin: str, destinations: list[str]) -> dict[str,dict[str,list[str]]]:
     """
+    Args:
+        origin: String --> Origin layer name
+        destinations: list[String] --> Destination layer names list
+    Returns:
+        dict{String: dict{String: list[String]}} --> For each origin, its coords and closest destination's cords
     Lee el proyecto QGIS y devuelve un diccionario
     Para cada origen guarda sus coordenadas y las coordenadas de los destinos más cercanos
     """
@@ -195,8 +204,8 @@ def closest_destinations_cords_nuevo(origin, destinations):
     destination_features = [list(layer.getFeatures()) for layer in destination_layers]
 
     crs_src = origin_layer.crs()
-    crs_dest = QgsCoordinateReferenceSystem("EPSG:4326")
-    transform = QgsCoordinateTransform(crs_src, crs_dest, QgsProject.instance())
+    crs_dest = qgis.QgsCoordinateReferenceSystem("EPSG:4326")
+    transform = qgis.QgsCoordinateTransform(crs_src, crs_dest, qgis.QgsProject.instance())
     for origin_feat in origin_features:
         origin_id = origin_feat[identifiers[origin_layer.name()]]
         origin_point = origin_feat.geometry().asPoint()
@@ -230,7 +239,7 @@ def closest_destinations_cords_nuevo(origin, destinations):
             min_dist = float('inf')
             min_feat = None
             for dest_feat in filtered_dest_feats:
-                dist = QgsDistanceArea().measureLine(
+                dist = qgis.QgsDistanceArea().measureLine(
                     origin_feat.geometry().centroid().asPoint(),
                     dest_feat.geometry().centroid().asPoint()
                 )
@@ -250,11 +259,13 @@ def closest_destinations_cords(origin, destinations):
     Para cada origen guarda sus coordenadas y las coordenadas de los destinos más cercanos
     """
     closest = {}
-    origin_layer = project.mapLayersByName(origin)[0]
-    origin_features = list(origin_layer.getFeatures())
-    destination_layers = [project.mapLayersByName(dest)[0] for dest in destinations]
-    destination_features = [list(layer.getFeatures()) for layer in destination_layers]
-
+    if project:
+        origin_layer = project.mapLayersByName(origin)[0]
+        origin_features = list(origin_layer.getFeatures())
+        destination_layers = [project.mapLayersByName(dest)[0] for dest in destinations]
+        destination_features = [list(layer.getFeatures()) for layer in destination_layers]
+    else:
+        return None
     for origin_feat in origin_features:
         origin_id = origin_feat[identifiers[origin_layer.name()]]
         origin_cords = (origin_feat["lat"],origin_feat["lng"])
@@ -283,7 +294,7 @@ def closest_destinations_cords(origin, destinations):
             min_dist = float('inf')
             min_feat = None
             for dest_feat in filtered_dest_feats:
-                dist = QgsDistanceArea().measureLine(
+                dist = qgis.QgsDistanceArea().measureLine(
                     origin_feat.geometry().centroid().asPoint(),
                     dest_feat.geometry().centroid().asPoint()
                 )
@@ -354,22 +365,23 @@ def get_empty_results(file):
     return o
 
 def get_penalization(old, new):
-    old_layer = project.mapLayersByName(old)[0]
-    old_features = list(old_layer.getFeatures())
-    new_layer = project.mapLayersByName(new)[0]
-    new_features = list(new_layer.getFeatures())
+    if project:
+        old_layer = project.mapLayersByName(old)[0]
+        old_features = list(old_layer.getFeatures())
+        new_layer = project.mapLayersByName(new)[0]
+        new_features = list(new_layer.getFeatures())
 
-    penalizations = {}
-
-    for old_feature in old_features:
-        for new_feature in new_features:
-            if old_feature["CDTNUCLEO"]==new_feature["CDTNUCLEO"]:
-                dist = QgsDistanceArea().measureLine(
-                    old_feature.geometry().centroid().asPoint(),
-                    new_feature.geometry().centroid().asPoint()
-                )
-                if dist>0:
-                    penalizations[old_feature["CDTNUCLEO"]] = dist
-                    continue
+        penalizations = {}
     
-    return penalizations
+        for old_feature in old_features:
+            for new_feature in new_features:
+                if old_feature["CDTNUCLEO"]==new_feature["CDTNUCLEO"]:
+                    dist = qgis.QgsDistanceArea().measureLine(
+                        old_feature.geometry().centroid().asPoint(),
+                        new_feature.geometry().centroid().asPoint()
+                    )
+                    if dist>0:
+                        penalizations[old_feature["CDTNUCLEO"]] = dist
+                        continue
+        
+        return penalizations
