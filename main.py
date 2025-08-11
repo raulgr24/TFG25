@@ -2,13 +2,14 @@ from file_creator_nuevo import *
 from google_request import *
 
 if __name__ == "__main__":
-    dict_to_json(get_hospital_score(),"hospital_score")
+    # dict_to_json(get_hospital_score(),"hospital_score")
     
     #dict_to_json(apply_penalization("distance"),"distance_post_penalizations")
     #dict_to_json(apply_penalization("duration"),"duration_post_penalizations")
     # dict_to_json(get_hospital_num(),"hosp_per_origin")
-    # distance_dict = readable_results("routes_API_results_dump")
-    # dict_to_json(distance_dict,"requests_distance")
+    results_dict = readable_results("routes_API_results_dump")
+    dict_to_json(results_dict,"requests_clean")
+    dict_to_csv(results_dict,"nucleo","requests_clean")
     # duration_dict = readable_results("routes_API_results_dump",mode="duration")
     # dict_to_json(distance_dict,"requests_duration")
     # dict_to_csv(distance_dict,"testingtesting")

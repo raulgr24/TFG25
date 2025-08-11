@@ -75,12 +75,16 @@ def json_to_csv(file):
             row = [key] + [v if v is not None else '' for v in values] + [''] * (max_cols - len(values))
             writer.writerow(row)
 
-def dict_to_csv(dict, file):
+def dict_to_csv(dict,index, file):
     """
     Usa pandas para guardar diccionario como csv
     """
     df = pd.DataFrame.from_dict(dict,orient = "index")
-    df.to_csv("output/"+file+".csv")
+    df.index.name = index
+    df = df.reset_index()
+    df[index]=df[index].astype("string").str.zfill(7)
+
+    df.to_csv("output/"+file+".csv", index=False, na_rep="", quoting=csv.QUOTE_MINIMAL)
 
 def distance_matrix_filtered(origin, destinations):
     origin_layer = project.mapLayersByName(origin)[0]
@@ -342,16 +346,20 @@ def readable_results(file, mode  = "distance"):
     mode = 'distance'/'duration'
     """
     data = json_to_dict(file)
+    origin_hospital = json_to_dict("hosp_per_origin")
     output = {}
     for origin_name, all_destinations in data.items():
+        idents = []
+        idents.extend(["hospt3_"+str(k) for k in range(1,origin_hospital[origin_name][0]+1)])
+        idents.extend(["hospt2_"+str(k) for k in range(1,origin_hospital[origin_name][1]+1)])
+        idents.extend(["juzgados","bomberos","csmental"])
+        print(origin_name,idents)
         result_per_origin = {}
         for dest_index,destination in enumerate(all_destinations):
             for mode_hour, info in destination.items():
                 print(info)
-                if mode == "distance":
-                    result_per_origin[f"dest_{str(dest_index)}_{mode_hour}"] = info["routes"][0]["distanceMeters"] if info else None
-                else:
-                    result_per_origin["dest"+str(dest_index)+mode_hour] =int(info["routes"][0]["duration"][:-1])
+                result_per_origin[f"dis_{idents[dest_index]}_{mode_hour}"] = int(info["routes"][0]["distanceMeters"]) if info else None
+                result_per_origin[f"dur_{idents[dest_index]}_{mode_hour}"] =int(info["routes"][0]["duration"][:-1])
         output[origin_name]=result_per_origin
     return output
 
@@ -401,5 +409,13 @@ def get_hospital_score():
     hospital_num = json_to_dict("hosp_per_origin")
     scores = {}
     for nucleo_key, nucleo_info in hospital_num.items():
-        scores[nucleo_key]=1/(nucleo_info[0]*1.4+nucleo_info[1])
+        score = 1*(1.1**nucleo_info[0])
+        score = score*(1.05**nucleo_info[1])
+        scores[nucleo_key]=score
+        #scores[nucleo_key]=1/(nucleo_info[0]*1.4+nucleo_info[1])
     return scores
+
+def get_means():
+    distances = json_to_dict("requests_distance")
+    durations = json_to_dict("requests_duration")
+
