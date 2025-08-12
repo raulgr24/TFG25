@@ -34,5 +34,5 @@ rem List available o4w programs
 rem but only if osgeo4w called without parameters
 @echo on
 rem @if [%1]==[] (echo run o-help for a list of available commands & cmd.exe /k) else (cmd.exe /k "%*")
-start powershell -NoExit -Command "Set-Location 'C:\Users\raulc\Desktop\TFG25'"
+start "TFG" pwsh -NoExit -Command "Set-Location 'C:\Users\raulc\Desktop\TFG25'"
 exit /b

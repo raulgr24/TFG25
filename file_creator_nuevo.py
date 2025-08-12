@@ -75,17 +75,34 @@ def json_to_csv(file):
             row = [key] + [v if v is not None else '' for v in values] + [''] * (max_cols - len(values))
             writer.writerow(row)
 
-def dict_to_csv(dict,index, file):
+def dict_to_csv(dict, file):
     """
     Usa pandas para guardar diccionario como csv
     """
     df = pd.DataFrame.from_dict(dict,orient = "index")
-    df.index.name = index
-    df = df.reset_index()
-    df[index]=df[index].astype("string").str.zfill(7)
-
     df.to_csv("output/"+file+".csv", index=False, na_rep="", quoting=csv.QUOTE_MINIMAL)
 
+def results_dict_to_csv(dict, file):
+    index = "Nucleo"
+    df = pd.DataFrame.from_dict(dict, orient = "index")
+    df.index.name = index
+    df = df.reset_index()
+    print(df[index])
+    num_cols = df.columns.drop(index)
+    df[num_cols] = df[num_cols].replace(r'^\s*$',pd.NA, regex =True)
+    df[num_cols] = df[num_cols].apply(pd.to_numeric, errors = 'coerce')
+    df[num_cols] = df[num_cols].astype("Int64")
+    new_cols = ["hospt3","hospt2","bomberos","csmental","juzgados"]
+    for col in new_cols:
+
+        df[f"mean_dis_{col}"]= df[[c for c in df.columns if f"dis_{col}" in c]].mean(axis=1)
+        df[f"mean_dur_{col}"]= df[[c for c in df.columns if f"dur_{col}" in c]].mean(axis=1)
+    
+    df = df.reindex(sorted(df.columns), axis=1)
+    df[index] = df[index].astype("string").str.zfill(7)
+    df["mean_dis_all"] = df[[c for c in df.columns if f"mean_dis_" in c]].mean(axis=1)
+    df["mean_dur_all"] = df[[c for c in df.columns if f"mean_dur_" in c]].mean(axis=1)
+    df.to_csv(f"output/{file}.csv", index = False, na_rep="", quoting = csv.QUOTE_MINIMAL)
 def distance_matrix_filtered(origin, destinations):
     origin_layer = project.mapLayersByName(origin)[0]
     destination_layers = [project.mapLayersByName(dest)[0] for dest in destinations]
