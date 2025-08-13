@@ -17,7 +17,8 @@ import file_creator_nuevo as fc
 
 # API_KEY = "***REMOVED***"
 API_KEY = "***REMOVED***"
-PATH = "C:/Users/raulc/Desktop/TFG25/jsons/"
+#PATH = "C:/Users/raulc/Desktop/TFG25/jsons/"
+PATH = "jsons/"
 MAX_CONCURRENT_REQUESTS = 50  # Límite de concurrencia
 URL = "https://routes.googleapis.com/directions/v2:computeRoutes"
 HEADERS = {
@@ -51,7 +52,7 @@ semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
 
 
 def request_diff_jsons():
-    pathlist = Path("C:/Users/raulc/Desktop/2025/TFG/jsons/").glob('**/*.json')
+    pathlist = Path("jsons/").glob('**/*.json')
     json_paths = list(pathlist)
     for path in json_paths:
         pathstr = str(path)
@@ -74,7 +75,7 @@ def request_diff_jsons():
                                     destinations,
                                     mode='driving',
                                     departure_time=datetime.datetime(2025,6,19,11)) # HORA DE MENOS TRAFICO EN COCHE
-        out ="C:/Users/raulc/Desktop/2025/TFG/results/"+path.stem+"_c_n.json"
+        out ="results/"+path.stem+"_c_n.json"
         with open(out,'w') as outfile:
             json.dump(result, outfile, indent=4)
             
@@ -83,7 +84,7 @@ def request_diff_jsons():
                                     mode='transit',
                                     transit_mode="bus",
                                     departure_time=datetime.datetime(2025,6,19,8)) # HORA PUNTA EN BUS
-        out ="C:/Users/raulc/Desktop/2025/TFG/results/"+path.stem+"_b_p.json"
+        out ="results/"+path.stem+"_b_p.json"
         with open(out,'w') as outfile:
             json.dump(result, outfile, indent=4)
             
@@ -92,17 +93,17 @@ def request_diff_jsons():
                                     mode='transit',
                                     transit_mode="bus",
                                     departure_time=datetime.datetime(2025,6,19,11)) # HORA DE MENOS TRAFICO EN BUS
-        out ="C:/Users/raulc/Desktop/2025/TFG/results/"+path.stem+"_b_n.json"
+        out ="results/"+path.stem+"_b_n.json"
         with open(out,'w') as outfile:
             json.dump(result, outfile, indent=4)
 
 def request_same_json(preserve=False):
-    path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords.json")
+    path = Path("output/closest_destinations_cords.json")
     pathstr = str(path)
     with open(pathstr, 'rb') as file:
         json_file = json.load(file)
     if preserve:
-        with open("C:/Users/raulc/Desktop/TFG25/output/full_API_results.json", 'rb') as file:
+        with open("output/full_API_results.json", 'rb') as file:
             full_result = json.load(file)
     else:
         full_result = {}
@@ -126,7 +127,7 @@ def request_same_json(preserve=False):
                                                         mode=mode,
                                                         transit_mode=transit_mode,
                                                         departure_time=hour)
-                        out = f"C:/Users/raulc/Desktop/TFG25/results/{origin}_{mode}_{transit_mode}_{hour.strftime('%H')}.json"
+                        out = f"results/{origin}_{mode}_{transit_mode}_{hour.strftime('%H')}.json"
                         full_result[origin][f"{mode}_{transit_mode}_{hour.strftime('%H')}"] = result
                         with open(out, 'w') as outfile:
                             json.dump(result, outfile, indent=4)
@@ -135,7 +136,7 @@ def request_same_json(preserve=False):
                                                     destinations,
                                                     mode=mode,
                                                     departure_time=hour)
-                    out = f"C:/Users/raulc/Desktop/TFG25/results/{origin}_{mode}_{hour.strftime('%H')}.json"
+                    out = f"results/{origin}_{mode}_{hour.strftime('%H')}.json"
                     full_result[origin][f"{mode}_{hour.strftime('%H')}"] = result
                     with open(out, 'w') as outfile:
                         json.dump(result, outfile, indent=4)
@@ -145,7 +146,7 @@ def element_count(combinations = 0):
     c1 = 0
     c2 = 0
     c3 = 0
-    path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords.json")
+    path = Path("output/closest_destinations_cords.json")
     pathstr = str(path)
     with open(pathstr, 'rb') as file:
         json_file = json.load(file)
@@ -182,7 +183,7 @@ def element_count(combinations = 0):
     return(c1, c2, c3)
 
 def request_routes(preserve=False):
-    path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords.json")
+    path = Path("output/closest_destinations_cords.json")
     pathstr = str(path)
 
     # Parámetros para todas las consultas (no cambian entre consultas  )
@@ -196,7 +197,7 @@ def request_routes(preserve=False):
     with open(pathstr, 'rb') as file:
         json_file = json.load(file)
     if preserve:
-        with open("C:/Users/raulc/Desktop/TFG25/output/full_API_results.json", 'rb') as file:
+        with open("output/full_API_results.json", 'rb') as file:
             full_result = json.load(file)
     else:
         full_result = {}
@@ -235,7 +236,7 @@ def request_routes(preserve=False):
     return full_result
 
 def request_routes_v2(preserve=False):
-    path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords_test.json")
+    path = Path("output/closest_destinations_cords_test.json")
     pathstr = str(path)
 
     # Parámetros para todas las consultas (no cambian entre consultas  )
@@ -249,7 +250,7 @@ def request_routes_v2(preserve=False):
     with open(pathstr, 'rb') as file:
         json_file = json.load(file)
     if preserve:
-        with open("C:/Users/raulc/Desktop/TFG25/output/full_API_results.json", 'rb') as file:
+        with open("output/full_API_results.json", 'rb') as file:
             full_result = json.load(file)
     else:
         full_result = {}
@@ -309,12 +310,12 @@ async def fetch_route(origin_cords, destination, mode, hour, origin_id, dest_ind
         return (origin_id, dest_index, mode, hour, {"error": "failed after retries"})
 
 async def request_routes_v2_async(preserve=False):
-    path = Path("C:/Users/raulc/Desktop/TFG25/output/closest_destinations_cords.json")
+    path = Path("output/closest_destinations_cords.json")
     with open(path, 'r') as file:
         json_file = json.load(file)
 
     if preserve:
-        with open("C:/Users/raulc/Desktop/TFG25/output/routes_API_results_dump.json", 'r') as file:
+        with open("output/routes_API_results_dump.json", 'r') as file:
             full_result = json.load(file)
     else:
         full_result = {}

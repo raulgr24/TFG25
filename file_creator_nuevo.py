@@ -25,7 +25,7 @@ identifiers={
 # Abrimos el archivo qgz
 project = qgis.QgsProject.instance()
 if project:
-    project.read("C:/Users/raulc/Desktop/TFG25/tfg_project.qgz")
+    project.read("./tfg_project.qgz")
     names = [layer.name() for layer in project.mapLayers().values()]
 else:
     print("No project")
@@ -431,8 +431,3 @@ def get_hospital_score():
         scores[nucleo_key]=score
         #scores[nucleo_key]=1/(nucleo_info[0]*1.4+nucleo_info[1])
     return scores
-
-def get_means():
-    distances = json_to_dict("requests_distance")
-    durations = json_to_dict("requests_duration")
-
