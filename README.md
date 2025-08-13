@@ -8,6 +8,7 @@
 - output/ --> Carpeta de archivos generados
 
 # Partes a cambiar
+- Para hacer consultas, crea un "api.txt" en la carpeta general con la clave API.
 - file_creator_nuevo.py --> Línea 12 --> qgis.QgsApplication.setPrefixPath("C:/Program Files/QGIS 3.40.7", True)
     Cambiar el Path a donde esté instalado QGIS.
 ## Creación del entorno
