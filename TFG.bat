@@ -1,20 +1,22 @@
+rem Carpeta OSGeo4W, cambiar si no coincide
 set OSGEO4W_ROOT=C:/OSGeo4W
-echo OSGEO4W_ROOT=%OSGEO4W_ROOT%
 
-rem AÑADE AQUÍ LO QUE QUIERAS AL PATH
+rem AÑADE AQUÍ LO QUE SE NECESITE AL PATH
+rem PATH a bin de OSGeo4W y al QGIS (en mi caso es el LTR)
 set path=%PATH%;%OSGEO4W_ROOT%\bin
 set path=%PATH%;%OSGEO4W_ROOT%\apps\qgis-ltr\bin
+rem System32 y powershell al path
 set path=%PATH%;%WINDIR%\system32
 set path=%PATH%;%WINDIR%\system32\WBem
 set path=%PATH%;%WINDIR%\system32\WindowsPowerShell\v1.0
 set path=%PATH%;%WINDIR%
-set path=%PATH%;C:\Users\raulc\apps\nvim-nightly\bin
+set path=%PATH%;%userprofile%\apps\nvim-nightly\bin
 set path=%PATH%;C:\Program Files\Git\cmd
 set path=%PATH%;%OSGEO4W_ROOT%\apps\qgis\bin
-set path=%PATH%;C:\Users\raulc\AppData\Local\Programs\Microsoft VS Code\bin
+set path=%PATH%;%userprofile%\AppData\Local\Programs\Microsoft VS Code\bin
 set path=C:\OSGeo4W\apps\Python312;%PATH%
 set path=%PATH%;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools
-set path=%PATH%;C:\Users\raulc\scoop\persist\nodejs\bin
+set path=%PATH%;%userprofile%\scoop\persist\nodejs\bin
 echo %PATH
 
 rem EJECUTA TODOS LOS .BAT DE OSGEO4W/ETC/INI/
@@ -30,9 +32,8 @@ set PYTHONPATH=%OSGEO4W_ROOT%\apps\qgis-ltr\python;%PYTHONPATH%
 
 
 
-rem List available o4w programs
-rem but only if osgeo4w called without parameters
 @echo on
 rem @if [%1]==[] (echo run o-help for a list of available commands & cmd.exe /k) else (cmd.exe /k "%*")
-start "TFG" pwsh -NoExit -Command "Set-Location 'C:\Users\raulc\Desktop\TFG25'"
+rem prueba start "TFG" pwsh -NoExit -Command "Set-Location 'C:\Users\raulc\Desktop\TFG25'"
+start "TFG" pwsh -NoExit -Command "Set-Location '%~dp0'"
 exit /b
