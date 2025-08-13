@@ -3,6 +3,7 @@
 temp/
 *.pkl
 *.pyc
+*.txt
 
 # Ignorar archivos de configuración de VS Code
 .vscode/

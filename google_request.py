@@ -14,10 +14,8 @@ import asyncio
 import httpx
 import file_creator_nuevo as fc
 
-
-# API_KEY = "***REMOVED***"
-API_KEY = "***REMOVED***"
-#PATH = "C:/Users/raulc/Desktop/TFG25/jsons/"
+f = open("api.txt")
+API_KEY = f.read()
 PATH = "jsons/"
 MAX_CONCURRENT_REQUESTS = 50  # Límite de concurrencia
 URL = "https://routes.googleapis.com/directions/v2:computeRoutes"
@@ -30,11 +28,6 @@ modes = [
     "drive",
     "transit"
          ]
-transit_modes = [
-    # "bus"
-    # , "subway"
-    # , "train"
-    ]
 hours_true = [datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 8,30)+datetime.timedelta(days=2)
         ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 11)+datetime.timedelta(days=2)
          ]
@@ -42,14 +35,7 @@ hours = [datetime.datetime(datetime.datetime.now().year, datetime.datetime.now()
         ,datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month,  datetime.datetime.now().day, 11)+datetime.timedelta(days=1)
          ]
 gmaps =googlemaps.Client(key=API_KEY)
-# pathlist = Path(PATH+"Adaro.json")
-# json_paths = [
-#     Path(PATH+"Adaro.json"),
-#     Path(PATH+"Ajalvir.json")
-#               ]
 semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
-
-
 
 def request_diff_jsons():
     pathlist = Path("jsons/").glob('**/*.json')
