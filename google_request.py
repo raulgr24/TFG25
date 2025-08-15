@@ -14,8 +14,8 @@ import asyncio
 import httpx
 import file_creator_nuevo as fc
 
-f = open("api.txt")
-API_KEY = f.read()
+with open("api.txt") as f:
+    API_KEY = f.read()
 PATH = "jsons/"
 MAX_CONCURRENT_REQUESTS = 50  # Límite de concurrencia
 URL = "https://routes.googleapis.com/directions/v2:computeRoutes"
