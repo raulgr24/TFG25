@@ -7,12 +7,11 @@ import json
 import urllib.parse as urlp
 from pathlib import Path
 import datetime
-import file_creator_nuevo as fc
+import file_creator as fc
 import os
 import requests
 import asyncio
 import httpx
-import file_creator_nuevo as fc
 
 with open("api.txt") as f:
     API_KEY = f.read()

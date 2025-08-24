@@ -1,10 +1,11 @@
-from file_creator_nuevo import *
+from file_creator import *
 from google_request import *
 import colorama
 
+get_closest_cords = True
 show_layers = False
-get_centroides_stats = True
-get_municipios_stats = True
+get_centroides_stats = False
+get_municipios_stats = False
 
 if __name__ == "__main__":
     colorama.init(convert=True, strip=False, autoreset=True)
@@ -22,15 +23,15 @@ if __name__ == "__main__":
         list_available_layers()
     if get_centroides_stats:
         nueva_capa = merge_layer_with_dict(
-        layer_name="Centroides bus",
-        data_dict=results_dict,
-        join_field="CDTNUCLEO", 
-        output_name="Centroides_stats",
-        save_as_file=True,
-        output_dir="output",
-        verbose = True
-    )
-    print("CAPA DE CENTROIDES HECHA")
+            layer_name="Centroides bus",
+            data_dict=results_dict,
+            join_field="CDTNUCLEO", 
+            output_name="Centroides_stats",
+            save_as_file=True,
+            output_dir="output",
+            verbose = True
+        )
+        print("CAPA DE CENTROIDES HECHA")
     if get_municipios_stats:
         mun_df = municipios_stats("Centroides_stats","Municipios corregidos")
         mun_capa = merge_layer_with_dataframe(
@@ -39,6 +40,8 @@ if __name__ == "__main__":
                 join_field = "CMUN",
                 output_name = "Municipios_stats"
         )
+    if get_closest_cords:
+        closest_destinations_cords(origin,destinations)
 
 
     # dict_to_csv(distance_dict,"testingtesting")
