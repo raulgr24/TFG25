@@ -214,9 +214,6 @@ def request_routes(preserve=False):
                 full_result[origin][f"{mode}_{(hour + datetime.timedelta(hours=2)).strftime('%H:%M')}"] = response.json()
                 print(full_result)
                 return 1
-                break
-                
-            
             
     return full_result
 
@@ -281,18 +278,18 @@ async def fetch_route(origin_cords, destination, mode, hour, origin_id, dest_ind
         for attempt in range(3):  # Reintenta hasta 3 veces
             try:
                 async with httpx.AsyncClient(timeout=30) as client:
-                    print(f"→ Enviando: {origin_id} → Dest {dest_index} [{mode} {hour.strftime('%H:%M')}]")
+                    print(f"Enviando {origin_id}, Destino {dest_index} [{mode} {hour.strftime('%H:%M')}]")
                     response = await client.post(URL, headers=HEADERS, json=body)
                     response.raise_for_status()
-                    print(f"✓ Recibido: {origin_id} → Dest {dest_index} [{mode} {hour.strftime('%H:%M')}]")
+                    print(f"Recibido: {origin_id}, Destino {dest_index} [{mode} {hour.strftime('%H:%M')}]")
                     return (origin_id, dest_index, mode, hour, response.json())
             except httpx.HTTPStatusError as e:
-                print(f"⚠ HTTP {e.response.status_code} en {origin_id}-{dest_index} [{mode}], intento {attempt + 1}")
-                await asyncio.sleep(2)
+                print(f"HTTP {e.response.status_code} en {origin_id}-{dest_index}-{mode}, intento {attempt+1}")
+                await asyncio.sleep(1)
             except Exception as e:
-                print(f"⚠ Error general en {origin_id}-{dest_index} [{mode}]: {e}")
+                print(f"Error en {origin_id}-{dest_index}-{mode}: {e}")
                 await asyncio.sleep(2)
-        return (origin_id, dest_index, mode, hour, {"error": "failed after retries"})
+        return (origin_id, dest_index, mode, hour, {"error": "intentos agotados"})
 
 async def request_routes_v2_async(preserve=False):
     path = Path("output/closest_destinations_cords.json")

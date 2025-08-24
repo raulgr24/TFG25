@@ -4,7 +4,7 @@ temp/
 *.pkl
 *.pyc
 *.txt
-
+tfg_project_test.qgz
 # Ignorar archivos de configuración de VS Code
 .vscode/
 

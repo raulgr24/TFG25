@@ -741,7 +741,7 @@ def json_to_csv_results(file):
             row = [key] + [v if v is not None else '' for v in values] + [''] * (max_cols - len(values))
             writer.writerow(row)
 
-def readable_results(file, mode  = "distance"):
+def readable_results(file):
     """
     Toma el json de resultados de las consultas y lo devuelve en un formato más legible
     mode = 'distance'/'duration'
@@ -754,11 +754,9 @@ def readable_results(file, mode  = "distance"):
         idents.extend(["hospt3_"+str(k) for k in range(1,origin_hospital[origin_name][0]+1)])
         idents.extend(["hospt2_"+str(k) for k in range(1,origin_hospital[origin_name][1]+1)])
         idents.extend(["juzgados","bomberos","csmental"])
-        print(origin_name,idents)
         result_per_origin = {}
         for dest_index,destination in enumerate(all_destinations):
             for mode_hour, info in destination.items():
-                print(info)
                 result_per_origin[f"dis_{idents[dest_index]}_{mode_hour}"] = int(info["routes"][0]["distanceMeters"]) if info else None
                 result_per_origin[f"dur_{idents[dest_index]}_{mode_hour}"] =int(info["routes"][0]["duration"][:-1])
         output[origin_name]=result_per_origin
@@ -794,16 +792,17 @@ def get_penalization(old, new):
 
     return penalizations
 
-def apply_penalization(mode : str):
-    penalizations = json_to_dict("penalizations")
-    results = json_to_dict("requests_"+mode)
+def apply_penalization(objective,pen_json,):
+    penalizations = json_to_dict(pen_json)
+    results = json_to_dict(objective)
     for centro_key , penalization in penalizations.items():
         for result_key, result in results[centro_key].items():
             if "transit" in result_key:
-                if mode == "duration": 
-                    results[centro_key][result_key]+=int(penalization/1.4)
-                if mode == "distance":
-                    results[centro_key][result_key]+=int(penalization*1.5)
+                if "dis" in result_key:
+
+                    results[centro_key][result_key]= result +int(penalization*1.5)
+                if "dur" in result_key:
+                    results[centro_key][result_key]= result +int(penalization*1.07)
     return results
 
 def get_hospital_score():
