@@ -117,8 +117,344 @@ def results_dict_to_csv(dict, file):
 
 # Suprimir warnings de deprecación de QgsField (no hay alternativa en esta versión)
 warnings.filterwarnings("ignore", message="QgsField.*is deprecated", category=DeprecationWarning)
+def merge_layer_centroides(layer_name, data_dict, join_field, output_name, verbose = True, save_as_file=True):
+    try:
+        layers = project.mapLayersByName(output_name)
+        if layers:
+            project.removeMapLayer(layers[0].id())
+        if os.path.exists("Datos nuevos/"+output_name+".gpkg"):
+            os.remove("Datos nuevos/"+output_name+".gpkg")
+        # 1. BUSCAR SI LA CAPA DE CENTROIDES EXISTE
+        if verbose:
+            print(f"{Fore.YELLOW}Buscando capa: '{layer_name}'")
+        layers = project.mapLayersByName(layer_name)
+        if not layers:
+            available_layers = [layer.name() for layer in project.mapLayers().values()]
+            print(f"{Fore.RED} Capa '{layer_name}' no existe en el proyecto.")
+            print(f"Capas del proyecto: {available_layers}")
+            return None
+        
+        source_layer = layers[0]
+        print(f"{Fore.GREEN}Capa encontrada: {source_layer.name()} ({source_layer.featureCount()} features)")
+        
+        # 2. COMPROBAR SI EL ATRIBUTO DE UNIÓN EXISTE
+        field_names = source_layer.fields().names()
+        if join_field not in field_names:
+            print(f"{Fore.RED}Campo '{join_field}' no encontrado en la capa.")
+            print(f"Campos disponibles: {field_names}")
+            return None
+        if verbose: 
+            print(f"{Fore.GREEN}Campo de unión encontrado: '{join_field}'")
+        
+        # 3. CONVERTIR DICT A DATAFRAME
+        if not data_dict:
+            print("{Fore.RED}El diccionario de datos está vacío")
+            return None
+        
+        if verbose:
+            print(f"{Fore.GREEN}Diccionario procesado: {len(data_dict)} registros")
+        df = pd.DataFrame.from_dict(data_dict, orient="index")
+        df.index.name = join_field # Index = CDTNUCLEO
+        # Limpiar y convertir datos numéricos
+        print("DEBUG 1: DATAFRAME DE INICIO")
+        print(df)
+        for col in df.columns:
+            # Intentar convertir a numérico, mantener como string si falla
+            df[col] = pd.to_numeric(df[col],errors='coerce')
+            # Limpiar espacios en blanco para strings
+            if df[col].dtype == 'object':
+                df[col] = df[col].astype(str).str.strip()
+                df[col] = df[col].replace('', pd.NA)
+        
+        if verbose: 
+            print(f"DEBUG 2: Columnas originales de la capa e origen:")
+            for col_index, col in enumerate(list(source_layer.fields().names())):
+                print(f"  {col_index}\t{col}")
+            print(f"DEBUG 3: Columnas originales del diccionario:")
+            for col_index, col in enumerate(list(df.columns)):
+                print(f"  {col_index}\t{col}")
+        # 4. CREAMOS OS CAMPOS 
+        # num_cols = df.columns.drop(join_field)
+        # df[num_cols] = df[num_cols].replace(r'^\s*$',pd.NA, regex =True)
+        # df[num_cols] = df[num_cols].apply(pd.to_numeric, errors = 'coerce')
+        # df[num_cols] = df[num_cols].astype("Int64")
+        df1=pd.DataFrame(columns=[join_field,"POB"]) # type: ignore
+        for orig in list(project.mapLayersByName(origin)[0].getFeatures()):
+            df1.loc[len(df1)]= [orig[join_field],orig['POB']]
+        if verbose:
+            print("DEBUG 4: Dataframe CDTNUCLEO - POB")
+            print(df1)
+        df = pd.merge(df,df1,on=join_field,how='inner')
+        result_type = ["dis","dur"]
+        destination = ["hospt3","hospt2","bomberos","csmental","juzgados"]
+        modes = ["drive","transit"]
+        for i in result_type:
+            for k in modes:
+                    df[f"mean_{i}_{k}"]= df[[c for c in df.columns if i in c and k in c]].mean(axis=1)
+                    df[f"weigh_mean_{i}_{k}"]= df[f"mean_{i}_{k}"]*df["POB"]
 
-def merge_layer_with_dict(layer_name, data_dict, join_field, output_name, save_as_file=True, output_dir="Datos nuevos", verbose = False):
+        for i in result_type:
+            for j in destination:
+                for k in modes:
+                    df[f"mean_{i}_{j}_{k}"]= df[[c for c in df.columns if f"{i}_{j}" in c and k in c]].mean(axis=1)
+                    df[f"weigh_mean_{i}_{j}_{k}"]= df[f"mean_{i}_{j}_{k}"]*df["POB"]
+                df[f"mean_{i}_{j}_all"]= df[[c for c in df.columns if c.startswith(f"{i}_{j}")]].mean(axis=1)
+                df[f"weigh_mean_{i}_{j}_all"]= df[f"mean_{i}_{j}_all"]*df["POB"]
+            df[f"mean_{i}_all"]= df[[c for c in df.columns if c.startswith(f"{i}_")]].mean(axis=1)
+            df[f"weigh_mean_{i}_all"]= df[f"mean_{i}_all"]*df["POB"]
+        df = df.drop('POB',axis=1)
+        df = df.reindex(sorted(df.columns), axis=1)
+        df[join_field] = df[join_field].astype("string").str.zfill(7)
+
+        if verbose:
+            print("DEBUG 5: Dataframe final y columnas del dataframe")
+            print(df)
+            for col_index, col in enumerate(list(df.columns)):
+                print(f"  {col_index}\t{col}")
+        # Crear nueva capa con estructura expandida
+        crs = source_layer.crs()
+        geom_type = source_layer.wkbType()
+        
+        new_layer = qgis.QgsVectorLayer(
+            f"{qgis.QgsWkbTypes.displayString(geom_type)}?crs={crs.authid()}", 
+            output_name, 
+            "memory"
+        )
+        
+        # Añadir campos originales
+        original_fields = []
+        for field in source_layer.fields():
+            new_field = qgis.QgsField(
+                field.name(),
+                field.type(),
+                field.typeName(),
+                field.length(),
+                field.precision())
+            original_fields.append(new_field)
+        new_layer.dataProvider().addAttributes(original_fields)
+        new_layer.updateFields()
+        # Añadir campos del DataFrame
+        new_fields = []
+        for col in df.columns:
+            field_name = str(col)
+            new_field = qgis.QgsField(field_name, QVariant.Double)
+            new_layer.dataProvider().addAttributes([new_field])
+            continue
+            # Crear campo copiando estructura de un campo existente
+            if source_layer.fields().count() > 0:
+                template_field = source_layer.fields().at(0)
+                # Determinar tipo según dtype del DataFrame
+                if df[col].dtype in ['int64', 'int32', 'Int64']:
+                    # Buscar plantilla entero
+                    int_template = None
+                    df[col] = df[col].replace(0,np.nan) # Deberia pasar los 0 a NaN
+                    for existing_field in source_layer.fields():
+                        if existing_field.type() == QVariant.Int:
+                            int_template = existing_field
+                            break
+                    
+                    new_field = qgis.QgsField(int_template if int_template else template_field)
+                    new_field.setName(field_name)
+                        
+                elif df[col].dtype in ['float64', 'float32', 'Float64']:
+                    # Buscar plantilla float
+                    float_template = None
+                    for existing_field in source_layer.fields():
+                        if existing_field.type() in [QVariant.Double, QVariant.Int]:
+                            float_template = existing_field
+                            break
+                    
+                    new_field = qgis.QgsField(float_template if float_template else template_field)
+                    new_field.setName(field_name)
+                        
+                else:
+                    # Para strings
+                    string_template = None
+                    for existing_field in source_layer.fields():
+                        if existing_field.type() == QVariant.String:
+                            string_template = existing_field
+                            break
+                    
+                    new_field = qgis.QgsField(string_template if string_template else template_field)
+                    new_field.setName(field_name)
+                new_fields.append(new_field)
+        # Añadir todos los campos nuevos
+        if new_fields:
+            new_layer.dataProvider().addAttributes(new_fields)
+        new_layer.updateFields()
+        if verbose:
+            print("DEBUG 6: Atributos de la nueva capa 2")
+            for field in new_layer.fields():
+                print((field.name(),field.type()))
+        # Crear diccionario de búsqueda desde DataFrame
+        # Si el DataFrame tiene índice con el join_field, usarlo
+        if df.index.name == join_field:
+            data_lookup = df.to_dict('index')
+        else:
+            # Si join_field es una columna, usar esa columna como índice
+            if join_field in df.columns:
+                data_lookup = df.set_index(join_field).to_dict('index')
+            else:
+                print(f"{Fore.RED}Campo '{join_field}' no encontrado en DataFrame")
+                return None
+        
+        # Procesar features y fusionar datos
+        features_to_add = []
+        matched_count = 0
+        missing_data = []
+        for original_feature in source_layer.getFeatures():
+            # Obtener valor del campo de unión
+            join_value = str(original_feature[join_field]).zfill(7)
+            print(join_value)
+            # Crear nueva feature
+            new_feature = qgis.QgsFeature()
+            new_feature.setGeometry(original_feature.geometry())
+            # Copiar atributos originales
+            attributes = []
+            for field in source_layer.fields():
+                attributes.append(original_feature[field.name()])
+            
+            # Añadir datos del DataFrame si existen
+            if join_value in data_lookup:
+                row_data = data_lookup[join_value]
+                for col in df.columns:
+                    if col != join_field:  # No duplicar el campo de unión
+                        value = row_data.get(col, None)
+                        # Convertir NaN/None apropiadamente
+                        if pd.isna(value):
+                            attributes.append(None)
+                        else:
+                            attributes.append(value)
+                matched_count += 1
+            else:
+                # Añadir valores nulos para columnas del DataFrame
+                for col in df.columns:
+                    if col != join_field:
+                        attributes.append(None)
+                missing_data.append(join_value)
+            new_feature.setAttributes(attributes)
+            error = new_layer.dataProvider().addFeatures([new_feature])
+            if not error[0]:
+                print(f"ERROR: Feature {join_value} falló al añadirse")
+                for field_idx, field in enumerate(new_layer.fields()):
+                    if field_idx < len(attributes):
+                        attr_value = attributes[field_idx]
+                        field_type = field.type()
+                        
+                        print(f"Campo: {field.name()}")
+                        print(f"  Tipo esperado: {field_type} ({field.typeName()})")
+                        print(f"  Valor: {attr_value} (tipo: {type(attr_value)})")
+                        
+                        # Verificar compatibilidad
+                        compatible = True
+                        if field_type == QVariant.Int:
+                            if attr_value is not None and not isinstance(attr_value, (int, np.integer)):
+                                compatible = False
+                        elif field_type == QVariant.Double:
+                            if attr_value is not None and not isinstance(attr_value, (int, float, np.number)):
+                                compatible = False
+                        elif field_type == QVariant.String:
+                            if attr_value is not None and not isinstance(attr_value, str):
+                                compatible = False
+                        
+                        if not compatible:
+                            print(f"  ⚠️  INCOMPATIBLE!")
+                        else:
+                            print(f"  ✓ Compatible")
+            features_to_add.append(new_feature)
+        # Añadir features a la nueva capa
+        #error = new_layer.dataProvider().addFeatures(features_to_add)
+        new_layer.updateExtents()
+        # Guardar o añadir según configuración
+        final_layer = None
+        output_dir = "Datos nuevos"
+        if save_as_file:
+            # Guardar como archivo
+            if not os.path.exists(output_dir):
+                os.makedirs(output_dir)
+            
+            output_path = os.path.join(output_dir, f"{output_name}.gpkg")
+            transform_context = qgis.QgsCoordinateTransformContext()
+            options = qgis.QgsVectorFileWriter.SaveVectorOptions()
+            options.driverName = "GPKG"
+            options.fileEncoding = "UTF-8"
+            options.layerName = output_name
+            
+            error = qgis.QgsVectorFileWriter.writeAsVectorFormatV3(
+                new_layer, 
+                output_path, 
+                transform_context, 
+                options
+            )
+            
+            if error[0] == qgis.QgsVectorFileWriter.NoError:
+                # Cargar archivo guardado
+                final_layer = qgis.QgsVectorLayer(output_path, output_name, "ogr")
+                if final_layer.isValid():
+                    qgis.QgsProject.instance().addMapLayer(final_layer)
+                    if verbose:
+                        print(f"{Fore.GREEN}Archivo guardado: {output_path}")
+                else:
+                    print(f"{Fore.RED}Error cargando archivo: {output_path}")
+                    return None
+            else:
+                print(f"{Fore.RED}Error guardando archivo (código {error[0]}): {error[1]}")
+                return None
+        else:
+            # Mantener en memoria
+            if new_layer.isValid():
+                qgis.QgsProject.instance().addMapLayer(new_layer)
+                final_layer = new_layer
+            else:
+                print(f"{Fore.RED}La capa en memoria no es válida")
+                return None
+        
+        # Actualizar interfaz
+        if final_layer and hasattr(iface, 'mapCanvas'):
+            iface.mapCanvas().setExtent(final_layer.extent())
+            iface.mapCanvas().refresh()
+            final_layer.triggerRepaint()
+        
+        # Resumen
+        if verbose:
+            print(f"{Fore.LIGHTGREEN_EX}Proceso completado")
+            print(f"{Fore.CYAN}Features totales: {len(features_to_add)}")
+            print(f"{Fore.CYAN}Features con datos fusionados: {matched_count}")
+            
+            if missing_data:
+                print(f"{Fore.LIGHTYELLOW_EX}Features sin datos del diccionario: {len(missing_data)}")
+                if len(missing_data) <= 10:
+                    print(f"   Sin datos: {missing_data}")
+                else:
+                    print(f"   Primeros 10 sin datos: {missing_data[:10]}...")
+        
+        # Guardar proyecto permanentemente
+        if final_layer and final_layer.isValid():
+            project.write()
+            if verbose:
+                print(f"{Fore.LIGHTGREEN_EX}Capa '{output_name}' añadida permanentemente al proyecto")
+        if verbose: 
+            print("DEBUG N: Ejemplo de primera feature de nueva capa")
+            print(len(final_layer.getFeatures()))
+            for i, feature in enumerate(final_layer.getFeatures()):
+                if i == 0:  # Primera feature
+                    print(f"ID: {feature.id()}")
+                    print(f"Atributos: {feature.attributes()}")
+                    print(f"Campos: {[field.name() for field in layer.fields()]}")
+                    print(f"Geometría tipo: {feature.geometry().type()}")
+                    break
+        return final_layer    
+    except Exception as e:
+        print(f"{Fore.LIGHTRED_EX}Error en el proceso: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+
+
+
+
+
+def merge_layer_with_dict(layer_name, data_dict, join_field, output_name, verbose = False):
     """
     Función modular para fusionar una capa QGIS con un diccionario de datos.
     
@@ -201,6 +537,8 @@ def merge_layer_with_dataframe(source_layer, dataframe, join_field, output_name,
     df = dataframe # Trabajar con copia para no modificar original
     
     # Limpiar y convertir datos numéricos
+    print("DEBUG: DATAFRAME DE INICIO")
+    print(df)
     for col in df.columns:
         # Intentar convertir a numérico, mantener como string si falla
         df[col] = pd.to_numeric(df[col],errors='coerce')
@@ -228,9 +566,11 @@ def merge_layer_with_dataframe(source_layer, dataframe, join_field, output_name,
     original_fields = []
     for field in source_layer.fields():
         original_fields.append(field)
-    
+    print("DEBUG: Fields originales???")
+    print(original_fields)
     new_layer.dataProvider().addAttributes(original_fields)
-    
+    print("DEBUG: ATRIBUTOS DE NUEVA CAPA?")
+    print(new_layer.fields().names())
     # Añadir campos del DataFrame
     new_fields = []
     for col in df.columns:
@@ -239,11 +579,11 @@ def merge_layer_with_dataframe(source_layer, dataframe, join_field, output_name,
         # Crear campo copiando estructura de un campo existente
         if source_layer.fields().count() > 0:
             template_field = source_layer.fields().at(0)
-            
             # Determinar tipo según dtype del DataFrame
             if df[col].dtype in ['int64', 'int32', 'Int64']:
                 # Buscar plantilla entero
                 int_template = None
+                df[col] = df[col].replace(0,np.nan) # Deberia pasar los 0 a NaN
                 for existing_field in source_layer.fields():
                     if existing_field.type() == QVariant.Int:
                         int_template = existing_field
@@ -275,13 +615,13 @@ def merge_layer_with_dataframe(source_layer, dataframe, join_field, output_name,
                 new_field.setName(field_name)
             
             new_fields.append(new_field)
-    
+    print(("CAMPOS NUEVOOOOOOOOOS",new_fields)) 
     # Añadir todos los campos nuevos
     if new_fields:
         new_layer.dataProvider().addAttributes(new_fields)
     
     new_layer.updateFields()
-    
+    print(new_layer.fields())
     # Crear diccionario de búsqueda desde DataFrame
     # Si el DataFrame tiene índice con el join_field, usarlo
     if df.index.name == join_field:
@@ -330,9 +670,10 @@ def merge_layer_with_dataframe(source_layer, dataframe, join_field, output_name,
             missing_data.append(join_value)
         new_feature.setAttributes(attributes)
         features_to_add.append(new_feature)
-    
+
     # Añadir features a la nueva capa
     new_layer.dataProvider().addFeatures(features_to_add)
+    print(new_layer.fields().names())
     new_layer.updateExtents()
     # Guardar o añadir según configuración
     final_layer = None
@@ -445,7 +786,7 @@ def municipios_stats(centroides_layer, municipios_layer):
             for key, value in valores.items():
                 if isinstance(value, QVariant):  # Si es QVariant
                     if value.isNull():
-                        valores[key]=0.0
+                        valores[key]=np.nan
                     else:
                         valores[key] = value.value()
                 elif value is None:
@@ -459,6 +800,7 @@ def municipios_stats(centroides_layer, municipios_layer):
         # 4. Dividir entre la población del municipio
         col_a_dividir = [col for col in mun_df.columns if col not in ["POB","CMUN"]]
         mun_df[col_a_dividir] = mun_df[col_a_dividir].div(mun_df["POB"],axis = 0)
+
         print("QUE PASAAAA")
         return mun_df       
     except Exception as e:
