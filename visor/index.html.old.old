@@ -1,0 +1,219 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor GIS - Datos Municipales España</title>
+    
+    <!-- OpenLayers CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1><i class="fas fa-map-marked-alt"></i> Visor GIS - Datos Municipales de España</h1>
+        <div class="header-info">
+            <span><i class="fas fa-database"></i> 2 Datasets</span>
+            <span><i class="fas fa-calendar"></i> 2024-2025</span>
+            <span><i class="fas fa-university"></i> TFG</span>
+        </div>
+    </div>
+    
+    <!-- Contenedor principal -->
+    <div class="main-container">
+        <!-- Panel lateral -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2 style="font-size: 1.1rem; color: #495057;">
+                    <i class="fas fa-layer-group"></i> Panel de Control
+                </h2>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- Control de capas -->
+                <div class="panel-section">
+                    <h3><i class="fas fa-layers"></i> Capas</h3>
+                    
+                    <!-- Capa de municipios -->
+                    <div class="layer-control">
+                        <div class="layer-header">
+                            <div class="layer-title">
+                                <i class="fas fa-draw-polygon" style="color: #3388ff;"></i>
+                                <span>Municipios</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="toggleMunicipios" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="layer-controls">
+                            <label style="font-size: 0.85rem; color: #6c757d;">Opacidad:</label>
+                            <input type="range" class="opacity-slider" id="opacityMunicipios" 
+                                   min="0" max="100" value="60">
+                            <span id="opacityValueMunicipios" style="font-size: 0.85rem;">60%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Capa de centroides -->
+                    <div class="layer-control">
+                        <div class="layer-header">
+                            <div class="layer-title">
+                                <i class="fas fa-map-pin" style="color: #dc3545;"></i>
+                                <span>Centroides</span>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="toggleCentroides" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="layer-controls">
+                            <label style="font-size: 0.85rem; color: #6c757d;">Opacidad:</label>
+                            <input type="range" class="opacity-slider" id="opacityCentroides" 
+                                   min="0" max="100" value="80">
+                            <span id="opacityValueCentroides" style="font-size: 0.85rem;">80%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mapa base -->
+                <div class="panel-section">
+                    <h3><i class="fas fa-map"></i> Mapa Base</h3>
+                    <select id="basemapSelect" style="width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid #dee2e6;">
+                        <option value="osm">OpenStreetMap</option>
+                        <option value="topo">Topográfico</option>
+                        <option value="satellite">Satélite</option>
+                        <option value="dark">Oscuro</option>
+                    </select>
+                </div>
+                
+                <!-- Herramientas -->
+                <div class="panel-section">
+                    <h3><i class="fas fa-tools"></i> Herramientas</h3>
+                    <div class="tool-buttons">
+                        <button class="tool-btn" id="selectTool" title="Seleccionar">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </button>
+                        <button class="tool-btn" id="measureTool" title="Medir">
+                            <i class="fas fa-ruler"></i>
+                        </button>
+                        <button class="tool-btn" id="drawTool" title="Dibujar">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        <button class="tool-btn" id="clearTool" title="Limpiar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Información seleccionada -->
+                <div class="panel-section">
+                    <h3><i class="fas fa-info-circle"></i> Información</h3>
+                    <div id="featureInfo" style="color: #6c757d; font-size: 0.9rem;">
+                        Haz clic en un elemento del mapa para ver su información
+                    </div>
+                </div>
+                
+                <!-- Estadísticas -->
+                <div class="panel-section">
+                    <h3><i class="fas fa-chart-bar"></i> Estadísticas</h3>
+                    <div class="info-panel">
+                        <div class="info-item">
+                            <span class="info-label">Total Municipios:</span>
+                            <span class="info-value" id="statMunicipios">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Total Centroides:</span>
+                            <span class="info-value" id="statCentroides">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Zoom Actual:</span>
+                            <span class="info-value" id="currentZoom">6</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Metadatos DCAT -->
+                <div class="panel-section">
+                    <h3><i class="fas fa-file-alt"></i> Metadatos DCAT</h3>
+                    <div style="font-size: 0.85rem; color: #6c757d;">
+                        <p style="margin-bottom: 0.5rem;">
+                            <strong>Licencia:</strong> CC-BY 4.0
+                        </p>
+                        <p style="margin-bottom: 0.5rem;">
+                            <strong>Última actualización:</strong> Enero 2025
+                        </p>
+                        <p style="margin-bottom: 0.5rem;">
+                            <strong>CRS:</strong> EPSG:4326 (WGS84)
+                        </p>
+                        <button class="tool-btn" onclick="alert('Metadatos DCAT completos disponibles en el archivo metadata.jsonld')" style="width: 100%; margin-top: 0.5rem;">
+                            <i class="fas fa-download"></i> Ver DCAT Completo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contenedor del mapa -->
+        <div class="map-container">
+            <!-- Botón toggle sidebar -->
+            <button class="control-btn toggle-sidebar" id="toggleSidebar" title="Mostrar/Ocultar panel">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Controles del mapa -->
+            <div class="map-controls">
+                <button class="control-btn" id="zoomIn" title="Acercar">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button class="control-btn" id="zoomOut" title="Alejar">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="control-btn" id="fullExtent" title="Vista completa">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button class="control-btn" id="locate" title="Mi ubicación">
+                    <i class="fas fa-crosshairs"></i>
+                </button>
+            </div>
+            
+            <!-- Mapa -->
+            <div id="map"></div>
+            
+            <!-- Popup -->
+            <div id="popup" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer">×</a>
+                <div id="popup-content" class="popup-content"></div>
+            </div>
+            
+            <!-- Escala -->
+            <div class="scale-bar" id="scaleBar">
+                Escala: <span id="scaleValue">1:1000000</span>
+            </div>
+            
+            <!-- Coordenadas del mouse -->
+            <div class="mouse-position" id="mousePosition">
+                Lat: 40.416°, Lon: -3.703°
+            </div>
+            
+            <!-- Loading -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Cargando datos...</p>
+            </div>
+        </div>
+    </div>
+     <!-- OpenLayers JS -->
+    <script src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script>
+    
+    <!-- Scripts de la aplicación -->
+    <script src="js/config.js"></script>
+    <script src="js/layers.js"></script>
+    <script src="js/controls.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>   
+</body>
+</html>

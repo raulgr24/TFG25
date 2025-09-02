@@ -1,0 +1,77 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dct": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "locn": "http://www.w3.org/ns/locn#",
+    "gsp": "http://www.opengis.net/ont/geosparql#"
+  },
+  "@type": "dcat:Catalog",
+  "@id": "https://github.com/raulgr24/TFG25",
+  "dct:title": {
+    "@language": "es",
+    "@value": "Catálogo de Datos Geoespaciales - TFG Municipios España"
+  },
+  "dct:description": {
+    "@language": "es",
+    "@value": "Catálogo de datasets geoespaciales de municipios españoles para Trabajo de Fin de Grado"
+  },
+  "dct:publisher": {
+    "@type": "foaf:Person",
+    "foaf:name": "Raúl",
+    "foaf:homepage": "https://github.com/raulgr24"
+  },
+  "dct:issued": "2025-01-30",
+  "dct:modified": "2025-01-30",
+  "dct:language": "http://publications.europa.eu/resource/authority/language/SPA",
+  "dcat:dataset": [
+    {
+      "@type": "dcat:Dataset",
+      "@id": "https://github.com/raulgr24/TFG25/blob/main/Datos%20nuevos/Centroides_stats.gpkg"
+      "dct:title": {
+        "@language": "es",
+        "@value": "Centroides Estadísticos de Municipios"
+      },
+      "dct:description": {
+        "@language": "es",
+        "@value": "Dataset con centroides geográficos de municipios españoles incluyendo información estadística"
+      },
+      "dct:identifier": "centroides-stats-v1.0",
+      "dcat:keyword": ["centroides", "municipios", "estadística", "puntos", "España"],
+      "dct:issued": "2025-01-30",
+      "dct:modified": "2025-01-30",
+      "dct:creator": {
+        "@type": "foaf:Person",
+        "foaf:name": "Raúl",
+        "foaf:mbox": "mailto:100363837@alumnos.uc3m.es"
+      },
+      "dct:license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/",
+        "dct:title": "Creative Commons Attribution 4.0"
+      },
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "@id": "https://github.com/raulgr24/TFG25/releases/download/v1.0.0/Centroides_stats.gpkg",
+          "dct:title": "Centroides en formato GeoPackage",
+          "dct:description": "Archivo GeoPackage con geometría de punto",
+          "dcat:accessURL": ",https://github.com/raulgr24/TFG25/blob/main/Datos%20nuevos/Centroides_stats.gpkg"
+          "dcat:downloadURL": "https://github.com/tu-usuario/tfg-datos-municipales/releases/latest/download/Centroides_stats.gpkg",
+          "dct:format": {
+            "@id": "https://www.iana.org/assignments/media-types/application/geopackage+sqlite3",
+            "dct:title": "GeoPackage"
+          },
+          "dcat:mediaType": "application/geopackage+sqlite3",
+          "dcat:byteSize": 516096,
+          "dct:issued": "2025-01-30"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "@id": "https://github.com/tu-usuario/tfg-datos-municipales/blob/main/Datos%20nuevos/centroides.geojson",
+          "dct:title": "Centroides en formato GeoJSON",
+          "dct:description": "Versión GeoJSON para visualización web",
+          "dcat:accessURL": "https://github.com/tu-usuario/tfg-datos-municipales/blob/main/Datos%20nuevos/centroides.geojson",
+          "dcat:downloadURL": "https://raw.githubusercontent.com/tu-usuario/tfg-datos-municipales/main/Datos%20nuevos/centroides.geojson",
+          "dct:format": {
+            "@id": "

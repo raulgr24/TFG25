@@ -6,6 +6,7 @@
 - file_creator.py --> Scripts de creación, lectura y modificación de archivos
 - google_request.py --> Scripts de requuests a la Routes API de Google
 - output/ --> Carpeta de archivos generados
+- visor/ --> Archivos de visor del dataset
 
 # Partes a cambiar
 - Para hacer consultas, crea un "api.txt" en la carpeta general con la clave API.
@@ -16,3 +17,5 @@ Por alguna razón el paquete qgis.core para python no se puede instalar por pip 
 Para eso tengo TFG.bat, que crea las variables de entorno necesarias junto con otras que me permiten abrir el editor y una powershell directa a la carpeta con los archivos.
 Es probable que de errores en otros ordenadores, se puede cambiar el archivo para que añada rutas al PATH, en mi caso añado PATH neovim, powershell, etc.
 
+# USO DEL VISOR
+- Por ahora server3.py permite visualizar el dataset en localhost:5000

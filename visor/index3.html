@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Visor OL 7+</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- CSS de OpenLayers -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@latest/ol.css">
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #toolbar { position: absolute; z-index: 1000; top: 8px; left: 8px; background: #fff; padding: 6px 10px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.2); font: 14px system-ui; }
+    #map { width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <div id="toolbar">
+    Capa base:
+    <select id="basemap">
+      <option value="osm" selected>OSM</option>
+      <option value="topo">Topo</option>
+      <option value="sat">Satélite</option>
+      <option value="dark">Dark</option>
+    </select>
+    <span id="status" style="margin-left:10px;color:#444">Listo</span>
+  </div>
+  <div id="map"></div>
+
+  <!-- Tu app con módulos ES -->
+  <script type="module">
+    import Map from 'https://cdn.jsdelivr.net/npm/ol@latest/Map.js';
+    import View from 'https://cdn.jsdelivr.net/npm/ol@latest/View.js';
+    import TileLayer from 'https://cdn.jsdelivr.net/npm/ol@latest/layer/Tile.js';
+    import VectorLayer from 'https://cdn.jsdelivr.net/npm/ol@latest/layer/Vector.js';
+    import OSM from 'https://cdn.jsdelivr.net/npm/ol@latest/source/OSM.js';
+    import XYZ from 'https://cdn.jsdelivr.net/npm/ol@latest/source/XYZ.js';
+    import VectorSource from 'https://cdn.jsdelivr.net/npm/ol@latest/source/Vector.js';
+    import GeoJSON from 'https://cdn.jsdelivr.net/npm/ol@latest/format/GeoJSON.js';
+    import {defaults as defaultControls, ScaleLine} from 'https://cdn.jsdelivr.net/npm/ol@latest/control.js';
+    import {fromLonLat} from 'https://cdn.jsdelivr.net/npm/ol@latest/proj.js';
+
+    const statusEl = document.getElementById('status');
+    const setStatus = (msg) => statusEl.textContent = msg;
+
+    // ---- Capas base (todas en EPSG:3857) ----
+    const baseLayers = {
+      osm: new TileLayer({ source: new OSM(), visible: true }),
+      topo: new TileLayer({
+        source: new XYZ({ url: 'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png' }),
+        visible: false
+      }),
+      sat: new TileLayer({
+        // ESRI World Imagery (uso razonable para demo)
+        source: new XYZ({ url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}' }),
+        visible: false
+      }),
+      dark: new TileLayer({
+        source: new XYZ({ url: 'https://{a-c}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png' }),
+        visible: false
+      })
+    };
+
+    // ---- Capas vectoriales (desde tu API) ----
+    const municipiosSource = new VectorSource({
+      url: '/api/municipios',
+      format: new GeoJSON({
+        dataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'
+      })
+    });
+    const municipiosLayer = new VectorLayer({
+      source: municipiosSource,
+      opacity: 0.6
+    });
+
+    const centroidesSource = new VectorSource({
+      url: '/api/centroides',
+      format: new GeoJSON({
+        dataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'
+      })
+    });
+    const centroidesLayer = new VectorLayer({
+      source: centroidesSource,
+      opacity: 0.9
+    });
+
+    // Feedback de carga
+    municipiosSource.on('featuresloadstart', () => setStatus('Cargando municipios…'));
+    municipiosSource.on('featuresloadend', () => setStatus(`Municipios cargados: ${municipiosSource.getFeatures().length}`));
+    municipiosSource.on('featuresloaderror', () => setStatus('❌ Error cargando municipios'));
+
+    centroidesSource.on('featuresloadstart', () => setStatus('Cargando centroides…'));
+    centroidesSource.on('featuresloadend', () => setStatus(`Centroides cargados: ${centroidesSource.getFeatures().length}`));
+    centroidesSource.on('featuresloaderror', () => setStatus('❌ Error cargando centroides'));
+
+    // ---- Mapa ----
+    const map = new Map({
+      target: 'map',
+      layers: [
+        baseLayers.osm, baseLayers.topo, baseLayers.sat, baseLayers.dark,
+        municipiosLayer, centroidesLayer
+      ],
+      view: new View({
+        center: fromLonLat([-3.7038, 40.4168]), // Madrid
+        zoom: 7
+      }),
+      controls: defaultControls().extend([ new ScaleLine() ])
+    });
+
+    // Ajustar vista a municipios cuando acaben de cargar
+    municipiosSource.once('featuresloadend', () => {
+      const extent = municipiosSource.getExtent();
+      if (extent && extent.every(Number.isFinite)) {
+        map.getView().fit(extent, {padding: [20,20,20,20], duration: 300});
+      }
+    });
+
+    // Selector de base
+    document.getElementById('basemap').addEventListener('change', (e) => {
+      const sel = e.target.value;
+      for (const [k, layer] of Object.entries(baseLayers)) {
+        layer.setVisible(k === sel);
+      }
+    });
+  </script>
+</body>
+</html>
+
