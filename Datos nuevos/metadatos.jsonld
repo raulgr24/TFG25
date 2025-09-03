@@ -35,12 +35,12 @@
       },
       "dct:description": {
         "@language": "es",
-        "@value": "Dataset con centroides geográficos de municipios españoles incluyendo información estadística"
+        "@value": "Dataset con centroides de núcleos poblacionales de Madrid y su distancia a distintos servicios públicos"
       },
       "dct:identifier": "centroides-stats-v1.0",
-      "dcat:keyword": ["centroides", "municipios", "estadística", "puntos", "España"],
-      "dct:issued": "2025-01-30",
-      "dct:modified": "2025-01-30",
+      "dcat:keyword": ["centroides", "municipios", "estadística", "servicios", "distancia", "puntos", "España"],
+      "dct:issued": "2025-08-29",
+      "dct:modified": "2025-08-02",
       "dct:creator": {
         "@type": "foaf:Person",
         "foaf:name": "Raúl",
