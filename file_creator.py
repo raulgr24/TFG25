@@ -186,22 +186,22 @@ def merge_layer_centroides(layer_name, data_dict, join_field, output_name, verbo
             print(df1)
         df = pd.merge(df,df1,on=join_field,how='inner')
         result_type = ["dis","dur"]
-        destination = ["hospt3","hospt2","bomberos","csmental","juzgados"]
-        modes = ["drive","transit"]
+        destination = ["H3","H2","B","M","J"]
+        modes = ["d","t"]
         for i in result_type:
             for k in modes:
-                    df[f"mean_{i}_{k}"]= df[[c for c in df.columns if i in c and k in c]].mean(axis=1)
-                    df[f"weigh_mean_{i}_{k}"]= df[f"mean_{i}_{k}"]*df["POB"]
+                    df[f"avg_{i}_{k}"]= df[[c for c in df.columns if i in c and k in c]].mean(axis=1)
+                    df[f"w_avg_{i}_{k}"]= df[f"avg_{i}_{k}"]*df["POB"]
 
         for i in result_type:
             for j in destination:
                 for k in modes:
-                    df[f"mean_{i}_{j}_{k}"]= df[[c for c in df.columns if f"{i}_{j}" in c and k in c]].mean(axis=1)
-                    df[f"weigh_mean_{i}_{j}_{k}"]= df[f"mean_{i}_{j}_{k}"]*df["POB"]
-                df[f"mean_{i}_{j}_all"]= df[[c for c in df.columns if c.startswith(f"{i}_{j}")]].mean(axis=1)
-                df[f"weigh_mean_{i}_{j}_all"]= df[f"mean_{i}_{j}_all"]*df["POB"]
-            df[f"mean_{i}_all"]= df[[c for c in df.columns if c.startswith(f"{i}_")]].mean(axis=1)
-            df[f"weigh_mean_{i}_all"]= df[f"mean_{i}_all"]*df["POB"]
+                    df[f"avg_{i}_{j}_{k}"]= df[[c for c in df.columns if f"{i}_{j}" in c and k in c]].mean(axis=1)
+                    df[f"w_avg_{i}_{j}_{k}"]= df[f"avg_{i}_{j}_{k}"]*df["POB"]
+                df[f"avg_{i}_{j}_total"]= df[[c for c in df.columns if c.startswith(f"{i}_{j}")]].mean(axis=1)
+                df[f"w_avg_{i}_{j}_total"]= df[f"avg_{i}_{j}_total"]*df["POB"]
+            df[f"avg_{i}_total"]= df[[c for c in df.columns if c.startswith(f"{i}_")]].mean(axis=1)
+            df[f"w_avg_{i}_total"]= df[f"avg_{i}_total"]*df["POB"]
         df = df.drop('POB',axis=1)
         df = df.reindex(sorted(df.columns), axis=1)
         df[join_field] = df[join_field].astype("string").str.zfill(7)
@@ -778,7 +778,7 @@ def municipios_stats(centroides_layer, municipios_layer):
         print(f"{Fore.GREEN}'CMUN en ambas capas'")
 
         # 3. Sumar todos los valores de cada municipio
-        used_cols = [f for f in list(centroides_fields) if f in["CMUN","POB"] or "weigh" in f]
+        used_cols = [f for f in list(centroides_fields) if f in["CMUN","POB"] or "w" in f]
         mun_df = pd.DataFrame(columns= used_cols) # pyright: ignore[reportArgumentType]
         mun_df = mun_df.set_index("CMUN")
         for centroide in centroides.getFeatures():
@@ -801,7 +801,6 @@ def municipios_stats(centroides_layer, municipios_layer):
         col_a_dividir = [col for col in mun_df.columns if col not in ["POB","CMUN"]]
         mun_df[col_a_dividir] = mun_df[col_a_dividir].div(mun_df["POB"],axis = 0)
 
-        print("QUE PASAAAA")
         return mun_df       
     except Exception as e:
         print(f"{Fore.LIGHTRED_EX}Error en el proceso: {e}")
@@ -1091,17 +1090,21 @@ def readable_results(file):
     data = json_to_dict(file)
     origin_hospital = json_to_dict("hosp_per_origin")
     output = {}
+    translate = {
+        "drive":"conduciendo",
+        "transit": "en transporte público"}
     for origin_name, all_destinations in data.items():
         idents = []
-        idents.extend(["hospt3_"+str(k) for k in range(1,origin_hospital[origin_name][0]+1)])
-        idents.extend(["hospt2_"+str(k) for k in range(1,origin_hospital[origin_name][1]+1)])
-        idents.extend(["juzgados","bomberos","csmental"])
+        idents.extend(["H3"+str(k) for k in range(1,origin_hospital[origin_name][0]+1)])
+        idents.extend(["H2"+str(k) for k in range(1,origin_hospital[origin_name][1]+1)])
+        idents.extend(["J","B","M"])
         result_per_origin = {}
         for dest_index,destination in enumerate(all_destinations):
             for mode_hour, info in destination.items():
-                result_per_origin[f"dis_{idents[dest_index]}_{mode_hour}"] = int(info["routes"][0]["distanceMeters"]) if info else None
-                result_per_origin[f"dur_{idents[dest_index]}_{mode_hour}"] =int(info["routes"][0]["duration"][:-1])
+                result_per_origin[f"dis_{idents[dest_index]}_{mode_hour[0]}_{"p"if mode_hour[-2] == "3" else "n"}"] = int(info["routes"][0]["distanceMeters"]) if info else None
+                result_per_origin[f"dur_{idents[dest_index]}_{mode_hour[0]}_{"p"if mode_hour[-2] == "3" else "n"}"] =int(info["routes"][0]["duration"][:-1])
         output[origin_name]=result_per_origin
+    print(output)
     return output
 
 def get_empty_results(file):
@@ -1139,7 +1142,7 @@ def apply_penalization(objective,pen_json,):
     results = json_to_dict(objective)
     for centro_key , penalization in penalizations.items():
         for result_key, result in results[centro_key].items():
-            if "transit" in result_key:
+            if "t" in result_key:
                 if "dis" in result_key:
 
                     results[centro_key][result_key]= result +int(penalization*1.5)

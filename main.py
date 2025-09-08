@@ -4,7 +4,7 @@ import colorama
 
 get_closest_cords = False
 get_requests = False
-get_pens = True
+get_pens = False
 get_stats = True
 
 def pens():
@@ -17,7 +17,7 @@ def pens():
     clean_results_dict = readable_results("routes_API_results_dump")
     dict_to_json(clean_results_dict,"requests_clean")
     dict_to_json(get_penalization("Centroides final","Centroides bus"),"penalizations")
-    dict_to_json(apply_penalization("requests_clean","penalizations"),"requests_clean_post_penalizations")
+    dict_to_json(apply_penalization("requests_clean_test","penalizations"),"requests_clean_post_penalizations")
 
 def get_closest():
         closest_destinations_cords(origin,destinations)
@@ -30,6 +30,14 @@ def merge_results():
             data_dict=results_dict,
             join_field="CDTNUCLEO", 
             output_name="Centroides_stats",
+            verbose = True
+        )
+    
+    merge_layer_centroides(
+            layer_name="Nucleos urbanos > 10 fix",
+            data_dict=results_dict,
+            join_field="CDTNUCLEO", 
+            output_name="Nucleos_stats",
             verbose = True
         )
     print("CAPA DE CENTROIDES HECHA")

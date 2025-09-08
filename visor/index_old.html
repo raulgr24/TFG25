@@ -5,7 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Visor GIS - Datos Municipales España</title>
 
+		<!-- OpenLayers CSS -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
+
+		<!-- Font Awesome para iconos -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 		<style>
@@ -22,6 +25,7 @@
 			flex-direction: column;
 		}
 
+		/* Header */
 		.header {
 			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 			color: white;
@@ -43,12 +47,14 @@
 			font-size: 0.9rem;
 		}
 
+		/* Layout principal */
 		.main-container {
 			display: flex;
 			flex: 1;
 			overflow: hidden;
 		}
 
+		/* Panel lateral */
 		.sidebar {
 			width: 370px;
 			background: #f8f9fa;
@@ -59,7 +65,7 @@
 		}
 
 		.sidebar.collapsed {
-			margin-left: -370px;
+			margin-left: -320px;
 		}
 
 		.sidebar-header {
@@ -74,6 +80,7 @@
 			padding: 1rem;
 		}
 
+		/* Secciones del panel */
 		.panel-section {
 			background: white;
 			border-radius: 8px;
@@ -95,6 +102,7 @@
 			color: #667eea;
 		}
 
+		/* Controles de capas */
 		.layer-control {
 			padding: 0.75rem;
 			margin-bottom: 0.5rem;
@@ -132,6 +140,7 @@
 			width: 100px;
 		}
 
+		/* Toggle switch */
 		.switch {
 			position: relative;
 			display: inline-block;
@@ -177,6 +186,7 @@
 			transform: translateX(20px);
 		}
 
+		/* Mapa */
 		.map-container {
 			flex: 1;
 			position: relative;
@@ -187,6 +197,7 @@
 			height: 100%;
 		}
 
+		/* Controles del mapa */
 		.map-controls {
 			position: absolute;
 			top: 1rem;
@@ -222,6 +233,7 @@
 			font-size: 1.1rem;
 		}
 
+		/* Toggle sidebar button */
 		.toggle-sidebar {
 			position: absolute;
 			top: 1rem;
@@ -229,6 +241,7 @@
 			z-index: 1000;
 		}
 
+		/* Popup personalizado */
 		.ol-popup {
 			position: absolute;
 			background-color: white;
@@ -294,6 +307,7 @@
 			font-weight: 500;
 		}
 
+		/* Panel de información */
 		.info-panel {
 			background: white;
 			padding: 0.75rem;
@@ -324,6 +338,37 @@
 			font-size: 0.9rem;
 		}
 
+		/* Botones de herramientas */
+		.tool-buttons {
+			display: flex;
+			gap: 0.5rem;
+			margin-top: 1rem;
+		}
+
+		.tool-btn {
+			flex: 1;
+			padding: 0.5rem;
+			border: 1px solid #dee2e6;
+			background: white;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.2s;
+			font-size: 0.9rem;
+		}
+
+		.tool-btn:hover {
+			background: #667eea;
+			color: white;
+			border-color: #667eea;
+		}
+
+		.tool-btn.active {
+			background: #667eea;
+			color: white;
+			border-color: #667eea;
+		}
+
+		/* Barra de escala personalizada */
 		.scale-bar {
 			position: absolute;
 			bottom: 2rem;
@@ -337,6 +382,7 @@
 			z-index: 100;
 		}
 
+		/* Coordenadas del mouse */
 		.mouse-position {
 			position: absolute;
 			bottom: 2rem;
@@ -350,6 +396,7 @@
 			z-index: 100;
 		}
 
+		/* Loading */
 		.loading {
 			position: absolute;
 			top: 50%;
@@ -374,6 +421,7 @@
 		100% { transform: rotate(360deg); }
 		}
 
+		/* Responsive */
 		@media (max-width: 768px) {
 			.sidebar {
 				width: 280px;
@@ -390,6 +438,7 @@
 		</style>
 	</head>
 	<body>
+		<!-- Header -->
 		<div class="header">
 			<h1><i class="fas fa-map-marked-alt"></i> Visor GIS - Datos Municipales de España</h1>
 			<div class="header-info">
@@ -398,7 +447,9 @@
 				<span><i class="fas fa-university"></i> TFG</span>
 			</div>
 		</div>
+		<!-- Contenedor principal -->
 		<div class="main-container">
+			<!-- Panel lateral -->
 			<div class="sidebar" id="sidebar">
 				<div class="sidebar-header">
 					<h2 style="font-size: 1.1rem; color: #495057;">
@@ -407,9 +458,11 @@
 				</div>
 
 				<div class="sidebar-content">
+					<!-- Control de capas -->
 					<div class="panel-section">
 						<h3><i class="fas fa-layers"></i> Capas</h3>
 
+						<!-- Capa de municipios -->
 						<div class="layer-control">
 							<div class="layer-header">
 								<div class="layer-title">
@@ -434,31 +487,8 @@
 								</select>
 							</div>
 						</div>
-						<div class="layer-control">
-							<div class="layer-header">
-								<div class="layer-title">
-									<i class="fas fa-draw-polygon" style="color: #3388ff;"></i>
-									<span>Nucleos</span>
-								</div>
-								<label class="switch">
-									<input type="checkbox" id="toggleNucleos" checked>
-									<span class="slider"></span>
-								</label>
-							</div>
-							<div class="layer-controls">
-								<label style="font-size: 0.85rem; color: #6c757d;">Opacidad:</label>
-								<input type="range" class="opacity-slider" id="opacityNucleos" 
-									min="0" max="100" value="60">
-								<span id="opacityValueNucleos" style="font-size: 0.85rem;">60%</span>
-							</div>
-							<div style="margin-top:8px">
-								<label style="font-size:.85rem;color:#6c757d">Color por atributo:</label>
-								<select id="attrNucleos" style="width:100%;padding:.4rem;border:1px solid #dee2e6;border-radius:4px">
-									<option value="">Ninguno</option>
-								</select>
-							</div>
-						</div>
 
+						<!-- Capa de centroides -->
 						<div class="layer-control">
 							<div class="layer-header">
 								<div class="layer-title">
@@ -476,6 +506,7 @@
 									min="0" max="100" value="80">
 								<span id="opacityValueCentroides" style="font-size: 0.85rem;">80%</span>
 							</div>
+							<!-- Selector de atributo para Centroides -->
 							<div style="margin-top:8px">
 								<label style="font-size:.85rem;color:#6c757d">Color por atributo:</label>
 								<select id="attrCentroides" style="width:100%;padding:.4rem;border:1px solid #dee2e6;border-radius:4px">
@@ -485,6 +516,7 @@
 						</div>
 					</div>
 
+					<!-- Mapa base -->
 					<div class="panel-section">
 						<h3><i class="fas fa-map"></i> Mapa Base</h3>
 						<select id="basemapSelect" style="width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid #dee2e6;">
@@ -495,6 +527,7 @@
 						</select>
 					</div>
 
+					<!-- Información seleccionada -->
 					<div class="panel-section">
 						<h3><i class="fas fa-info-circle"></i> Información</h3>
 						<div id="featureInfo" style="color: #6c757d; font-size: 0.9rem;">
@@ -502,6 +535,7 @@
 						</div>
 					</div>
 
+					<!-- Estadísticas -->
 					<div class="panel-section">
 						<h3><i class="fas fa-chart-bar"></i> Estadísticas</h3>
 						<div class="info-panel">
@@ -522,11 +556,14 @@
 				</div>
 			</div>
 
+			<!-- Contenedor del mapa -->
 			<div class="map-container">
+				<!-- Botón toggle sidebar -->
 				<button class="control-btn toggle-sidebar" id="toggleSidebar" title="Mostrar/Ocultar panel">
 					<i class="fas fa-bars"></i>
 				</button>
 
+				<!-- Controles del mapa -->
 				<div class="map-controls">
 					<button class="control-btn" id="zoomIn" title="Acercar">
 						<i class="fas fa-plus"></i>
@@ -542,21 +579,26 @@
 					</button>
 				</div>
 
+				<!-- Mapa -->
 				<div id="map"></div>
 
+				<!-- Popup -->
 				<div id="popup" class="ol-popup">
 					<a href="#" id="popup-closer" class="ol-popup-closer">×</a>
 					<div id="popup-content" class="popup-content"></div>
 				</div>
 
+				<!-- Escala -->
 				<div class="scale-bar" id="scaleBar">
 					Escala: <span id="scaleValue">1:1000000</span>
 				</div>
 
+				<!-- Coordenadas del mouse -->
 				<div class="mouse-position" id="mousePosition">
 					Lat: 40.416°, Lon: -3.703°
 				</div>
 
+				<!-- Loading -->
 				<div class="loading" id="loading" style="display: none;">
 					<div class="spinner"></div>
 					<p>Cargando datos...</p>
@@ -564,40 +606,75 @@
 			</div>
 		</div>
 
-		<script type="module">
+		<!-- OpenLayers JS -->
+
+		<script type = "module">
+		/* --------- Núcleo --------- */
 		import Map from "https://esm.sh/ol@8.2.0/Map.js";
 		import View from "https://esm.sh/ol@8.2.0/View.js";
+
+		/* --------- Capas --------- */
 		import TileLayer from "https://esm.sh/ol@8.2.0/layer/Tile.js";
 		import VectorLayer from "https://esm.sh/ol@8.2.0/layer/Vector.js";
+
+		/* --------- Fuentes --------- */
 		import OSM from "https://esm.sh/ol@8.2.0/source/OSM.js";
 		import XYZ from "https://esm.sh/ol@8.2.0/source/XYZ.js";
 		import VectorSource from "https://esm.sh/ol@8.2.0/source/Vector.js";
+
+		/* --------- Formatos --------- */
 		import GeoJSON from "https://esm.sh/ol@8.2.0/format/GeoJSON.js";
+
+		/* --------- Overlays --------- */
 		import Overlay from "https://esm.sh/ol@8.2.0/Overlay.js";
+
+		/* --------- Interacciones --------- */
+		import Draw from "https://esm.sh/ol@8.2.0/interaction/Draw.js";
+		import Modify from "https://esm.sh/ol@8.2.0/interaction/Modify.js";
 		import Style from "https://esm.sh/ol@8.2.0/style/Style.js";
 		import Fill from "https://esm.sh/ol@8.2.0/style/Fill.js";
 		import Stroke from "https://esm.sh/ol@8.2.0/style/Stroke.js";
 		import CircleStyle from "https://esm.sh/ol@8.2.0/style/Circle.js";
+		import MousePosition from "https://esm.sh/ol@8.2.0/control/MousePosition.js";
+		import {createStringXY} from "https://esm.sh/ol@8.2.0/coordinate.js";
+
+		/* --------- Geometrías --------- */
+		import Polygon from "https://esm.sh/ol@8.2.0/geom/Polygon.js";
 		import Feature from "https://esm.sh/ol@8.2.0/Feature.js";
-		import Point from "https://esm.sh/ol@8.2.0/geom/Point.js";
+		import Point from "https://esm.sh/ol@8.2.0/geom/Point.js";		
+
+		/* --------- Extents --------- */
 		import {isEmpty} from "https://esm.sh/ol@8.2.0/extent.js";
-		import {fromLonLat, toLonLat} from "https://esm.sh/ol@8.2.0/proj.js";
+
+		/* --------- Proyecciones --------- */
+		import {fromLonLat, toLonLat, transformExtent} from "https://esm.sh/ol@8.2.0/proj.js";
+
+		/* --------- Esfera (distancias/áreas) --------- */
+		import {getLength, getArea} from "https://esm.sh/ol@8.2.0/sphere.js";
 		import {METERS_PER_UNIT} from "https://esm.sh/ol@8.2.0/proj/Units.js";
+
+		/* --------- Controles --------- */
 		import {defaults as defaultControls, ScaleLine} from "https://esm.sh/ol@8.2.0/control.js";
 
+		// Inicialización del mapa
 		let map;
-		let municipiosLayer, centroidesLayer, nucleosLayer;
+		let municipiosLayer, centroidesLayer;
+		let drawInteraction, measureInteraction;
+		let vectorSource, drawLayer;
 		let popup;
+
+		// Función de inicialización
+		// Estado actual del atributo seleccionado por capa
 		let selectedAttrMunicipios = "";
-		let selectedAttrNucleos = "";
 		let selectedAttrCentroides = "";
 
+		// Estadísticas min/max cacheadas por capa/atributo
 		const attrStats = {
-			nucleos: {},
-			municipios: {},
+			municipios: {},   // { attrName: {min, max} }
 			centroides: {}
 		};
 
+		// Escala de color (verde→rojo)
 		function colorRamp(value, min, max) {
 			if (value == null || !isFinite(value) || min === max) return 'rgba(200,200,200,0.6)';
 			const t = Math.max(0, Math.min(1, (value - min) / (max - min)));
@@ -606,6 +683,7 @@
 			return `rgba(${r},${g},0,0.6)`;
 		}
 
+		// // Devuelve lista de atributos numéricos con datos válidos
 		function getNumericAttributes(features) {
 			if (!features || features.length === 0) return [];
 			const props = features[0].getProperties();
@@ -613,47 +691,36 @@
 			return Object.keys(props)
 				.filter(k => k !== 'geometry')
 				.filter(k => {
+					// Verificar que al menos algunas features tengan valores válidos
 					const validCount = features.filter(f => {
 						const val = f.get(k);
 						return typeof val === 'number' && isFinite(val) && val !== null;
 					}).length;
+
+					// Solo incluir si al menos 10% de las features tienen datos válidos
 					return validCount > features.length * 0.1;
 				});
 		}
-
 		const equiv = {
 			"CMUN": "Código de Municipio",
-			"POB": "Población",
+			"POB": "Poblacion",
 			"ETIQUETA": "Nombre",
-			"PART_JUD": "Partido judicial",
-			"COD": "Dirección Asistencial de Salud",
-			"lat": "Latitud",
-			"lng": "Longitud"
+			"PART_JUD": "Partido judicial"
 		};
-
 		const equiv2 = {
-			"w": " ponderada",
-			"avg": "Media",
-			"dis": " dist",
+		"w": " ponderada",
+		"avg": "Media",
+		"dis": " dist",
 			"dur": " tiempo",
-			"B": " bomberos",
-			"H3": " hospt grupo 3",
-			"H31": " hospt grupo 3 # 1",
-			"H32": " hospt grupo 3 # 2",
-			"H33": " hospt grupo 3 # 3",
-			"H34": " hospt grupo 3 # 4",
-			"H2": " hospt grupo 2",
-			"H21": " hospt grupo 2 # 1",
-			"H22": " hospt grupo 2 # 2",
-			"H23": " hospt grupo 2 # 3",
-			"H24": " hospt grupo 2 # 4",
-			"J": " juzgados",
-			"M": " CSMental",
-			"d": " conduciendo",
-			"t": " trans. publico",
-			"total": " total"
+		"B": " bomberos",
+		"H3": " hospt grupo 3",
+		"H2": " hospt grupo 2",
+		"J": " juzgados",
+		"M": " CSMental",
+		"d": " conduciendo",
+		"t": " trans. publico",
+		"total": " total"
 		};
-
 		function get_alias(attr) {
 			if (equiv.hasOwnProperty(attr)){
 				return equiv[attr];
@@ -661,23 +728,23 @@
 
 			const parts = attr.split("_")
 			let alias = "";
-			let foundAnyPart = false;
+			let foundAnyPart = false; // ← Nueva variable de control
 
 			for (const p of parts) {
-				if (equiv2.hasOwnProperty(p)) {
+				if (equiv2.hasOwnProperty(p)) { // ← Verificar que existe
 					foundAnyPart = true;
 					if (p=="avg") alias = equiv2[p] + alias;
 						else alias = alias + equiv2[p];
 				}
 			}
 
+			// Si no se encontró ninguna parte, devolver undefined
 			if (!foundAnyPart) {
-				return attr;
+				return undefined; // ← Esto hará que no se muestre
 			}
 
 			return alias;
 		}
-
 		function ensureMinMax(layerKey, attrName, features) {
 			if (!attrName) return;
 			if (!attrStats[layerKey][attrName]) {
@@ -694,6 +761,7 @@
 			}
 		}
 
+		// Estilo dinámico para municipios
 		function municipiosStyle(feature) {
 			if (!selectedAttrMunicipios) {
 				return new Style({
@@ -710,21 +778,7 @@
 			});
 		}
 
-		function nucleosStyle(feature) {
-			if (!selectedAttrNucleos) {
-				return new Style({
-					fill: new Fill({ color: 'rgba(51,136,255,0.2)' }),
-					stroke: new Stroke({ color: '#3388ff', width: 1 })
-				});
-			}
-			const { min, max } = attrStats.nucleos[selectedAttrNucleos] || {min:0, max:0};
-			const val = feature.get(selectedAttrNucleos);
-			const fill = colorRamp(val, min, max);
-			return new Style({
-				fill: new Fill({ color: fill }),
-				stroke: new Stroke({ color: '#333', width: 0.5 })
-			});
-		}
+		// Estilo dinámico para centroides (puntos)
 		function centroidesStyle(feature) {
 			if (!selectedAttrCentroides) {
 				return new Style({
@@ -746,10 +800,11 @@
 				})
 			});
 		}
-
 		function initMap() {
+			// Mostrar loading
 			document.getElementById('loading').style.display = 'block';
 
+			// Configurar popup
 			const popupElement = document.getElementById('popup');
 			const popupCloser = document.getElementById('popup-closer');
 			const popupContent = document.getElementById('popup-content');
@@ -768,6 +823,7 @@
 				}
 			});
 
+			// Capas base
 			const baseLayers = {
 				osm: new TileLayer({
 					source: new OSM(),
@@ -799,9 +855,15 @@
 				})
 			};
 
+			// IMPORTANTE: Cargar datos reales desde GeoJSON
+			// Primero convierte tus .gpkg a .geojson con:
+			// ogr2ogr -f GeoJSON municipios.geojson Municipios_stats.gpkg
+			// ogr2ogr -f GeoJSON centroides.geojson Centroides_stats.gpkg
+
+			// Capa de municipios (desde GeoJSON)
 			municipiosLayer = new VectorLayer({
 				source: new VectorSource({
-					url: 'api/municipios',
+					url: 'api/municipios',  // ← Archivo GeoJSON 
 					format: new GeoJSON({
 						dataProjection: 'EPSG:4326',
 						featureProjection: 'EPSG:3857'
@@ -811,20 +873,10 @@
 				opacity: 1.0
 			});
 
-			nucleosLayer = new VectorLayer({
-				source: new VectorSource({
-					url: 'api/nucleos',
-					format: new GeoJSON({
-						dataProjection: 'EPSG:4326',
-						featureProjection: 'EPSG:3857'
-					})
-				}),
-				style : nucleosStyle,
-				opacity: 1.0
-			});
+			// Capa de centroides (desde GeoJSON)
 			centroidesLayer = new VectorLayer({
 				source: new VectorSource({
-					url: 'api/centroides',
+					url: 'api/centroides',  // ← Archivo GeoJSON
 					format: new GeoJSON({
 						dataProjection: 'EPSG:4326',
 						featureProjection: 'EPSG:3857'
@@ -834,6 +886,28 @@
 				opacity: 1.0
 			});
 
+			// Capa para dibujo
+			vectorSource = new VectorSource();
+			drawLayer = new VectorLayer({
+				source: vectorSource,
+				style: new Style({
+					fill: new Fill({
+						color: 'rgba(255, 255, 255, 0.2)'
+					}),
+					stroke: new Stroke({
+						color: '#ffcc33',
+						width: 2
+					}),
+					image: new CircleStyle({
+						radius: 7,
+						fill: new Fill({
+							color: '#ffcc33'
+						})
+					})
+				})
+			});
+
+			// Crear el mapa
 			map = new Map({
 				target: 'map',
 				layers: [
@@ -842,41 +916,52 @@
 					baseLayers.sat,
 					baseLayers.dark,
 					municipiosLayer,
-					nucleosLayer,
-					centroidesLayer
+					centroidesLayer,
+					drawLayer
 				],
 				overlays: [popup],
 				view: new View({
-					center: fromLonLat([-3.703, 40.416]),
+					center: fromLonLat([-3.703, 40.416]), // Centro de España
 					zoom: 6
 				}),
 				controls: defaultControls({zoom:false}).extend([ new ScaleLine() ])
 			});
 			municipiosLayer.setZIndex(10);
-			nucleosLayer.setZIndex(11);
-			centroidesLayer.setZIndex(12);
+			centroidesLayer.setZIndex(11);
 
 			document.getElementById("basemapSelect").addEventListener("change", (e) => {
-				const val = e.target.value;
+				const val = e.target.value;     // valores: 'osm' | 'topo' | 'sat' | 'dark'
 				for (const [key, layer] of Object.entries(baseLayers)) {
 					layer.setVisible(key === val);
 				}
 			});
+			// elimina cualquier MousePosition previo (por si lo añadiste antes)
+			map.getControls().forEach(c => {
+				if (c instanceof MousePosition) map.removeControl(c);});
 
+			// actualiza TU div directamente
 			map.on('pointermove', (evt) => {
 				const c = toLonLat(evt.coordinate);
 				const el = document.getElementById('mousePosition');
-				if (el) el.textContent = `Lat: ${c[1].toFixed(3)}°, Lon: ${c[0].toFixed(3)}°`;
-			});
-
+				if (el) el.textContent = `Lat: ${c[1].toFixed(3)}°, Lon: ${c[0].toFixed(3)}°`;});
+			//			const mousePosControl = new MousePosition({
+			//			  coordinateFormat: createStringXY(5),  // 5 decimales
+			//			  projection: 'EPSG:4326',              // lat/lon
+			//			  className: 'mouse-position',   // clase CSS
+			//			  target: document.getElementById('mousePosition'),
+			//			  undefinedHTML: '&nbsp;'               // lo que se muestra si no hay coords
+			//			});
+			//			map.addControl(mousePosControl)
+			// Eventos cuando se cargan las capas
 			municipiosLayer.getSource().on('featuresloadend', function() {
 				console.log('✅ Municipios cargados:', municipiosLayer.getSource().getFeatures().length);
 				updateStatistics();
 
 				const feats = municipiosLayer.getSource().getFeatures();
 
+				// poblar dropdown con atributos numéricos
 				const select = document.getElementById('attrMunicipios');
-				if (select && select.options.length === 1) {
+				if (select && select.options.length === 1) { // solo "Ninguno" todavía
 					const attrs = getNumericAttributes(feats);
 					for (const a of attrs) {
 						const opt = document.createElement('option');
@@ -886,10 +971,12 @@
 					}
 				}
 
+				// si hay un atributo seleccionado, calcula min/max
 				if (selectedAttrMunicipios) {
 					ensureMinMax('municipios', selectedAttrMunicipios, feats);
 				}
 
+				// Ajustar vista a los datos cargados
 				const extent = municipiosLayer.getSource().getExtent();
 				if (extent && !isEmpty(extent)) {
 					map.getView().fit(extent, {
@@ -898,40 +985,10 @@
 					});
 				}
 
+				// Ocultar loading cuando se carguen los municipios
 				document.getElementById('loading').style.display = 'none';
 			});
 
-			nucleosLayer.getSource().on('featuresloadend', function() {
-				console.log('✅ Nucleos cargados:', nucleosLayer.getSource().getFeatures().length);
-				updateStatistics();
-
-				const feats = nucleosLayer.getSource().getFeatures();
-
-				const select = document.getElementById('attrNucleos');
-				if (select && select.options.length === 1) {
-					const attrs = getNumericAttributes(feats);
-					for (const a of attrs) {
-						const opt = document.createElement('option');
-						opt.value = a;
-						opt.textContent = get_alias(a);
-						select.appendChild(opt);
-					}
-				}
-
-				if (selectedAttrMunicipios) {
-					ensureMinMax('municipios', selectedAttrMunicipios, feats);
-				}
-
-				const extent = municipiosLayer.getSource().getExtent();
-				if (extent && !isEmpty(extent)) {
-					map.getView().fit(extent, {
-						padding: [50, 50, 50, 50],
-						duration: 1000
-					});
-				}
-
-				document.getElementById('loading').style.display = 'none';
-			});
 			centroidesLayer.getSource().on('featuresloadend', function() {
 				console.log('✅ Centroides cargados:', centroidesLayer.getSource().getFeatures().length);
 				const feats = centroidesLayer.getSource().getFeatures();
@@ -1016,7 +1073,6 @@
 		// Función para actualizar estadísticas
 		function updateStatistics() {
 			const municipiosCount = municipiosLayer.getSource().getFeatures().length;
-			const nucleosCount = nucleosLayer.getSource().getFeatures().length;
 			const centroidesCount = centroidesLayer.getSource().getFeatures().length;
 
 			document.getElementById('statMunicipios').textContent = municipiosCount || 'Cargando...';
@@ -1063,16 +1119,6 @@
 					ensureMinMax('municipios', selectedAttrMunicipios, feats);
 				}
 				municipiosLayer.changed(); // fuerza re-estilado
-			});
-			document.getElementById('attrNucleos').addEventListener('change', (e) => {
-				selectedAttrNucleos = e.target.value || "";
-				const feats = nucleosLayer.getSource().getFeatures();
-				if (selectedAttrNucleos) {
-					// recalcula min/max para ese atributo
-					attrStats.nucleos = {}; // opcional: limpiar cache anterior
-					ensureMinMax('nucleos', selectedAttrNucleos, feats);
-				}
-				nucleosLayer.changed(); // fuerza re-estilado
 			});
 
 			// Cambiar atributo de Centroides
@@ -1126,9 +1172,6 @@
 			document.getElementById('toggleMunicipios').addEventListener('change', (e) => {
 				municipiosLayer.setVisible(e.target.checked);
 			});
-			document.getElementById('toggleNucleos').addEventListener('change', (e) => {
-				nucleosLayer.setVisible(e.target.checked);
-			});
 
 			document.getElementById('toggleCentroides').addEventListener('change', (e) => {
 				centroidesLayer.setVisible(e.target.checked);
@@ -1141,11 +1184,6 @@
 				document.getElementById('opacityValueMunicipios').textContent = e.target.value + '%';
 			});
 
-			document.getElementById('opacityNucleos').addEventListener('input', (e) => {
-				const opacity = e.target.value / 100;
-				nucleosLayer.setOpacity(opacity);
-				document.getElementById('opacityValueNucleos').textContent = e.target.value + '%';
-			});
 			document.getElementById('opacityCentroides').addEventListener('input', (e) => {
 				const opacity = e.target.value / 100;
 				centroidesLayer.setOpacity(opacity);

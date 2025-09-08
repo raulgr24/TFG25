@@ -36,11 +36,14 @@
       "@type": "dcat:Dataset",
       "@id": "https://github.com/raulgr24/TFG25#dataset/nucleos-poblacionales",
       "dct:title": "Núcleos poblacionales",
-      "dct:description": "Centroides de núcleos poblacionales y su distancia a servicios públicos",
+      "dct:description": "Núcleos poblacionales y su distancia a servicios públicos",
       "dct:identifier": "TFG25-ds-nucleos-1.0.0",
-      "dcat:keyword": ["centroides", "municipios", "estadística", "servicios", "distancia", "puntos", "España", "Madrid"],
+      "dcat:keyword": [ "nucleos", "municipios", "estadística", "servicios", "distancia", "puntos", "España", "Madrid" ],
       "dct:language": [
-        { "@id": "http://publications.europa.eu/resource/authority/language/SPA", "@type": "dct:LinguisticSystem" }
+        {
+          "@id": "http://publications.europa.eu/resource/authority/language/SPA",
+          "@type": "dct:LinguisticSystem"
+        }
       ],
       "dct:spatial": {
         "@type": "dct:Location",
@@ -48,15 +51,27 @@
       },
       "dct:temporal": {
         "@type": "dct:PeriodOfTime",
-        "dcat:startDate": { "@value": "2025-07-01", "@type": "xsd:date" },
-        "dcat:endDate": { "@value": "2025-08-31", "@type": "xsd:date" }
+        "dcat:startDate": {
+          "@value": "2025-07-01",
+          "@type": "xsd:date"
+        },
+        "dcat:endDate": {
+          "@value": "2025-08-31",
+          "@type": "xsd:date"
+        }
       },
       "dct:accrualPeriodicity": {
         "@id": "http://publications.europa.eu/resource/authority/frequency/IRREG",
         "@type": "dct:Frequency"
       },
-      "dct:issued": { "@value": "2025-08-30", "@type": "xsd:date" },
-      "dct:modified": { "@value": "2025-09-02", "@type": "xsd:date" },
+      "dct:issued": {
+        "@value": "2025-08-30",
+        "@type": "xsd:date"
+      },
+      "dct:modified": {
+        "@value": "2025-09-02",
+        "@type": "xsd:date"
+      },
       "dct:license": {
         "@id": "https://creativecommons.org/licenses/by/4.0/",
         "@type": "dct:LicenseDocument"
@@ -66,8 +81,66 @@
           "@type": "dcat:Distribution",
           "dct:title": "Geopackage de centroides de núcleos y distancias",
           "dct:description": "Archivo GPKG con centroides de núcleos poblacionales y métricas de distancia a servicios públicos.",
-          "dcat:accessURL": { "@id": "https://github.com/raulgr24/TFG25/releases/tag/v1.0.0" },
-          "dcat:downloadURL": { "@id": "https://github.com/raulgr24/TFG25/releases/download/v1.0.0/Centroides_stats.gpkg" },
+          "dcat:accessURL": { "@id": "https://github.com/raulgr24/TFG25/releases/tag/v2.0.0" },
+          "dcat:downloadURL": { "@id": "https://github.com/raulgr24/TFG25/releases/download/v2.0.0/Nucleos_stats.gpkg" },
+          "dct:format": {
+            "@id": "http://publications.europa.eu/resource/authority/file-type/GPKG",
+            "@type": "dct:MediaTypeOrExtent"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "@id": "https://github.com/raulgr24/TFG25#dataset/nucleos-poblacionales",
+      "dct:title": "Centroides de núcleos poblacionales",
+      "dct:description": "Centroides de núcleos poblacionales y su distancia a servicios públicos",
+      "dct:identifier": "TFG25-ds-nucleos-1.0.0",
+      "dcat:keyword": [ "centroides", "municipios", "estadística", "servicios", "distancia", "puntos", "España", "Madrid" ],
+      "dct:language": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/language/SPA",
+          "@type": "dct:LinguisticSystem"
+        }
+      ],
+      "dct:spatial": {
+        "@type": "dct:Location",
+        "skos:prefLabel": "España / Comunidad de Madrid"
+      },
+      "dct:temporal": {
+        "@type": "dct:PeriodOfTime",
+        "dcat:startDate": {
+          "@value": "2025-07-01",
+          "@type": "xsd:date"
+        },
+        "dcat:endDate": {
+          "@value": "2025-08-31",
+          "@type": "xsd:date"
+        }
+      },
+      "dct:accrualPeriodicity": {
+        "@id": "http://publications.europa.eu/resource/authority/frequency/IRREG",
+        "@type": "dct:Frequency"
+      },
+      "dct:issued": {
+        "@value": "2025-08-30",
+        "@type": "xsd:date"
+      },
+      "dct:modified": {
+        "@value": "2025-09-02",
+        "@type": "xsd:date"
+      },
+      "dct:license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/",
+        "@type": "dct:LicenseDocument"
+      },
+      "dcat:distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "dct:title": "Geopackage de centroides de núcleos y distancias",
+          "dct:description": "Archivo GPKG con centroides de núcleos poblacionales y métricas de distancia a servicios públicos.",
+          "dcat:accessURL": { "@id": "https://github.com/raulgr24/TFG25/releases/tag/v2.0.0" },
+          "dcat:downloadURL": { "@id": "https://github.com/raulgr24/TFG25/releases/download/v2.0.0/Centroides_stats.gpkg" },
           "dct:format": {
             "@id": "http://publications.europa.eu/resource/authority/file-type/GPKG",
             "@type": "dct:MediaTypeOrExtent"
@@ -81,9 +154,12 @@
       "dct:title": "Municipios",
       "dct:description": "Municipios de Madrid y datos de disponibilidad de servicios públicos en forma de distancia",
       "dct:identifier": "https://github.com/raulgr24/TFG25/blob/main/Datos%20nuevos/Municipios_stats.gpkg",
-      "dcat:keyword": ["centroides", "municipios", "estadística", "servicios", "distancia", "puntos", "España", "Madrid"],
+      "dcat:keyword": [ "centroides", "municipios", "estadística", "servicios", "distancia", "puntos", "España", "Madrid" ],
       "dct:language": [
-        { "@id": "http://publications.europa.eu/resource/authority/language/SPA", "@type": "dct:LinguisticSystem" }
+        {
+          "@id": "http://publications.europa.eu/resource/authority/language/SPA",
+          "@type": "dct:LinguisticSystem"
+        }
       ],
       "dct:spatial": {
         "@type": "dct:Location",
@@ -91,15 +167,27 @@
       },
       "dct:temporal": {
         "@type": "dct:PeriodOfTime",
-        "dcat:startDate": { "@value": "2025-07-01", "@type": "xsd:date" },
-        "dcat:endDate": { "@value": "2025-08-31", "@type": "xsd:date" }
+        "dcat:startDate": {
+          "@value": "2025-07-01",
+          "@type": "xsd:date"
+        },
+        "dcat:endDate": {
+          "@value": "2025-08-31",
+          "@type": "xsd:date"
+        }
       },
       "dct:accrualPeriodicity": {
         "@id": "http://publications.europa.eu/resource/authority/frequency/IRREG",
         "@type": "dct:Frequency"
       },
-      "dct:issued": { "@value": "2025-08-30", "@type": "xsd:date" },
-      "dct:modified": { "@value": "2025-09-02", "@type": "xsd:date" },
+      "dct:issued": {
+        "@value": "2025-08-30",
+        "@type": "xsd:date"
+      },
+      "dct:modified": {
+        "@value": "2025-09-02",
+        "@type": "xsd:date"
+      },
       "dct:license": {
         "@id": "https://creativecommons.org/licenses/by/4.0/",
         "@type": "dct:LicenseDocument"
@@ -109,8 +197,8 @@
           "@type": "dcat:Distribution",
           "dct:title": "Geopackage de municipios y distancias",
           "dct:description": "Archivo GPKG con métricas de distancia a servicios públicos agregadas a nivel municipal.",
-          "dcat:accessURL": { "@id": "https://github.com/raulgr24/TFG25/releases/tag/v1.0.0" },
-          "dcat:downloadURL": { "@id": "https://github.com/raulgr24/TFG25/releases/download/v1.0.0/Municipios_stats.gpkg" },
+          "dcat:accessURL": { "@id": "https://github.com/raulgr24/TFG25/releases/tag/v2.0.0" },
+          "dcat:downloadURL": { "@id": "https://github.com/raulgr24/TFG25/releases/download/v2.0.0/Municipios_stats.gpkg" },
           "dct:format": {
             "@id": "http://publications.europa.eu/resource/authority/file-type/GPKG",
             "@type": "dct:MediaTypeOrExtent"

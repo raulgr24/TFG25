@@ -29,6 +29,7 @@ def to_wgs84(gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     if gdf.crs is None:
         return gdf
     if str(gdf.crs).upper() not in ("EPSG:4326", "WGS 84", "WGS84"):
+        print("Capa reproyectada")
         return gdf.to_crs("EPSG:4326")
     return gdf
 
@@ -37,7 +38,7 @@ def load_layer(name: str, tol: float | None = None) -> str:
     if not path.exists():
         raise FileNotFoundError(f"No existe {path}")
     gdf = gpd.read_file(path)
-    #gdf = to_wgs84(gdf)
+    gdf = to_wgs84(gdf)
     if tol is not None:
         gdf["geometry"] = gdf.geometry.simplify(tol, preserve_topology=True)
     return gdf.to_json()
@@ -46,10 +47,11 @@ def preload():
     # Completo
     GEOJSON_TEXT["municipios"] = load_layer("municipios", tol=None)
     GEOJSON_TEXT["centroides"] = load_layer("centroides", tol=None)
+    GEOJSON_TEXT["nucleos"] = load_layer("nucleos", tol=None)
     # Simplificado (p.ej. ~50 m; ajusta 0.0003–0.001)
     GEOJSON_TEXT_SIMPLE["municipios"] = load_layer("municipios", tol=0.0005)
     GEOJSON_TEXT_SIMPLE["centroides"] = GEOJSON_TEXT["centroides"]
-
+    GEOJSON_TEXT_SIMPLE["nucleos"] = GEOJSON_TEXT["nucleos"]
 # Precarga al iniciar el proceso
 preload()
 
@@ -73,6 +75,11 @@ def api_municipios():
     return Response(GEOJSON_TEXT["municipios"], mimetype="application/json",
                     headers={"Cache-Control": "public, max-age=3600"})
 
+@app.route("/api/nucleos")
+def api_nucleos():
+    return Response(GEOJSON_TEXT["nucleos"], mimetype="application/json",
+                    headers={"Cache-Control": "public, max-age=3600"})
+
 @app.route("/api/centroides")
 def api_centroides():
     return Response(GEOJSON_TEXT["centroides"], mimetype="application/json",
@@ -91,5 +98,5 @@ def data_files(filename):
 if __name__ == "__main__":
     print("🚀 http://localhost:5000")
     print(f"📁 Datos: {DATA_DIR}")
-    print("🔎 /api/health, /api/municipios, /api/centroides, /api/municipios_simple")
+    print("🔎 /api/health, /api/municipios, /api/centroides, /api/municipios_simple, /api/nucleos")
     app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=False)
