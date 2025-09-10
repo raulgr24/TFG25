@@ -1,14 +1,10 @@
 # Ignorar carpetas de resultados y temporales
-results/
 --NO SUBIR--
 temp/
 *.pkl
-*.csv
-
-# Ignorar archivos JSON generados
-jsons/
-*.json
-
+*.pyc
+*.txt
+tfg_project_test.qgz
 # Ignorar archivos de configuración de VS Code
 .vscode/
 
